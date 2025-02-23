@@ -3,46 +3,53 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "RobotContainer.h"
-
+#include <frc2/command/button/JoystickButton.h>
 #include <frc2/command/Commands.h>
 
-RobotContainer::RobotContainer()
-{
-    ConfigureBindings();
-}
-
-void RobotContainer::ConfigureBindings()
-{
-    // Note that X is defined as forward according to WPILib convention,
-    // and Y is defined as to the left according to WPILib convention.
+RobotContainer::RobotContainer() {
+    ConfigureButtonBindings();
+    
     drivetrain.SetDefaultCommand(
-        // Drivetrain will execute this command periodically
         drivetrain.ApplyRequest([this]() -> auto&& {
-            return drive.WithVelocityX(-joystick.GetLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                .WithVelocityY(-joystick.GetLeftX() * MaxSpeed) // Drive left with negative X (left)
-                .WithRotationalRate(-joystick.GetRightX() * MaxAngularRate); // Drive counterclockwise with negative X (left)
+            return drive.WithVelocityX(
+                        ApplyDeadbandSquaredInputs(-m_stick.GetY(), 0.1) * 
+                        ((1 - m_stick.GetThrottle()) / 2) * MaxSpeed) // Forward/backward
+                .WithVelocityY(
+                        ApplyDeadbandSquaredInputs(-m_stick.GetX(), 0.1) * 
+                        ((1 - m_stick.GetThrottle()) / 2) * MaxSpeed) // Left/right
+                .WithRotationalRate(
+                        ApplyDeadbandSquaredInputs(-m_stick.GetZ(), 0.15) * MaxAngularRate); // Rotation
         })
     );
-
-    joystick.A().WhileTrue(drivetrain.ApplyRequest([this]() -> auto&& { return brake; }));
-    joystick.B().WhileTrue(drivetrain.ApplyRequest([this]() -> auto&& {
-        return point.WithModuleDirection(frc::Rotation2d{-joystick.GetLeftY(), -joystick.GetLeftX()});
-    }));
-
-    // Run SysId routines when holding back/start and X/Y.
-    // Note that each routine should be run exactly once in a single log.
-    (joystick.Back() && joystick.Y()).WhileTrue(drivetrain.SysIdDynamic(frc2::sysid::Direction::kForward));
-    (joystick.Back() && joystick.X()).WhileTrue(drivetrain.SysIdDynamic(frc2::sysid::Direction::kReverse));
-    (joystick.Start() && joystick.Y()).WhileTrue(drivetrain.SysIdQuasistatic(frc2::sysid::Direction::kForward));
-    (joystick.Start() && joystick.X()).WhileTrue(drivetrain.SysIdQuasistatic(frc2::sysid::Direction::kReverse));
-
-    // reset the field-centric heading on left bumper press
-    joystick.LeftBumper().OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
-
-    drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
+    
 }
 
-frc2::CommandPtr RobotContainer::GetAutonomousCommand()
-{
+// Apply a deadband to joystick input, ensuring small inputs are ignored
+double RobotContainer::ApplyDeadband(double joystickValue, double deadband) {
+    if (fabs(joystickValue) > deadband) {
+        return (joystickValue > 0 ? 1 : -1) * ((fabs(joystickValue) - deadband) / (1.0 - deadband));
+    }
+    return 0.0;
+}
+
+// Apply deadband and square input values for smoother control
+double RobotContainer::ApplyDeadbandSquaredInputs(double joystickValue, double deadband) {
+    double adjustedValue = ApplyDeadband(joystickValue, deadband);
+    return adjustedValue * fabs(adjustedValue); // Squaring maintains direction
+}
+
+// ADD THE FUNCTION HERE 👇👇👇
+void RobotContainer::ConfigureButtonBindings() {
+    // Example joystick button bindings
+    frc2::JoystickButton(&m_stick, 1).OnTrue(drivetrain.ApplyRequest([this]() -> auto&& { return brake; }));
+    frc2::JoystickButton(&m_stick, 2).OnTrue(drivetrain.ApplyRequest([this]() -> auto&& {
+        return point.WithModuleDirection(frc::Rotation2d{-m_stick.GetY(), -m_stick.GetX()});
+    }));
+
+    // Add additional bindings here as needed
+}
+
+// Autonomous command placeholder
+frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
     return frc2::cmd::Print("No autonomous command configured");
 }
