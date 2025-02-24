@@ -5,6 +5,7 @@
 #include "RobotContainer.h"
 #include <frc2/command/button/JoystickButton.h>
 #include <frc2/command/Commands.h>
+#include "subsystems/ElevatorSubsystem.h"
 
 RobotContainer::RobotContainer() {
     ConfigureButtonBindings();
@@ -44,6 +45,8 @@ void RobotContainer::ConfigureButtonBindings() {
     frc2::JoystickButton(&m_stick, 1).OnTrue(drivetrain.ApplyRequest([this]() -> auto&& { return brake; }));
     frc2::JoystickButton(&m_stick, 2).OnTrue(drivetrain.ApplyRequest([this]() -> auto&& {
         return point.WithModuleDirection(frc::Rotation2d{-m_stick.GetY(), -m_stick.GetX()});
+
+      frc2::JoystickButton(&m_stick, 8).OnTrue(m_elevatorSubsystem.ElevatorLevelZeroCMD());
     }));
 
     // Add additional bindings here as needed

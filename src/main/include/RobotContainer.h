@@ -12,6 +12,9 @@
 #include <frc2/command/button/Trigger.h>
 #include <frc2/command/button/CommandXboxController.h>
 
+#include "Constants.h"
+#include "subsystems/ElevatorSubsystem.h"
+
 class RobotContainer
 {
 private:
@@ -30,9 +33,10 @@ private:
      *       define a destructor to un-register the telemetry from the drivetrain */
     Telemetry logger{MaxSpeed};
 
-   // frc2::CommandXboxController joystick{0};
     frc::Joystick m_stick{0};
-    
+    frc2::CommandXboxController joystick{1};
+
+    bool joystickControlEnabled = true; // Tracks whether joystick or Xbox controller is in control
 
 public:
     subsystems::CommandSwerveDrivetrain drivetrain{TunerConstants::CreateDrivetrain()};
@@ -42,8 +46,13 @@ public:
     frc2::CommandPtr GetAutonomousCommand();
     double ApplyDeadband(double joystickValue, double deadband);
     double ApplyDeadbandSquaredInputs(double joystickValue, double deadband);
+    
 
-    private:
+private:
+
+
+
+ElevatorSubsystem m_elevatorSubsystem {};
+
     void ConfigureButtonBindings();
-
 };
