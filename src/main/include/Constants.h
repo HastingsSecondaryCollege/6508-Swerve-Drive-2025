@@ -29,3 +29,8 @@ namespace DriveConstants {
 
 } //Drive Constants
 
+namespace ElevatorConstants {
+    constexpr int kLeaderElevatorMotorID = 50;
+    constexpr int kFollowerElevatorMotorID = 51;
+    
+}

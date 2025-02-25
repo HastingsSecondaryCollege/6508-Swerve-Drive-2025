@@ -48,14 +48,11 @@ void RobotContainer::ConfigureButtonBindings() {
     frc2::JoystickButton(&m_stick, 1).OnTrue(drivetrain.ApplyRequest([this]() -> auto&& { return brake; }));
     frc2::JoystickButton(&m_stick, 2).OnTrue(drivetrain.ApplyRequest([this]() -> auto&& {
         return point.WithModuleDirection(frc::Rotation2d{-m_stick.GetY(), -m_stick.GetX()});
+    }));
 
-frc2::JoystickButton(&m_stick, 8).OnTrue(m_elevatorSubsystem.ElevatorLevelZeroCMD());
+  frc2::JoystickButton(&m_stick, 8).OnTrue(m_elevatorSubsystem.ElevatorLevelZeroCMD());
   frc2::JoystickButton(&m_stick, 10).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());
   frc2::JoystickButton(&m_stick, 12).OnTrue(m_elevatorSubsystem.ElevatorLevelTwoCMD());
-
-
-
-    }));
 
     // Add additional bindings here as needed
 }

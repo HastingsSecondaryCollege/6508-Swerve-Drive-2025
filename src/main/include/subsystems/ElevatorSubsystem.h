@@ -17,7 +17,7 @@ class ElevatorSubsystem : public frc2::SubsystemBase
 public:
   ElevatorSubsystem();
 
-void ElevatorLevelZero();
+  void ElevatorLevelZero();
   void ElevatorLevelOne();
   void ElevatorLevelTwo();
 
@@ -36,8 +36,8 @@ private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
  
-  ctre::phoenix6::hardware::TalonFX m_leadElevatorMotor{50};
-  ctre::phoenix6::hardware::TalonFX m_followElevatorMotor{51};
+  ctre::phoenix6::hardware::TalonFX m_leadElevatorMotor{ElevatorConstants::kLeaderElevatorMotorID};
+  ctre::phoenix6::hardware::TalonFX m_followElevatorMotor{ElevatorConstants::kFollowerElevatorMotorID};
  
 
   //Postion Control Objects
@@ -45,5 +45,7 @@ private:
   ctre::phoenix6::controls::MotionMagicVoltage m_motionMagicControlElevatorLead{0_tr};
   ctre::phoenix6::controls::PositionVoltage m_positionVoltageElevatorLead = ctre::phoenix6::controls::PositionVoltage{0_tr}.WithSlot(0);
 
+  /*  This seems just like the line above it?
   ctre::phoenix6::controls::PositionVoltage m_PositionVoltageControlElevatorLead{0_tr};
+*/
 };

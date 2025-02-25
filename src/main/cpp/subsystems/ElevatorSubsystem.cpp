@@ -33,51 +33,41 @@ ElevatorSubsystem::ElevatorSubsystem(){
 }  // End of ArmSubsystem Constructor
 
 // This method will be called once per scheduler run
-void ElevatorSubsystem::Periodic() {}
-
-// This drives the motor to set turns
-void ElevatorSubsystem::ElevatorLevelZero() {
-  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(0_tr));
-};
-
-void ElevatorSubsystem::ElevatorLevelOne() {
-  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(50_tr));
-};
-
-void ElevatorSubsystem::ElevatorLevelTwo() {
-  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(100_tr));
-};
-
-
-
-
-
-
-
-
-/*
-// This method will be called once per scheduler run
 void ElevatorSubsystem::Periodic() {
-    if (!CanClimb){
+      if (!CanClimb){
         m_leadElevatorMotor.Set(20.0);
         
     }
 }
-*/
+
+// This drives the motor to set turns
+void ElevatorSubsystem::ElevatorLevelZero() {
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(0_tr));
+}
+
+void ElevatorSubsystem::ElevatorLevelOne() {
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(50_tr));
+}
+
+void ElevatorSubsystem::ElevatorLevelTwo() {
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(100_tr));
+}
 
 
 
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelZeroCMD() {
-  return this->RunOnce([this] { ElevatorLevelZero(); });
-};
+  return this->RunOnce([this] { 
+    ElevatorLevelZero(); 
+    });
+  }
 
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelOneCMD() {
   return this->RunOnce([this] { ElevatorLevelOne(); });
-};
+}
 
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelTwoCMD() {
   return this->RunOnce([this] { ElevatorLevelTwo(); });
-};
+}
