@@ -7,6 +7,7 @@
 #include <frc2/command/SubsystemBase.h>
 
 #include <ctre/phoenix6/TalonFX.hpp>
+#include <ctre/phoenix6/CANrange.hpp>
 
 #include <frc2/command/CommandPtr.h>
 
@@ -24,6 +25,12 @@ public:
   frc2::CommandPtr ElevatorLevelZeroCMD();
   frc2::CommandPtr ElevatorLevelOneCMD();
   frc2::CommandPtr ElevatorLevelTwoCMD();
+  
+  void WristIn();
+  void WristOut();
+
+  frc2::CommandPtr WristInCMD();
+  frc2::CommandPtr WristOutCMD();
 
   bool CanClimb = true;
 
@@ -38,6 +45,9 @@ private:
  
   ctre::phoenix6::hardware::TalonFX m_leadElevatorMotor{ElevatorConstants::kLeaderElevatorMotorID};
   ctre::phoenix6::hardware::TalonFX m_followElevatorMotor{ElevatorConstants::kFollowerElevatorMotorID};
+
+  ctre::phoenix6::hardware::TalonFX m_wristMotor{ElevatorConstants::kWristMotorID};
+  ctre::phoenix6::hardware::CANrange m_wristSensor{ElevatorConstants::kWristSensor};
  
 
   //Postion Control Objects
@@ -48,4 +58,7 @@ private:
   /*  This seems just like the line above it?
   ctre::phoenix6::controls::PositionVoltage m_PositionVoltageControlElevatorLead{0_tr};
 */
+
+
+
 };

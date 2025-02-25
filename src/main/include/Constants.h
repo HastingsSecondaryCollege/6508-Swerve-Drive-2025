@@ -33,4 +33,7 @@ namespace ElevatorConstants {
     constexpr int kLeaderElevatorMotorID = 50;
     constexpr int kFollowerElevatorMotorID = 51;
     
+    constexpr int kWristMotorID = 60;  
+
+    constexpr int kWristSensor = 71; 
 }

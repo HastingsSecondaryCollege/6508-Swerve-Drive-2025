@@ -46,16 +46,14 @@ void ElevatorSubsystem::ElevatorLevelZero() {
 }
 
 void ElevatorSubsystem::ElevatorLevelOne() {
-  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(50_tr));
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(8_tr));
 }
 
 void ElevatorSubsystem::ElevatorLevelTwo() {
-  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(100_tr));
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(15_tr));
 }
 
-
-
-
+//Command Pointers that drive the elevator to set position using above methods
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelZeroCMD() {
   return this->RunOnce([this] { 
     ElevatorLevelZero(); 
@@ -70,4 +68,22 @@ frc2::CommandPtr ElevatorSubsystem::ElevatorLevelOneCMD() {
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelTwoCMD() {
   return this->RunOnce([this] { ElevatorLevelTwo(); });
+}
+
+//Movement of Wrist methods + CMDs
+
+void ElevatorSubsystem::WristIn() {
+  //m_wristMotor goes in, WIP
+}
+
+void ElevatorSubsystem::WristOut() {
+  //m_wristMotor goes out, WIP
+}
+
+frc2::CommandPtr ElevatorSubsystem::WristInCMD(){
+  return this->RunOnce([this] { WristIn();});
+}
+
+frc2::CommandPtr ElevatorSubsystem::WristOutCMD(){
+  return this->RunOnce([this] { WristOut();});
 }
