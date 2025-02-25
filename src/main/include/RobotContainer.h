@@ -36,7 +36,7 @@ private:
     frc::Joystick m_stick{0};
     frc2::CommandXboxController joystick{1};
 
-    bool joystickControlEnabled = true; // Tracks whether joystick or Xbox controller is in control
+    //bool joystickControlEnabled = true; // Tracks whether joystick or Xbox controller is in control
 
 public:
     subsystems::CommandSwerveDrivetrain drivetrain{TunerConstants::CreateDrivetrain()};
@@ -50,7 +50,7 @@ public:
 
 private:
 
-
+   
 
 ElevatorSubsystem m_elevatorSubsystem {};
 

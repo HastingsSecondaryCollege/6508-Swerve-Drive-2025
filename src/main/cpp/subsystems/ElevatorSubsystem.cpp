@@ -3,71 +3,81 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "subsystems/ElevatorSubsystem.h"
-
+#include "ctre/phoenix6/controls/MotionMagicVoltage.hpp"
+//#include "ctre/phoenix6/configs/MotionMagicConfigs.hpp"
+//#include "ctre/phoenix6/configs/TalonFXConfiguration.hpp"
+#include <units/angle.h>
+#include <units/velocity.h>
+#include <units/acceleration.h>
 
 
 
 
 ElevatorSubsystem::ElevatorSubsystem(){
 
-    //controls::DutyCycleOut m_request[0]
+ // Blank configuration object for a TalonFX based motor
+  ctre::phoenix6::configs::TalonFXConfiguration leadElevatorMotorConfig{};
 
-    ctre::phoenix6::configs::TalonFXConfiguration leadElevatorMotorConfig{};
-    ctre::phoenix6::configs::TalonFXConfiguration followElevatorMotorConfig{};    
-    
-    leadElevatorMotorConfig.Slot0.kP  = 500.0;
-    followElevatorMotorConfig.Slot0.kP = 500.0;
+  // Set one of the configuration objects. Refer to Phoenix Tuner X to find wait
+  // they are callled
+  leadElevatorMotorConfig.Slot0.kP = 1.0;
+  //leadElevatorMotorConfig.Slot0.kA = 1.0; 
+  //leadElevatorMotorConfig.Slot0.kV = 10.0;
+  leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 10.0_rad_per_s_sq;
+  leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 50.0_rad_per_s;
 
-    leadElevatorMotorConfig.Slot0.kV  = 75.0;
-    followElevatorMotorConfig.Slot0.kV = 75.0;
+  // Get the Configurator for the motor, then apply the config object that
+  // youhave set up.
+  m_leadElevatorMotor.GetConfigurator().Apply(leadElevatorMotorConfig);
 
- 
-    //leftClimbMotorConfig.Feedback.RotorToSensorRatio  = 640;
+}  // End of ArmSubsystem Constructor
 
-    
-    //leftClimbMotorConfig.Feedback.FeedbackSensorSource  = ctre::phoenix6::signals::FeedbackSensorSourceValue::RemoteCANcoder;
-    //rightClimbMotorConfig.Feedback.FeedbackSensorSource = ctre::phoenix6::signals::FeedbackSensorSourceValue::RemoteCANcoder;
+// This method will be called once per scheduler run
+void ElevatorSubsystem::Periodic() {}
 
-    //leftClimbMotorConfig.Feedback.SensorToMechanismRatio  = 1.0;
-    //rightClimbMotorConfig.Feedback.SensorToMechanismRatio = 1.0;
- 
-   
+// This drives the motor to set turns
+void ElevatorSubsystem::ElevatorLevelZero() {
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(0_tr));
+};
 
-    leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration  = 1_tr_per_s_sq; //0.14
-    //followElevatorMotorConfig.Slot0.MotionMagic.MotionMagicAcceleration = 0.50_tr_per_s_sq;
-    followElevatorMotorConfig.MotionMagic.MotionMagicAcceleration  = 0.14_tr_per_s_sq; //0.14
+void ElevatorSubsystem::ElevatorLevelOne() {
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(50_tr));
+};
 
-
-    leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity  = 1_tps;  //0.14
-   //followElevatorMotorConfig.Slot0.kP.MotionMagic.MotionMagicCruiseVelocity = 0.145_tps;
-    followElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity  = 0.145_tps;  //0.14
-
-    //leadElevatorMotorConfig.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
-    //followElevatorMotorConfig.Slot0.kP.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
-    //followElevatorMotorConfig.MotorOutput.NeutralMode = ctre::phoenix6::signals::NeutralModeValue::Brake;
-
-    m_leadElevatorMotor.GetConfigurator().Apply(leadElevatorMotorConfig);
-    m_followElevatorMotor.GetConfigurator().Apply(followElevatorMotorConfig);  
-
-    //m_followElevatorMotor.SetControl(controls::Follower{m_leadElevatorMotor.GetDeviceId(), false});
+void ElevatorSubsystem::ElevatorLevelTwo() {
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(100_tr));
+};
 
 
-}
+
+
+
+
+
+
+/*
 // This method will be called once per scheduler run
 void ElevatorSubsystem::Periodic() {
-    //if (!CanClimb){
+    if (!CanClimb){
         m_leadElevatorMotor.Set(20.0);
-   // }
-}
-/*
-void ElevatorSubsystem::ElevatorLevelZero(){
-    if (CanClimb){
-        m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(50_tr));//0.1_tr
+        
     }
 }
-
-frc2::CommandPtr ElevatorSubsystem::ElevatorLevelZeroCMD(){
-    return this->RunOnce([this] { ElevatorLevelZero(); });
-    
-}
 */
+
+
+
+
+frc2::CommandPtr ElevatorSubsystem::ElevatorLevelZeroCMD() {
+  return this->RunOnce([this] { ElevatorLevelZero(); });
+};
+
+
+frc2::CommandPtr ElevatorSubsystem::ElevatorLevelOneCMD() {
+  return this->RunOnce([this] { ElevatorLevelOne(); });
+};
+
+
+frc2::CommandPtr ElevatorSubsystem::ElevatorLevelTwoCMD() {
+  return this->RunOnce([this] { ElevatorLevelTwo(); });
+};
