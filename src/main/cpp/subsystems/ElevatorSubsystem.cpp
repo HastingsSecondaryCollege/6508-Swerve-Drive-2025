@@ -9,6 +9,10 @@
 #include <units/angle.h>
 #include <units/velocity.h>
 #include <units/acceleration.h>
+#include "Constants.h"
+#include "ctre/phoenix6/TalonFX.hpp"
+#include "ctre/phoenix6/controls/Follower.hpp"
+
 
 
 
@@ -17,20 +21,24 @@ ElevatorSubsystem::ElevatorSubsystem(){
 
  // Blank configuration object for a TalonFX based motor
   ctre::phoenix6::configs::TalonFXConfiguration leadElevatorMotorConfig{};
+  
 
   // Set one of the configuration objects. Refer to Phoenix Tuner X to find wait
   // they are callled
   leadElevatorMotorConfig.Slot0.kP = 1.0;
   //leadElevatorMotorConfig.Slot0.kA = 1.0; 
   //leadElevatorMotorConfig.Slot0.kV = 10.0;
-  leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 10.0_rad_per_s_sq;
-  leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 50.0_rad_per_s;
+  leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 35.0_rad_per_s_sq;
+  leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 100.0_rad_per_s;
+  
 
   // Get the Configurator for the motor, then apply the config object that
   // youhave set up.
   m_leadElevatorMotor.GetConfigurator().Apply(leadElevatorMotorConfig);
+m_followElevatorMotor.SetControl(ctre::phoenix6::controls::Follower(ElevatorConstants::kLeaderElevatorMotorID, false));
 
-}  // End of ArmSubsystem Constructor
+}
+  // End of ArmSubsystem Constructor
 
 // This method will be called once per scheduler run
 void ElevatorSubsystem::Periodic() {
@@ -50,7 +58,7 @@ void ElevatorSubsystem::ElevatorLevelOne() {
 }
 
 void ElevatorSubsystem::ElevatorLevelTwo() {
-  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(15_tr));
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(25_tr));
 }
 
 //Command Pointers that drive the elevator to set position using above methods
