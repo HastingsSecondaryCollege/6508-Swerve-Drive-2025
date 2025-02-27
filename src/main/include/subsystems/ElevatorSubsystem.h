@@ -26,11 +26,20 @@ public:
   frc2::CommandPtr ElevatorLevelOneCMD();
   frc2::CommandPtr ElevatorLevelTwoCMD();
   
-  void WristIn();
-  void WristOut();
+  void WristHome();
+  void WristSafe();
+  void WristToProcessor();
 
-  frc2::CommandPtr WristInCMD();
-  frc2::CommandPtr WristOutCMD();
+  frc2::CommandPtr WristHomeCMD();
+  frc2::CommandPtr WristSafeCMD();
+  frc2::CommandPtr WristToProcessorCMD();
+
+  void IntakeCoral();
+  void DeliverCoral();
+
+  frc2::CommandPtr IntakeCoralCMD();
+  frc2::CommandPtr DeliverCoralCMD();
+
 
   bool CanClimb = true;
 
@@ -48,16 +57,22 @@ private:
 
   ctre::phoenix6::hardware::TalonFX m_wristMotor{ElevatorConstants::kWristMotorID};
   ctre::phoenix6::hardware::CANrange m_wristSensor{ElevatorConstants::kWristSensor};
+
+  ctre::phoenix6::hardware::TalonFX m_scoringMotor{ElevatorConstants::kScoringMotorID};
  
 
   //Postion Control Objects
  
   ctre::phoenix6::controls::MotionMagicVoltage m_motionMagicControlElevatorLead{0_tr};
   ctre::phoenix6::controls::PositionVoltage m_positionVoltageElevatorLead = ctre::phoenix6::controls::PositionVoltage{0_tr}.WithSlot(0);
+ 
+  ctre::phoenix6::controls::MotionMagicVoltage m_motionMagicControlWrist{0_tr};
+  ctre::phoenix6::controls::PositionVoltage m_positionVoltageWrist = ctre::phoenix6::controls::PositionVoltage{0_tr}.WithSlot(0);
+
 
   /*  This seems just like the line above it?
   ctre::phoenix6::controls::PositionVoltage m_PositionVoltageControlElevatorLead{0_tr};
-*/
+//*/
 
 
 

@@ -8,6 +8,7 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandPtr.h>
+#include <frc/Preferences.h>
 
 #include "RobotContainer.h"
 
@@ -27,6 +28,9 @@ class Robot : public frc::TimedRobot {
   void TestInit() override;
   void TestPeriodic() override;
   void TestExit() override;
+
+  void CreateDoublePreferenceKey(std::string_view KeyName, double DefaultKeyValue);
+  void CreateStringPreferenceKey(std::string_view KeyName, std::string_view DefaultKeyValue);
 
  private:
   std::optional<frc2::CommandPtr> m_autonomousCommand;
