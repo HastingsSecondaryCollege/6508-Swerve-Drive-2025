@@ -11,6 +11,8 @@
 #include <frc/Joystick.h>
 #include <frc2/command/button/Trigger.h>
 #include <frc2/command/button/CommandXboxController.h>
+#include <frc2/command/FunctionalCommand.h>
+
 
 #include "Constants.h"
 #include "subsystems/ElevatorSubsystem.h"

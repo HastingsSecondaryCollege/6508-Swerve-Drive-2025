@@ -53,19 +53,23 @@ ElevatorSubsystem::ElevatorSubsystem(){
 void ElevatorSubsystem::Periodic() {
 }
 
+bool ElevatorSubsystem::IsCoralLoaded() {
+  return(m_wristSensor.GetIsDetected().GetValue());
+}
+
 // This drives the motor to set turns
 void ElevatorSubsystem::ElevatorLevelZero() {
-  if (CanClimb){
+  if (canClimb){
   m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(0_tr));
 };}
 
 void ElevatorSubsystem::ElevatorLevelOne() {
-  if (CanClimb){
+  if (canClimb){
   m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(8_tr));
 };}
 
 void ElevatorSubsystem::ElevatorLevelTwo() {
-  if (CanClimb){
+  if (canClimb){
   m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(25_tr));
 };}
 
@@ -91,17 +95,17 @@ frc2::CommandPtr ElevatorSubsystem::ElevatorLevelTwoCMD() {
 //Wrist Out is holding position/Scoring balls
 
 void ElevatorSubsystem::WristHome() {
-  CanClimb = false;
+  canClimb = false;
   m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(0.06_tr)); 
 }
 
 void ElevatorSubsystem::WristSafe() {
-  CanClimb = true;
+  canClimb = true;
   m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(2.65_tr)); 
 }
 
 void ElevatorSubsystem::WristToProcessor() {
-  CanClimb = false;
+  canClimb = false;
   m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(16.77_tr)); 
 }
 
@@ -118,4 +122,60 @@ frc2::CommandPtr ElevatorSubsystem::WristToProcessorCMD(){
 }
 
 //Scoring motor direction
+// For intaking Algae value should be 0.6_V
 
+void ElevatorSubsystem::IntakeCoral() {
+  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(-2_V)); // -2, further testing
+}
+
+void ElevatorSubsystem::DeliverCoral() {
+  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(-2_V)); // -2
+}
+
+void ElevatorSubsystem::StopCoralMotor(){
+  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(0_V));
+}
+
+frc2::CommandPtr ElevatorSubsystem::IntakeCoralCMD() {
+  return frc2::FunctionalCommand(
+    //Init
+    [this]{
+      IntakeCoral();
+    },
+    //Periodic
+    [this]{
+    },
+    //Command End
+    [this](bool interrupted) {
+      StopCoralMotor();
+    },
+    //isFinished
+    [this] {return IsCoralLoaded();}, //Should be replaced with Proximity Sensor limit when set up
+    
+    {this}
+
+  ).ToPtr();
+}
+
+frc2::CommandPtr ElevatorSubsystem::DeliverCoralCMD() {
+  return frc2::FunctionalCommand(
+    //Init
+    [this]{
+      DeliverCoral();
+    },
+    //Periodic
+    [this]{
+    },
+    //Command End
+    [this](bool interrupted) {
+      StopCoralMotor();
+    },
+    //isFinished
+    [this]{return !IsCoralLoaded();} //Should be replaced with Proximity Sensor limit when set up
+
+  ).ToPtr();
+}
+
+frc2::CommandPtr ElevatorSubsystem::StopCoralMotorCMD() {
+  return this->RunOnce([this] {StopCoralMotor();});
+}

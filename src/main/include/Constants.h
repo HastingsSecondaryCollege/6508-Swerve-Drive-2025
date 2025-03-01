@@ -37,5 +37,5 @@ namespace ElevatorConstants {
 
     constexpr int kWristSensor = 8; 
 
-    constexpr int kScoringMotorID = 70;
+    constexpr int kScoringMotorID = 61;
 }

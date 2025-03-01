@@ -10,6 +10,7 @@
 #include <ctre/phoenix6/CANrange.hpp>
 
 #include <frc2/command/CommandPtr.h>
+#include <frc2/command/FunctionalCommand.h>
 
 #include "Constants.h"
 
@@ -36,12 +37,16 @@ public:
 
   void IntakeCoral();
   void DeliverCoral();
+  void StopCoralMotor();
 
   frc2::CommandPtr IntakeCoralCMD();
   frc2::CommandPtr DeliverCoralCMD();
+  frc2::CommandPtr StopCoralMotorCMD();
 
 
-  bool CanClimb = true;
+  bool canClimb = true;
+
+  bool IsCoralLoaded();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -57,9 +62,7 @@ private:
 
   ctre::phoenix6::hardware::TalonFX m_wristMotor{ElevatorConstants::kWristMotorID};
   ctre::phoenix6::hardware::CANrange m_wristSensor{ElevatorConstants::kWristSensor};
-
   ctre::phoenix6::hardware::TalonFX m_scoringMotor{ElevatorConstants::kScoringMotorID};
- 
 
   //Postion Control Objects
  
@@ -69,10 +72,7 @@ private:
   ctre::phoenix6::controls::MotionMagicVoltage m_motionMagicControlWrist{0_tr};
   ctre::phoenix6::controls::PositionVoltage m_positionVoltageWrist = ctre::phoenix6::controls::PositionVoltage{0_tr}.WithSlot(0);
 
-
-  /*  This seems just like the line above it?
-  ctre::phoenix6::controls::PositionVoltage m_PositionVoltageControlElevatorLead{0_tr};
-//*/
+  ctre::phoenix6::controls::VoltageOut m_percentagePowerCoral{0_V};
 
 
 

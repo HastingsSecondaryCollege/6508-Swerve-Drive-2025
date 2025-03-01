@@ -50,6 +50,12 @@ void RobotContainer::ConfigureButtonBindings() {
         return point.WithModuleDirection(frc::Rotation2d{-m_stick.GetY(), -m_stick.GetX()});
     }));
 
+    frc2::JoystickButton(&m_stick, 3).OnTrue(m_elevatorSubsystem.DeliverCoralCMD());
+    frc2::JoystickButton(&m_stick, 4).OnTrue(m_elevatorSubsystem.IntakeCoralCMD());
+    frc2::JoystickButton(&m_stick, 5).OnTrue(m_elevatorSubsystem.StopCoralMotorCMD());
+
+
+
   frc2::JoystickButton(&m_stick, 8).OnTrue(m_elevatorSubsystem.ElevatorLevelZeroCMD());
   frc2::JoystickButton(&m_stick, 10).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());
   frc2::JoystickButton(&m_stick, 12).OnTrue(m_elevatorSubsystem.ElevatorLevelTwoCMD());
