@@ -7,6 +7,9 @@
 #include <frc2/command/Commands.h>
 #include "subsystems/ElevatorSubsystem.h"
 #include <frc2/command/InstantCommand.h>
+#include <frc/Preferences.h>
+#include <frc/smartdashboard/SmartDashboard.h>
+
 
 
 
@@ -50,11 +53,9 @@ void RobotContainer::ConfigureButtonBindings() {
         return point.WithModuleDirection(frc::Rotation2d{-m_stick.GetY(), -m_stick.GetX()});
     }));
 
-    frc2::JoystickButton(&m_stick, 3).OnTrue(m_elevatorSubsystem.DeliverCoralCMD());
-    frc2::JoystickButton(&m_stick, 4).OnTrue(m_elevatorSubsystem.IntakeCoralCMD());
-    frc2::JoystickButton(&m_stick, 5).OnTrue(m_elevatorSubsystem.StopCoralMotorCMD());
-
-
+  frc2::JoystickButton(&m_stick, 3).OnTrue(m_elevatorSubsystem.DeliverCoralCMD());
+  frc2::JoystickButton(&m_stick, 4).OnTrue(m_elevatorSubsystem.IntakeCoralCMD());
+  frc2::JoystickButton(&m_stick, 5).OnTrue(m_elevatorSubsystem.StopCoralMotorCMD());
 
   frc2::JoystickButton(&m_stick, 8).OnTrue(m_elevatorSubsystem.ElevatorLevelZeroCMD());
   frc2::JoystickButton(&m_stick, 10).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());

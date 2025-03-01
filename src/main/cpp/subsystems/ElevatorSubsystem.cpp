@@ -12,6 +12,10 @@
 #include "Constants.h"
 #include "ctre/phoenix6/TalonFX.hpp"
 #include "ctre/phoenix6/controls/Follower.hpp"
+#include <frc/Preferences.h>
+#include <frc/smartdashboard/SmartDashboard.h>
+
+
 
 
 
@@ -43,14 +47,19 @@ ElevatorSubsystem::ElevatorSubsystem(){
   // youhave set up.
   m_leadElevatorMotor.GetConfigurator().Apply(leadElevatorMotorConfig);
   m_followElevatorMotor.SetControl(ctre::phoenix6::controls::Follower(ElevatorConstants::kLeaderElevatorMotorID, false));
-
+  
   m_wristMotor.GetConfigurator().Apply(wristMotorConfig);
+
+  //Set neutral on elevators to brake
+  m_leadElevatorMotor.SetNeutralMode(1);
+  m_followElevatorMotor.SetNeutralMode(1);
 
 }
   // End of ArmSubsystem Constructor
 
 // This method will be called once per scheduler run
 void ElevatorSubsystem::Periodic() {
+  frc::SmartDashboard::PutBoolean("Can Climb?", m_canClimb);
 }
 
 bool ElevatorSubsystem::IsCoralLoaded() {
@@ -58,55 +67,59 @@ bool ElevatorSubsystem::IsCoralLoaded() {
 }
 
 // This drives the motor to set turns
-void ElevatorSubsystem::ElevatorLevelZero() {
-  if (canClimb){
-  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(0_tr));
+void ElevatorSubsystem::ElevatorLevelZero(units::angle::turn_t ElevatorHeight) {
+  if (m_canClimb){
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
 };}
 
-void ElevatorSubsystem::ElevatorLevelOne() {
-  if (canClimb){
-  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(8_tr));
+void ElevatorSubsystem::ElevatorLevelOne(units::angle::turn_t ElevatorHeight) {
+  if (m_canClimb){
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
 };}
 
-void ElevatorSubsystem::ElevatorLevelTwo() {
-  if (canClimb){
-  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(25_tr));
+void ElevatorSubsystem::ElevatorLevelTwo(units::angle::turn_t ElevatorHeight) {
+  if (m_canClimb){
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
 };}
 
 //Command Pointers that drive the elevator to set position using above methods
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelZeroCMD() {
-  return this->RunOnce([this] { 
-    ElevatorLevelZero(); 
-    });
-  }
+  return this->RunOnce([this] {
+    ElevatorLevelZero(units::angle::turn_t(frc::Preferences::GetDouble("Elevator Level 0"))); });
+}
 
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelOneCMD() {
-  return this->RunOnce([this] { ElevatorLevelOne(); });
+  return this->RunOnce([this] { ElevatorLevelOne(units::angle::turn_t(frc::Preferences::GetDouble("Elevator Level 1"))); });
 }
 
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelTwoCMD() {
-  return this->RunOnce([this] { ElevatorLevelTwo(); });
+  return this->RunOnce([this] { ElevatorLevelTwo(units::angle::turn_t(frc::Preferences::GetDouble("Elevator Level 2"))); });
 }
+
+
 
 //Movement of Wrist methods + CMDs
 //Wrist In is scoring/intake position
 //Wrist Out is holding position/Scoring balls
 
 void ElevatorSubsystem::WristHome() {
-  canClimb = false;
+  m_canClimb = false;
   m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(0.06_tr)); 
+  fmt::println("Just set canClimb false");
 }
 
 void ElevatorSubsystem::WristSafe() {
-  canClimb = true;
-  m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(2.65_tr)); 
+  m_canClimb = true;
+  m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(2.65_tr));
+  fmt::println("Just set canClimb true"); 
 }
 
 void ElevatorSubsystem::WristToProcessor() {
-  canClimb = false;
+  m_canClimb = false;
   m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(16.77_tr)); 
+  fmt::println("Just set canClimb false");
 }
 
 frc2::CommandPtr ElevatorSubsystem::WristHomeCMD(){
@@ -122,14 +135,14 @@ frc2::CommandPtr ElevatorSubsystem::WristToProcessorCMD(){
 }
 
 //Scoring motor direction
-// For intaking Algae value should be 0.6_V
+// For intaking Algae value should be +0.6_V
 
-void ElevatorSubsystem::IntakeCoral() {
-  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(-2_V)); // -2, further testing
+void ElevatorSubsystem::IntakeCoral(units::voltage::volt_t IntakeVoltage) {
+  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(IntakeVoltage)); // -2, further testing
 }
 
 void ElevatorSubsystem::DeliverCoral() {
-  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(-2_V)); // -2
+  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(-2_V)); // -2 for now
 }
 
 void ElevatorSubsystem::StopCoralMotor(){
@@ -140,7 +153,7 @@ frc2::CommandPtr ElevatorSubsystem::IntakeCoralCMD() {
   return frc2::FunctionalCommand(
     //Init
     [this]{
-      IntakeCoral();
+      IntakeCoral(units::voltage::volt_t(frc::Preferences::GetDouble("Intake Voltage")));
     },
     //Periodic
     [this]{
@@ -150,7 +163,7 @@ frc2::CommandPtr ElevatorSubsystem::IntakeCoralCMD() {
       StopCoralMotor();
     },
     //isFinished
-    [this] {return IsCoralLoaded();}, //Should be replaced with Proximity Sensor limit when set up
+    [this] {return IsCoralLoaded();},
     
     {this}
 
@@ -171,11 +184,15 @@ frc2::CommandPtr ElevatorSubsystem::DeliverCoralCMD() {
       StopCoralMotor();
     },
     //isFinished
-    [this]{return !IsCoralLoaded();} //Should be replaced with Proximity Sensor limit when set up
+    [this]{return !IsCoralLoaded();}
 
   ).ToPtr();
 }
 
 frc2::CommandPtr ElevatorSubsystem::StopCoralMotorCMD() {
   return this->RunOnce([this] {StopCoralMotor();});
+}
+
+bool ElevatorSubsystem::CanWeClimb(){
+  return m_canClimb;
 }

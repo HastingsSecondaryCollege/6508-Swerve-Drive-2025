@@ -3,10 +3,21 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
+#include <frc/smartdashboard/SmartDashboard.h>
  
 #include <frc2/command/CommandScheduler.h>
 
 Robot::Robot() {}
+
+void Robot::RobotInit(){
+
+  frc::Preferences::InitDouble("Elevator Level Zero", 0.0);
+  frc::Preferences::InitDouble("Elevator Level One", 8.0);
+  frc::Preferences::InitDouble("Elevator Level Zero", 25.0);
+
+
+  frc::Preferences::InitDouble("Intake Voltage", -2.0);
+}
 
 void Robot::RobotPeriodic() {
   frc2::CommandScheduler::GetInstance().Run();

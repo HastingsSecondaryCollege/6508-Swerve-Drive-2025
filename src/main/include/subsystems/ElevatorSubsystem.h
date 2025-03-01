@@ -19,9 +19,9 @@ class ElevatorSubsystem : public frc2::SubsystemBase
 public:
   ElevatorSubsystem();
 
-  void ElevatorLevelZero();
-  void ElevatorLevelOne();
-  void ElevatorLevelTwo();
+  void ElevatorLevelZero(units::angle::turn_t ElevatorHeight);
+  void ElevatorLevelOne(units::angle::turn_t ElevatorHeight);
+  void ElevatorLevelTwo(units::angle::turn_t ElevatorHeight);
 
   frc2::CommandPtr ElevatorLevelZeroCMD();
   frc2::CommandPtr ElevatorLevelOneCMD();
@@ -35,7 +35,7 @@ public:
   frc2::CommandPtr WristSafeCMD();
   frc2::CommandPtr WristToProcessorCMD();
 
-  void IntakeCoral();
+  void IntakeCoral(units::voltage::volt_t IntakeVoltage);
   void DeliverCoral();
   void StopCoralMotor();
 
@@ -44,7 +44,8 @@ public:
   frc2::CommandPtr StopCoralMotorCMD();
 
 
-  bool canClimb = true;
+  bool m_canClimb = false; //set canClimb to false by default
+  bool CanWeClimb();
 
   bool IsCoralLoaded();
 
