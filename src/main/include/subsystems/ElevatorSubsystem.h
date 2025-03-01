@@ -36,7 +36,7 @@ public:
   frc2::CommandPtr WristToProcessorCMD();
 
   void IntakeCoral(units::voltage::volt_t IntakeVoltage);
-  void DeliverCoral();
+  void DeliverCoral(units::voltage::volt_t DeliveryVoltage);
   void StopCoralMotor();
 
   frc2::CommandPtr IntakeCoralCMD();

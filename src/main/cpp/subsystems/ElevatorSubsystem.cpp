@@ -85,17 +85,17 @@ void ElevatorSubsystem::ElevatorLevelTwo(units::angle::turn_t ElevatorHeight) {
 //Command Pointers that drive the elevator to set position using above methods
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelZeroCMD() {
   return this->RunOnce([this] {
-    ElevatorLevelZero(units::angle::turn_t(frc::Preferences::GetDouble("Elevator Level 0"))); });
+    ElevatorLevelZero(units::angle::turn_t(frc::Preferences::GetDouble("Elevator Level Zero"))); });
 }
 
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelOneCMD() {
-  return this->RunOnce([this] { ElevatorLevelOne(units::angle::turn_t(frc::Preferences::GetDouble("Elevator Level 1"))); });
+  return this->RunOnce([this] { ElevatorLevelOne(units::angle::turn_t(frc::Preferences::GetDouble("Elevator Level One"))); });
 }
 
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelTwoCMD() {
-  return this->RunOnce([this] { ElevatorLevelTwo(units::angle::turn_t(frc::Preferences::GetDouble("Elevator Level 2"))); });
+  return this->RunOnce([this] { ElevatorLevelTwo(units::angle::turn_t(frc::Preferences::GetDouble("Elevator Level Two"))); });
 }
 
 
@@ -141,8 +141,8 @@ void ElevatorSubsystem::IntakeCoral(units::voltage::volt_t IntakeVoltage) {
   m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(IntakeVoltage)); // -2, further testing
 }
 
-void ElevatorSubsystem::DeliverCoral() {
-  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(-2_V)); // -2 for now
+void ElevatorSubsystem::DeliverCoral(units::voltage::volt_t DeliveryVoltage) {
+  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(DeliveryVoltage)); // -2 for now
 }
 
 void ElevatorSubsystem::StopCoralMotor(){
@@ -174,7 +174,7 @@ frc2::CommandPtr ElevatorSubsystem::DeliverCoralCMD() {
   return frc2::FunctionalCommand(
     //Init
     [this]{
-      DeliverCoral();
+      DeliverCoral(units::voltage::volt_t(frc::Preferences::GetDouble("Delivery Voltage")));
     },
     //Periodic
     [this]{

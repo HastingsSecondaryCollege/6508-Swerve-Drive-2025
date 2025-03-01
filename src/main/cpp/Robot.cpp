@@ -13,10 +13,17 @@ void Robot::RobotInit(){
 
   frc::Preferences::InitDouble("Elevator Level Zero", 0.0);
   frc::Preferences::InitDouble("Elevator Level One", 8.0);
-  frc::Preferences::InitDouble("Elevator Level Zero", 25.0);
+  frc::Preferences::InitDouble("Elevator Level Two", 25.0);
+  frc::Preferences::InitDouble("Elevator Level Three", 25.0);
+  frc::Preferences::InitDouble("Elevator Level Four", 25.0);
+  frc::Preferences::InitDouble("Elevator Level Five", 25.0);
 
+  frc::Preferences::InitDouble("Wrist Home", 0.06);
+  frc::Preferences::InitDouble("Wrist Safe", 2.65);
+  frc::Preferences::InitDouble("Wrist To Processor", 16.77);
 
   frc::Preferences::InitDouble("Intake Voltage", -2.0);
+  frc::Preferences::InitDouble("Delivery Voltage", -2.0);
 }
 
 void Robot::RobotPeriodic() {
