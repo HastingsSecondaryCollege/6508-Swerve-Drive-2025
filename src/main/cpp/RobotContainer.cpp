@@ -57,13 +57,29 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&m_stick, 4).OnTrue(m_elevatorSubsystem.IntakeCoralCMD());
   frc2::JoystickButton(&m_stick, 5).OnTrue(m_elevatorSubsystem.StopCoralMotorCMD());
 
-  frc2::JoystickButton(&m_stick, 8).OnTrue(m_elevatorSubsystem.ElevatorLevelZeroCMD());
+  //frc2::JoystickButton(&m_stick, 8).OnTrue(m_elevatorSubsystem.ElevatorLevelZeroCMD());
   frc2::JoystickButton(&m_stick, 10).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());
   frc2::JoystickButton(&m_stick, 12).OnTrue(m_elevatorSubsystem.ElevatorLevelTwoCMD());
 
-  frc2::JoystickButton(&m_stick, 7).OnTrue(m_elevatorSubsystem.WristHomeCMD()); 
+ // frc2::JoystickButton(&m_stick, 7).OnTrue(m_elevatorSubsystem.WristHomeCMD()); 
   frc2::JoystickButton(&m_stick, 9).OnTrue(m_elevatorSubsystem.WristSafeCMD()); 
   frc2::JoystickButton(&m_stick, 11).OnTrue(m_elevatorSubsystem.WristToProcessorCMD()); 
+
+  frc2::JoystickButton(&m_stick, 7).OnTrue(
+    frc2::cmd::Sequence(        //may haveto put some frc2::cmd::wait cmommands in
+        m_elevatorSubsystem.WristSafeCMD(),
+        m_elevatorSubsystem.ElevatorLevelZeroCMD(),
+        m_elevatorSubsystem.WristHomeCMD(),
+        m_elevatorSubsystem.IntakeCoralCMD(),
+        m_elevatorSubsystem.WristSafeCMD()
+    )
+  );
+
+  frc2::JoystickButton(&m_stick, 8).OnTrue(
+    frc2::cmd::Sequence(
+
+    )
+  );
 
 
     // Add additional bindings here as needed
