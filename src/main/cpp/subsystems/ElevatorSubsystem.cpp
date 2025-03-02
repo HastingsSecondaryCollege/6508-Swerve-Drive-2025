@@ -30,13 +30,13 @@ ElevatorSubsystem::ElevatorSubsystem(){
 
   // Set one of the configuration objects. Refer to Phoenix Tuner X to find wait
   // they are callled
-  leadElevatorMotorConfig.Slot0.kP = 1.0;
+  leadElevatorMotorConfig.Slot0.kP = 10.0;
   //leadElevatorMotorConfig.Slot0.kA = 1.0; 
   //leadElevatorMotorConfig.Slot0.kV = 10.0;
-  leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 35.0_rad_per_s_sq;
-  leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 100.0_rad_per_s;
+  leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 120.0_rad_per_s_sq;
+  leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 140.0_rad_per_s;
   
-  wristMotorConfig.Slot0.kP = 1.0;
+  wristMotorConfig.Slot0.kP = 5.0;
   //wristMotorConfig.Slot0.kA = 1.0; 
   //wristMotorConfig.Slot0.kV = 10.0;
   wristMotorConfig.MotionMagic.MotionMagicAcceleration = 17.0_rad_per_s_sq;
