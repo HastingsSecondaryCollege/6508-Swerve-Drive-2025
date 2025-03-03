@@ -6,10 +6,14 @@
 #include <frc/smartdashboard/SmartDashboard.h>
  
 #include <frc2/command/CommandScheduler.h>
-
+#include <cameraserver/CameraServer.h>
 Robot::Robot() {}
 
 void Robot::RobotInit(){
+
+cs::UsbCamera camera = frc::CameraServer::StartAutomaticCapture();
+camera.SetResolution(640, 480);
+camera.SetFPS(30);
 
   frc::Preferences::InitDouble("Elevator Level Zero", 0.0);
   frc::Preferences::InitDouble("Elevator Level One", 8.0);
