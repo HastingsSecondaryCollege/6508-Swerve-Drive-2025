@@ -22,11 +22,21 @@ public:
   void ElevatorLevelZero(units::angle::turn_t ElevatorHeight);
   void ElevatorLevelOne(units::angle::turn_t ElevatorHeight);
   void ElevatorLevelTwo(units::angle::turn_t ElevatorHeight);
+  void ElevatorLevelThree(units::angle::turn_t ElevatorHeight);
+  void ElevatorLevelFour(units::angle::turn_t ElevatorHeight);
 
   frc2::CommandPtr ElevatorLevelZeroCMD();
   frc2::CommandPtr ElevatorLevelOneCMD();
   frc2::CommandPtr ElevatorLevelTwoCMD();
-  
+  frc2::CommandPtr ElevatorLevelThreeCMD();
+  frc2::CommandPtr ElevatorLevelFourCMD();  
+
+  void ElevatorClimbBottom(units::angle::turn_t ElevatorHeight);
+  void ElevatorClimbTop(units::angle::turn_t ElevatorHeight);
+
+  frc2::CommandPtr ElevatorClimbBottomCMD();
+  frc2::CommandPtr ElevatorClimbTopCMD();
+
   void WristHome();
   void WristSafe();
   void WristToProcessor();
@@ -35,8 +45,8 @@ public:
   frc2::CommandPtr WristSafeCMD();
   frc2::CommandPtr WristToProcessorCMD();
 
-  void IntakeCoral(units::voltage::volt_t IntakeVoltage);
-  void DeliverCoral(units::voltage::volt_t DeliveryVoltage);
+  void IntakeCoral(units::turns_per_second_t IntakeTurns);
+  void DeliverCoral(units::turns_per_second_t DeliveryTurns);
   void StopCoralMotor();
 
   frc2::CommandPtr IntakeCoralCMD();
@@ -48,6 +58,23 @@ public:
   bool CanWeClimb();
 
   bool IsCoralLoaded();
+
+  double  m_elevatorLevelZeroHeight;
+  double  m_elevatorLevelOneHeight;
+  double  m_elevatorLevelTwoHeight;
+  double  m_elevatorLevelThreeHeight;
+  double  m_elevatorLevelFourHeight;
+
+  double  m_elevatorClimbBottomHeight;
+  double  m_elevatorClimbTopHeight;
+  
+  double m_wristHomePosition;
+  double m_wristSafePosition;
+  double m_wristProcessorPosition;
+
+  double m_intakeTurns;
+  double m_deliveryTurns;
+
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -73,7 +100,7 @@ private:
   ctre::phoenix6::controls::MotionMagicVoltage m_motionMagicControlWrist{0_tr};
   ctre::phoenix6::controls::PositionVoltage m_positionVoltageWrist = ctre::phoenix6::controls::PositionVoltage{0_tr}.WithSlot(0);
 
-  ctre::phoenix6::controls::VoltageOut m_percentagePowerCoral{0_V};
+  ctre::phoenix6::controls::VelocityVoltage m_turnsPerSecondCoralMotor{units::angular_velocity::turns_per_second_t(0)};
 
 
 

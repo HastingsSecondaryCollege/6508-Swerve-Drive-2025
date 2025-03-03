@@ -60,6 +60,23 @@ ElevatorSubsystem::ElevatorSubsystem(){
 // This method will be called once per scheduler run
 void ElevatorSubsystem::Periodic() {
   frc::SmartDashboard::PutBoolean("Can Climb?", m_canClimb);
+
+  //Update Preferences
+  m_elevatorLevelZeroHeight = frc::Preferences::GetDouble("Elevator Level Zero");
+  m_elevatorLevelOneHeight = frc::Preferences::GetDouble("Elevator Level One");
+  m_elevatorLevelTwoHeight = frc::Preferences::GetDouble("Elevator Level Two");
+  m_elevatorLevelThreeHeight = frc::Preferences::GetDouble("Elevator Level Three");
+  m_elevatorLevelFourHeight = frc::Preferences::GetDouble("Elevator Level Four");
+
+  m_elevatorClimbBottomHeight = frc::Preferences::GetDouble("Elevator Climb Bottom");
+  m_elevatorClimbTopHeight = frc::Preferences::GetDouble("Elevator Climb Top");
+
+  m_wristHomePosition = frc::Preferences::GetDouble("Wrist Home");
+  m_wristSafePosition = frc::Preferences::GetDouble("Wrist Safe");
+  m_wristProcessorPosition = frc::Preferences::GetDouble("Wrist To Processor");
+
+  m_intakeTurns = frc::Preferences::GetDouble("Intake Turns Per Second");
+  m_deliveryTurns = frc::Preferences::GetDouble("Delivery Turns Per Second");
 }
 
 bool ElevatorSubsystem::IsCoralLoaded() {
@@ -82,20 +99,36 @@ void ElevatorSubsystem::ElevatorLevelTwo(units::angle::turn_t ElevatorHeight) {
   m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
 };}
 
+void ElevatorSubsystem::ElevatorLevelThree(units::angle::turn_t ElevatorHeight) {
+  if (m_canClimb){
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
+};}
+
+void ElevatorSubsystem::ElevatorLevelFour(units::angle::turn_t ElevatorHeight) {
+  if (m_canClimb){
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
+};}
+
 //Command Pointers that drive the elevator to set position using above methods
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelZeroCMD() {
   return this->RunOnce([this] {
-    ElevatorLevelZero(units::angle::turn_t(frc::Preferences::GetDouble("Elevator Level Zero"))); });
+    ElevatorLevelZero(units::angle::turn_t(m_elevatorLevelZeroHeight)); });
 }
-
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelOneCMD() {
-  return this->RunOnce([this] { ElevatorLevelOne(units::angle::turn_t(frc::Preferences::GetDouble("Elevator Level One"))); });
+  return this->RunOnce([this] { ElevatorLevelOne(units::angle::turn_t(m_elevatorLevelOneHeight)); });
 }
 
-
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelTwoCMD() {
-  return this->RunOnce([this] { ElevatorLevelTwo(units::angle::turn_t(frc::Preferences::GetDouble("Elevator Level Two"))); });
+  return this->RunOnce([this] { ElevatorLevelTwo(units::angle::turn_t(m_elevatorLevelTwoHeight)); });
+}
+
+frc2::CommandPtr ElevatorSubsystem::ElevatorLevelThreeCMD() {
+  return this->RunOnce([this] { ElevatorLevelTwo(units::angle::turn_t(m_elevatorLevelThreeHeight)); });
+}
+
+frc2::CommandPtr ElevatorSubsystem::ElevatorLevelFourCMD() {
+  return this->RunOnce([this] { ElevatorLevelTwo(units::angle::turn_t(m_elevatorLevelFourHeight)); });
 }
 
 
@@ -106,19 +139,19 @@ frc2::CommandPtr ElevatorSubsystem::ElevatorLevelTwoCMD() {
 
 void ElevatorSubsystem::WristHome() {
   m_canClimb = false;
-  m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(0.06_tr)); 
+  m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(units::angle::turn_t(m_wristHomePosition))); 
   fmt::println("Just set canClimb false");
 }
 
 void ElevatorSubsystem::WristSafe() {
   m_canClimb = true;
-  m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(2.65_tr));
+  m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(units::angle::turn_t(m_wristSafePosition)));
   fmt::println("Just set canClimb true"); 
 }
 
 void ElevatorSubsystem::WristToProcessor() {
   m_canClimb = false;
-  m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(16.77_tr)); 
+  m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(units::angle::turn_t(m_wristProcessorPosition))); 
   fmt::println("Just set canClimb false");
 }
 
@@ -137,23 +170,23 @@ frc2::CommandPtr ElevatorSubsystem::WristToProcessorCMD(){
 //Scoring motor direction
 // For intaking Algae value should be +0.6_V
 
-void ElevatorSubsystem::IntakeCoral(units::voltage::volt_t IntakeVoltage) {
-  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(IntakeVoltage)); // -2, further testing
+void ElevatorSubsystem::IntakeCoral(units::turns_per_second_t IntakeTurns) {
+  m_scoringMotor.SetControl(m_turnsPerSecondCoralMotor.WithVelocity(IntakeTurns)); // -2, further testing
 }
 
-void ElevatorSubsystem::DeliverCoral(units::voltage::volt_t DeliveryVoltage) {
-  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(DeliveryVoltage)); // -2 for now
+void ElevatorSubsystem::DeliverCoral(units::turns_per_second_t DeliveryTurns) {
+  m_scoringMotor.SetControl(m_turnsPerSecondCoralMotor.WithVelocity(DeliveryTurns)); // -2 for now
 }
 
 void ElevatorSubsystem::StopCoralMotor(){
-  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(0_V));
+  m_scoringMotor.SetControl(m_turnsPerSecondCoralMotor.WithVelocity(units::angular_velocity::turns_per_second_t(0)));
 }
 
 frc2::CommandPtr ElevatorSubsystem::IntakeCoralCMD() {
   return frc2::FunctionalCommand(
     //Init
     [this]{
-      IntakeCoral(units::voltage::volt_t(frc::Preferences::GetDouble("Intake Voltage")));
+      IntakeCoral(units::turns_per_second_t(m_intakeTurns));
     },
     //Periodic
     [this]{
@@ -174,7 +207,7 @@ frc2::CommandPtr ElevatorSubsystem::DeliverCoralCMD() {
   return frc2::FunctionalCommand(
     //Init
     [this]{
-      DeliverCoral(units::voltage::volt_t(frc::Preferences::GetDouble("Delivery Voltage")));
+      DeliverCoral(units::turns_per_second_t(m_deliveryTurns));
     },
     //Periodic
     [this]{
