@@ -100,7 +100,7 @@ private:
   ctre::phoenix6::controls::MotionMagicVoltage m_motionMagicControlWrist{0_tr};
   ctre::phoenix6::controls::PositionVoltage m_positionVoltageWrist = ctre::phoenix6::controls::PositionVoltage{0_tr}.WithSlot(0);
 
-  ctre::phoenix6::controls::VelocityVoltage m_turnsPerSecondCoralMotor{units::angular_velocity::turns_per_second_t(0)};
+  ctre::phoenix6::controls::VelocityVoltage m_turnsPerSecondCoralMotor = ctre::phoenix6::controls::VelocityVoltage {0_tps}.WithSlot(0);
 
 
 

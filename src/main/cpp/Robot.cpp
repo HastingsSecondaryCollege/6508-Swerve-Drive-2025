@@ -15,7 +15,7 @@ cs::UsbCamera camera = frc::CameraServer::StartAutomaticCapture();
 camera.SetResolution(640, 480);
 camera.SetFPS(30);
 
-  frc::Preferences::InitDouble("Elevator Level Zero", 0.0);
+  frc::Preferences::InitDouble("Elevator Level Zero", 0.44);
   frc::Preferences::InitDouble("Elevator Level One", 8.0);
   frc::Preferences::InitDouble("Elevator Level Two", 25.0);
   frc::Preferences::InitDouble("Elevator Level Three", 25.0);
@@ -28,8 +28,8 @@ camera.SetFPS(30);
   frc::Preferences::InitDouble("Wrist Safe", 2.65);
   frc::Preferences::InitDouble("Wrist To Processor", 16.77);
 
-  frc::Preferences::InitDouble("Intake Turns Per Second", -2.0);
-  frc::Preferences::InitDouble("Delivery Turns Per Second", -2.0);
+  frc::Preferences::InitDouble("Intake Turns Per Second", -6.0);
+  frc::Preferences::InitDouble("Delivery Turns Per Second", -6.0);
 }
 
 void Robot::RobotPeriodic() {
