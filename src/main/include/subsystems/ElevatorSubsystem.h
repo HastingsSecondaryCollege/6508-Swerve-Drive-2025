@@ -70,6 +70,9 @@ public:
 
   bool IsCoralLoaded();
 
+  bool m_isScoringHeight = false;
+  bool GetScoringHeight();
+
   double  m_elevatorLevelZeroHeight;
   double  m_elevatorLevelOneHeight;
   double  m_elevatorLevelTwoHeight;

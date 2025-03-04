@@ -101,12 +101,14 @@ bool ElevatorSubsystem::IsCoralLoaded() {
 void ElevatorSubsystem::ElevatorLevelZero(units::angle::turn_t ElevatorHeight) {
   if (m_canClimb){
   m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
+  m_isScoringHeight = false;
   fmt::println("Just finished Elevator Level Zero");
 }else{fmt::println("Cannot Climb");};}
 
 void ElevatorSubsystem::ElevatorLevelOne(units::angle::turn_t ElevatorHeight) {
   if (m_canClimb){
   m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
+  m_isScoringHeight = false;
   fmt::println("Just finished Elevator Level One");
 }else{fmt::println("Cannot Climb");
 };}
@@ -114,6 +116,7 @@ void ElevatorSubsystem::ElevatorLevelOne(units::angle::turn_t ElevatorHeight) {
 void ElevatorSubsystem::ElevatorLevelTwo(units::angle::turn_t ElevatorHeight) {
   if (m_canClimb){
   m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
+  m_isScoringHeight = false;
   fmt::println("Just finished Elevator Level Two");
 }else{fmt::println("Cannot Climb");
 };}
@@ -121,6 +124,7 @@ void ElevatorSubsystem::ElevatorLevelTwo(units::angle::turn_t ElevatorHeight) {
 void ElevatorSubsystem::ElevatorLevelThree(units::angle::turn_t ElevatorHeight) {
   if (m_canClimb){
   m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
+  m_isScoringHeight = false;
   fmt::println("Just finished Elevator Level Three");
 }else{fmt::println("Cannot Climb");
 };}
@@ -128,6 +132,7 @@ void ElevatorSubsystem::ElevatorLevelThree(units::angle::turn_t ElevatorHeight) 
 void ElevatorSubsystem::ElevatorLevelFour(units::angle::turn_t ElevatorHeight) {
   if (m_canClimb){
   m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
+  m_isScoringHeight = true;
   fmt::println("Just finished Elevator Level Zero");
 }else{fmt::println("Cannot Climb");
 };}
@@ -347,4 +352,8 @@ frc2::CommandPtr ElevatorSubsystem::DeliverAlgaeCMD() {
 
 bool ElevatorSubsystem::CanWeClimb(){
   return m_canClimb;
+}
+
+bool ElevatorSubsystem::GetScoringHeight(){
+  return m_isScoringHeight;
 }
