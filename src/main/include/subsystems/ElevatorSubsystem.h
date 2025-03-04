@@ -45,8 +45,8 @@ public:
   frc2::CommandPtr WristSafeCMD();
   frc2::CommandPtr WristToProcessorCMD();
 
-  void IntakeCoral(units::turns_per_second_t IntakeTurns);
-  void DeliverCoral(units::turns_per_second_t DeliveryTurns);
+  void IntakeCoral();
+  void DeliverCoral();
   void StopCoralMotor();
 
   frc2::CommandPtr IntakeCoralCMD();
@@ -100,7 +100,8 @@ private:
   ctre::phoenix6::controls::MotionMagicVoltage m_motionMagicControlWrist{0_tr};
   ctre::phoenix6::controls::PositionVoltage m_positionVoltageWrist = ctre::phoenix6::controls::PositionVoltage{0_tr}.WithSlot(0);
 
-  ctre::phoenix6::controls::VelocityVoltage m_turnsPerSecondCoralMotor = ctre::phoenix6::controls::VelocityVoltage {0_tps}.WithSlot(0);
+  //ctre::phoenix6::controls::VelocityVoltage m_turnsPerSecondCoralMotor = ctre::phoenix6::controls::VelocityVoltage {0_tps}.WithSlot(0);
+  ctre::phoenix6::controls::VoltageOut m_percentagePowerCoral{0_V};
 
 
 

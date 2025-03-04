@@ -71,10 +71,10 @@ ElevatorSubsystem::ElevatorSubsystem(){
 // This method will be called once per scheduler run
 void ElevatorSubsystem::Periodic() {
   frc::SmartDashboard::PutBoolean("Can Climb?", m_canClimb);
-
+using namespace ElevatorConstants;
   //Update Preferences
-  m_elevatorLevelZeroHeight = frc::Preferences::GetDouble("Elevator Level Zero");
-  m_elevatorLevelOneHeight = frc::Preferences::GetDouble("Elevator Level One");
+  m_elevatorLevelZeroHeight = kElevatorLevelZero;
+  m_elevatorLevelOneHeight = kelevatorLevelOne;
   m_elevatorLevelTwoHeight = frc::Preferences::GetDouble("Elevator Level Two");
   m_elevatorLevelThreeHeight = frc::Preferences::GetDouble("Elevator Level Three");
   m_elevatorLevelFourHeight = frc::Preferences::GetDouble("Elevator Level Four");
@@ -213,23 +213,24 @@ frc2::CommandPtr ElevatorSubsystem::WristToProcessorCMD(){
 //Scoring motor direction
 // For intaking Algae value should be +0.6_V
 
-void ElevatorSubsystem::IntakeCoral(units::turns_per_second_t IntakeTurns) {
-  m_scoringMotor.SetControl(m_turnsPerSecondCoralMotor.WithVelocity(units::angular_velocity::turns_per_second_t(IntakeTurns))); // -2, further testing
+void ElevatorSubsystem::IntakeCoral() {
+  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(-2_V)); // -2, further testing
 }
 
-void ElevatorSubsystem::DeliverCoral(units::turns_per_second_t DeliveryTurns) {
-  m_scoringMotor.SetControl(m_turnsPerSecondCoralMotor.WithVelocity(units::angular_velocity::turns_per_second_t(DeliveryTurns))); // -2 for now
+void ElevatorSubsystem::DeliverCoral() {
+  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(-2_V)); // -2
 }
+
+
 
 void ElevatorSubsystem::StopCoralMotor(){
-  m_scoringMotor.SetControl(m_turnsPerSecondCoralMotor.WithVelocity(units::angular_velocity::turns_per_second_t(0)));
-}
+ m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(0_V));}
 
 frc2::CommandPtr ElevatorSubsystem::IntakeCoralCMD() {
   return frc2::FunctionalCommand(
     //Init
     [this]{
-      IntakeCoral(units::turns_per_second_t(m_intakeTurns));
+      IntakeCoral();
     },
     //Periodic
     [this]{
@@ -251,7 +252,7 @@ frc2::CommandPtr ElevatorSubsystem::DeliverCoralCMD() {
   return frc2::FunctionalCommand(
     //Init
     [this]{
-      DeliverCoral(units::turns_per_second_t(m_deliveryTurns));
+      DeliverCoral();
     },
     //Periodic
     [this]{
@@ -274,4 +275,3 @@ frc2::CommandPtr ElevatorSubsystem::StopCoralMotorCMD() {
 bool ElevatorSubsystem::CanWeClimb(){
   return m_canClimb;
 }
-//ryland

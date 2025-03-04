@@ -38,4 +38,21 @@ namespace ElevatorConstants {
     constexpr int kWristSensor = 8; 
 
     constexpr int kScoringMotorID = 61;
+
+    constexpr double kElevatorLevelZero = 0.44;
+    constexpr double kelevatorLevelOne = 2.0;
+    constexpr double kelevatorLevelTwo = 2.0;
+    constexpr double kelevatorLevelThree = 2.0;
+    constexpr double kelevatorLevelFour = 25.0;
+
+    constexpr double kelevatorClimbBottom = 25.0;
+    constexpr double kelevatorClimbTop = 25.0;
+
+    constexpr double kWristHome = 0.06;
+    constexpr double kWristSafe = 2.65;
+    constexpr double kWristProcessor = 16.77;
+    
+    constexpr double kintakeTurns = -6.0;
+    constexpr double kdeliveryTurns = -6.0;
+
 }

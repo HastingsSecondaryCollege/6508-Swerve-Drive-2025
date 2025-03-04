@@ -62,7 +62,7 @@ void RobotContainer::ConfigureButtonBindings() {
         m_elevatorSubsystem.ElevatorLevelZeroCMD(),
         m_elevatorSubsystem.WristHomeCMD(),
         m_elevatorSubsystem.IntakeCoralCMD(),
-        frc2::cmd::Wait(0.5_s),
+       // frc2::cmd::Wait(0.5_s),
         m_elevatorSubsystem.WristSafeCMD()
     )
   );

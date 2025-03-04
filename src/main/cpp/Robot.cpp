@@ -14,7 +14,25 @@ void Robot::RobotInit(){
 cs::UsbCamera camera = frc::CameraServer::StartAutomaticCapture();
 camera.SetResolution(640, 480);
 camera.SetFPS(30);
+/*
+frc::SmartDashboard::PutNumber("Elevator Level Zero", 0.44);
+frc::SmartDashboard::PutNumber("Elevator Level One", 8.0);
+frc::SmartDashboard::PutNumber("Elevator Level Two", 25.0);
+frc::SmartDashboard::PutNumber("Elevator Level Three", 25.0);
+frc::SmartDashboard::PutNumber("Elevator Level Four", 25.0);
 
+frc::SmartDashboard::PutNumber("Elevator Climb Bottom", 25.0);
+frc::SmartDashboard::PutNumber("Elevator Climb Top", 25.0);
+
+frc::SmartDashboard::PutNumber("Wrist Home", 0.06);
+frc::SmartDashboard::PutNumber("Wrist Safe", 2.65);
+frc::SmartDashboard::PutNumber("Wrist To Processor", 16.77);
+
+frc::SmartDashboard::PutNumber("Intake Turns Per Second", -6.0);
+frc::SmartDashboard::PutNumber("Delivery Turns Per Second", -6.0);
+
+*/
+/*
   frc::Preferences::InitDouble("Elevator Level Zero", 0.44);
   frc::Preferences::InitDouble("Elevator Level One", 8.0);
   frc::Preferences::InitDouble("Elevator Level Two", 25.0);
@@ -30,6 +48,7 @@ camera.SetFPS(30);
 
   frc::Preferences::InitDouble("Intake Turns Per Second", -6.0);
   frc::Preferences::InitDouble("Delivery Turns Per Second", -6.0);
+  */
 }
 
 void Robot::RobotPeriodic() {
@@ -60,7 +79,27 @@ void Robot::TeleopInit() {
   }
 }
 
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+
+//Testing Preferences smartdashboard
+/*
+  double elevatorLevelZero = frc::SmartDashboard::GetNumber("Elevator Level Zero", 0.44);
+  double elevatorLevelOne = frc::SmartDashboard::GetNumber("Elevator Level One", 8.0);
+  double elevatorLevelTwo = frc::SmartDashboard::GetNumber("Elevator Level Two", 25.0);
+  double elevatorLevelThree = frc::SmartDashboard::GetNumber("Elevator Level Three", 25.0);
+  double elevatorLevelFour = frc::SmartDashboard::GetNumber("Elevator Level Four", 25.0);
+
+  double elevatorClimbBottom = frc::SmartDashboard::GetNumber("Elevator Climb Bottom", 25.0);
+  double elevatorClimbTop = frc::SmartDashboard::GetNumber("Elevator Climb Top", 25.0);
+
+  double wristHome = frc::SmartDashboard::GetNumber("Wrist Home", 0.06);
+  double wristSafe = frc::SmartDashboard::GetNumber("Wrist Safe", 2.65);
+  double wristProcessor = frc::SmartDashboard::GetNumber("Wrist To Processor", 16.77);
+
+  double intakeTurns = frc::SmartDashboard::GetNumber("Intake Turns Per Second", -6.0);
+  double deliveryTurns = frc::SmartDashboard::GetNumber("Delivery Turns Per Second", -6.0);
+  */
+}
 
 void Robot::TeleopExit() {}
 
