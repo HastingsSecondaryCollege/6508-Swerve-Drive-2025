@@ -39,10 +39,10 @@ namespace ElevatorConstants {
 
     constexpr int kScoringMotorID = 61;
 
-    constexpr double kElevatorLevelZero = 0.44;
-    constexpr double kElevatorLevelOne = 2.0;
-    constexpr double kElevatorLevelTwo = 2.0;
-    constexpr double kElevatorLevelThree = 20.25;
+    constexpr double kElevatorLevelZero = 1.41;
+    constexpr double kElevatorLevelOne = 5.0;
+    constexpr double kElevatorLevelTwo = 10.0;
+    constexpr double kElevatorLevelThree = 15.25;
     constexpr double kElevatorLevelFour = 25.0;
 
     constexpr double kElevatorClimbReady = 10.0;
