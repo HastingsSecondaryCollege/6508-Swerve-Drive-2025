@@ -4,6 +4,9 @@
 
 #pragma once
 
+#include <ctre/phoenix6/signals/SpnEnums.hpp>
+#include <ctre/phoenix6/configs/Configs.hpp>
+
 #include <frc2/command/SubsystemBase.h>
 
 #include <ctre/phoenix6/TalonFX.hpp>
@@ -31,28 +34,36 @@ public:
   frc2::CommandPtr ElevatorLevelThreeCMD();
   frc2::CommandPtr ElevatorLevelFourCMD();  
 
-  void ElevatorClimbBottom(units::angle::turn_t ElevatorHeight);
-  void ElevatorClimbTop(units::angle::turn_t ElevatorHeight);
+  void ElevatorClimbReady(units::angle::turn_t ElevatorHeight);
+  void ElevatorClimbDesired(units::angle::turn_t ElevatorHeight);
 
-  frc2::CommandPtr ElevatorClimbBottomCMD();
-  frc2::CommandPtr ElevatorClimbTopCMD();
+  frc2::CommandPtr ElevatorClimbReadyCMD();
+  frc2::CommandPtr ElevatorClimbDesiredCMD();
 
   void WristHome();
   void WristSafe();
   void WristToProcessor();
+  void WristClimb();
 
   frc2::CommandPtr WristHomeCMD();
   frc2::CommandPtr WristSafeCMD();
   frc2::CommandPtr WristToProcessorCMD();
+  frc2::CommandPtr WristClimbCMD();
 
-  void IntakeCoral();
-  void DeliverCoral();
+  void IntakeCoral(units::voltage::volt_t MotorPower);
+  void DeliverCoral(units::voltage::volt_t MotorPower);
   void StopCoralMotor();
 
   frc2::CommandPtr IntakeCoralCMD();
   frc2::CommandPtr DeliverCoralCMD();
   frc2::CommandPtr StopCoralMotorCMD();
 
+  void IntakeAlgae(units::voltage::volt_t MotorPower);
+  void DeliverAlgae(units::voltage::volt_t MotorPower);
+  bool HasStalled(double StallCurrent);
+
+  frc2::CommandPtr IntakeAlgaeCMD();
+  frc2::CommandPtr DeliverAlgaeCMD();
 
   bool m_canClimb = false; //set canClimb to false by default
   bool CanWeClimb();
@@ -65,16 +76,19 @@ public:
   double  m_elevatorLevelThreeHeight;
   double  m_elevatorLevelFourHeight;
 
-  double  m_elevatorClimbBottomHeight;
-  double  m_elevatorClimbTopHeight;
+  double  m_elevatorClimbReadyHeight;
+  double  m_elevatorClimbDesiredHeight;
   
   double m_wristHomePosition;
   double m_wristSafePosition;
   double m_wristProcessorPosition;
+  double m_wristClimbPosition;
 
-  double m_intakeTurns;
-  double m_deliveryTurns;
+  double m_intakeCoralTurns;
+  double m_deliveryCoralTurns;
 
+  double m_intakeAlgaeTurns;
+  double m_deliveryAlgaeTurns;
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -93,7 +107,9 @@ private:
   ctre::phoenix6::hardware::TalonFX m_scoringMotor{ElevatorConstants::kScoringMotorID};
 
   //Postion Control Objects
- 
+
+  ctre::phoenix6::controls::NeutralOut m_brake{};
+
   ctre::phoenix6::controls::MotionMagicVoltage m_motionMagicControlElevatorLead{0_tr};
   ctre::phoenix6::controls::PositionVoltage m_positionVoltageElevatorLead = ctre::phoenix6::controls::PositionVoltage{0_tr}.WithSlot(0);
  
@@ -102,7 +118,5 @@ private:
 
   //ctre::phoenix6::controls::VelocityVoltage m_turnsPerSecondCoralMotor = ctre::phoenix6::controls::VelocityVoltage {0_tps}.WithSlot(0);
   ctre::phoenix6::controls::VoltageOut m_percentagePowerCoral{0_V};
-
-
 
 };

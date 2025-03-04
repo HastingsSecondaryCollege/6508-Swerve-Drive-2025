@@ -89,8 +89,8 @@ void Robot::TeleopPeriodic() {
   double elevatorLevelThree = frc::SmartDashboard::GetNumber("Elevator Level Three", 25.0);
   double elevatorLevelFour = frc::SmartDashboard::GetNumber("Elevator Level Four", 25.0);
 
-  double elevatorClimbBottom = frc::SmartDashboard::GetNumber("Elevator Climb Bottom", 25.0);
-  double elevatorClimbTop = frc::SmartDashboard::GetNumber("Elevator Climb Top", 25.0);
+  double elevatorClimbReady = frc::SmartDashboard::GetNumber("Elevator Climb Bottom", 25.0);
+  double elevatorClimbDesired = frc::SmartDashboard::GetNumber("Elevator Climb Top", 25.0);
 
   double wristHome = frc::SmartDashboard::GetNumber("Wrist Home", 0.06);
   double wristSafe = frc::SmartDashboard::GetNumber("Wrist Safe", 2.65);
