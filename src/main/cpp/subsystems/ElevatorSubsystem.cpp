@@ -36,10 +36,10 @@ ElevatorSubsystem::ElevatorSubsystem(){
   leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 250.0_rad_per_s_sq;
   leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 200.0_rad_per_s;
   
-  wristMotorConfig.Slot0.kP = 5.0;
+  wristMotorConfig.Slot0.kP = 10.0;
   //wristMotorConfig.Slot0.kA = 1.0; 
   //wristMotorConfig.Slot0.kV = 10.0;
-  wristMotorConfig.MotionMagic.MotionMagicAcceleration = 17.0_rad_per_s_sq;
+  wristMotorConfig.MotionMagic.MotionMagicAcceleration = 50.0_rad_per_s_sq;
   wristMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 50.0_rad_per_s;
 
   coralMotorConfig.Slot0.kS = 0.1; // To account for friction, add 0.1 V of static feedforward
@@ -83,11 +83,15 @@ using namespace ElevatorConstants;
 
   m_wristHomePosition = kWristHome;
   m_wristSafePosition = kWristSafe;
+  m_wristAlgaeRemovePosition = kWristAlgaeRemove;
   m_wristProcessorPosition = kWristProcessor;
   m_wristClimbPosition = kWristClimb;
 
   m_intakeCoralTurns = kIntakeCoralTurns;
-  m_deliveryCoralTurns = kDeliveryCoralTurns;
+  m_deliveryCoralLowTurns = kDeliveryCoralLowTurns;
+  m_deliveryCoralMiddleTurns = kDeliveryCoralMiddleTurns;
+  m_deliveryCoralHighTurns = kDeliveryCoralHighTurns;
+
 
   m_intakeAlgaeTurns = kIntakeAlgaeVolts;
   m_deliveryAlgaeTurns = kDeliveryAlgaeVolts;
@@ -211,6 +215,13 @@ void ElevatorSubsystem::WristSafe() {
   fmt::println("Just finished WristSafe");
 }
 
+void ElevatorSubsystem::WristAlgaeRemove() {
+  m_canClimb = true;
+  m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(units::angle::turn_t(m_wristAlgaeRemovePosition)));
+  fmt::println("Just set canClimb true");
+  fmt::println("Just finished WristAlgeaRemove");
+}
+
 void ElevatorSubsystem::WristToProcessor() {
   m_canClimb = false;
   m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(units::angle::turn_t(m_wristProcessorPosition))); 
@@ -231,6 +242,10 @@ frc2::CommandPtr ElevatorSubsystem::WristSafeCMD(){
   return this->RunOnce([this] { WristSafe();});
 }
 
+frc2::CommandPtr ElevatorSubsystem::WristAlgaeRemoveCMD(){
+  return this->RunOnce([this] { WristAlgaeRemove();});
+
+}
 frc2::CommandPtr ElevatorSubsystem::WristToProcessorCMD(){
   return this->RunOnce([this] { WristToProcessor();});
 }
@@ -246,9 +261,18 @@ void ElevatorSubsystem::IntakeCoral(units::voltage::volt_t MotorPower) {
   m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(MotorPower)); // -2, further testing
 }
 
-void ElevatorSubsystem::DeliverCoral(units::voltage::volt_t MotorPower) {
+void ElevatorSubsystem::DeliverCoralLow(units::voltage::volt_t MotorPower) {
   m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(MotorPower)); // -2
 }
+
+void ElevatorSubsystem::DeliverCoralMiddle(units::voltage::volt_t MotorPower) {
+  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(MotorPower)); // -2
+}
+
+void ElevatorSubsystem::DeliverCoralHigh(units::voltage::volt_t MotorPower) {
+  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(MotorPower)); // -2
+}
+
 
 void ElevatorSubsystem::StopCoralMotor(){
   m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(0_V));
@@ -285,11 +309,11 @@ frc2::CommandPtr ElevatorSubsystem::IntakeCoralCMD() {
   ).ToPtr();
 }
 
-frc2::CommandPtr ElevatorSubsystem::DeliverCoralCMD() {
+frc2::CommandPtr ElevatorSubsystem::DeliverCoralMiddleCMD() {
   return frc2::FunctionalCommand(
     //Init
     [this]{
-      DeliverCoral(units::voltage::volt_t(m_deliveryCoralTurns));
+      DeliverCoralMiddle(units::voltage::volt_t(m_deliveryCoralMiddleTurns));
     },
     //Periodic
     [this]{
@@ -360,7 +384,7 @@ frc2::CommandPtr ElevatorSubsystem::DeliverAlgaeCMD() {
       fmt::println("Just finished Deliver Algae CMD");
     },
     //isFinished
-    [this]{return true;},
+    [this]{return HasStalled(20);},
     
     {this}
 

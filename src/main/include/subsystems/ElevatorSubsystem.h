@@ -42,16 +42,20 @@ public:
 
   void WristHome();
   void WristSafe();
+  void WristAlgaeRemove();
   void WristToProcessor();
   void WristClimb();
 
   frc2::CommandPtr WristHomeCMD();
   frc2::CommandPtr WristSafeCMD();
+  frc2::CommandPtr WristAlgaeRemoveCMD();
   frc2::CommandPtr WristToProcessorCMD();
   frc2::CommandPtr WristClimbCMD();
 
   void IntakeCoral(units::voltage::volt_t MotorPower);
-  void DeliverCoral(units::voltage::volt_t MotorPower);
+  void DeliverCoralLow(units::voltage::volt_t MotorPower);
+  void DeliverCoralMiddle(units::voltage::volt_t MotorPower);
+  void DeliverCoralHigh(units::voltage::volt_t MotorPower);
   void StopCoralMotor();
 
   void SetIntakePosition(double IntakePosition);
@@ -59,7 +63,12 @@ public:
   frc2::CommandPtr SetIntakePositionCMD();
 
   frc2::CommandPtr IntakeCoralCMD();
-  frc2::CommandPtr DeliverCoralCMD();
+  frc2::CommandPtr DeliverCoralLowCMD();
+  frc2::CommandPtr DeliverCoralMiddleCMD();
+  frc2::CommandPtr DeliverCoralHighCMD();
+
+
+
   frc2::CommandPtr StopCoralMotorCMD();
 
   void IntakeAlgae(units::voltage::volt_t MotorPower);
@@ -91,11 +100,14 @@ public:
   
   double m_wristHomePosition;
   double m_wristSafePosition;
+  double m_wristAlgaeRemovePosition;
   double m_wristProcessorPosition;
   double m_wristClimbPosition;
 
   double m_intakeCoralTurns;
-  double m_deliveryCoralTurns;
+  double m_deliveryCoralLowTurns;
+  double m_deliveryCoralMiddleTurns;
+  double m_deliveryCoralHighTurns;
 
   double m_intakeAlgaeTurns;
   double m_deliveryAlgaeTurns;

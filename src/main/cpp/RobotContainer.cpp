@@ -52,10 +52,12 @@ void RobotContainer::ConfigureButtonBindings() {
     // Example joystick button bindings
     /*
     frc2::JoystickButton(&m_stick, 1).OnTrue(drivetrain.ApplyRequest([this]() -> auto&& { return brake; }));
-    frc2::JoystickButton(&m_stick, 2).OnTrue(drivetrain.ApplyRequest([this]() -> auto&& {
-        return point.WithModuleDirection(frc::Rotation2d{-m_stick.GetY(), -m_stick.GetX()});
-    }));
-    //*/
+    
+    */
+   // frc2::JoystickButton(&m_stick, 11).OnTrue(drivetrain.ApplyRequest([this]() -> auto&& {
+   //     return point.WithModuleDirection(frc::Rotation2d{-m_stick.GetY(), -m_stick.GetX()});
+   // }));
+    //
 
     //Intake Coral
   frc2::JoystickButton(&m_stick, 1).OnTrue(
@@ -64,7 +66,7 @@ void RobotContainer::ConfigureButtonBindings() {
         m_elevatorSubsystem.ElevatorLevelZeroCMD(),
         m_elevatorSubsystem.WristHomeCMD(),
         m_elevatorSubsystem.IntakeCoralCMD(),
-        frc2::cmd::Wait(0.5_s),
+        frc2::cmd::Wait(1.0_s),
         m_elevatorSubsystem.WristSafeCMD()
     )
   );
@@ -73,29 +75,48 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&m_stick, 2).OnTrue(
     frc2::cmd::Sequence(
     m_elevatorSubsystem.WristSafeCMD(),
-    m_elevatorSubsystem.DeliverCoralCMD(),
+    m_elevatorSubsystem.DeliverCoralMiddleCMD(),
     m_elevatorSubsystem.ElevatorLevelZeroCMD()
     ));
 
-    //Deliver Algae    
-  frc2::POVButton(&m_stick, 0).OnTrue(
+    //Process Algae Position
+  frc2::JoystickButton(&m_stick, 4).OnTrue(
     frc2::cmd::Sequence(
       m_elevatorSubsystem.WristSafeCMD(),
       m_elevatorSubsystem.ElevatorLevelZeroCMD(),
-      m_elevatorSubsystem.WristToProcessorCMD(),
-      m_elevatorSubsystem.DeliverAlgaeCMD()
+      m_elevatorSubsystem.WristToProcessorCMD()
+    )
+    );
+    
+
+  //Deliver Algae
+  frc2::JoystickButton(&m_stick, 6).OnTrue(
+    frc2::cmd::Sequence(
+     m_elevatorSubsystem.DeliverAlgaeCMD(),
+     frc2::cmd::Wait(2.0_s),
+     m_elevatorSubsystem.WristSafeCMD()
     )
   );
 
-    //Intake Algae
-  frc2::POVButton(&m_stick, 180).OnTrue(    
+ //Intake Algae Level 1
+  frc2::JoystickButton(&m_stick, 3).OnTrue(    
     frc2::cmd::Sequence(
-        m_elevatorSubsystem.WristSafeCMD(),
-        m_elevatorSubsystem.ElevatorLevelThreeCMD(),
-        m_elevatorSubsystem.WristSafeCMD(),
+        m_elevatorSubsystem.WristAlgaeRemoveCMD(),
+        m_elevatorSubsystem.ElevatorLevelTwoCMD(),
         m_elevatorSubsystem.IntakeAlgaeCMD()
     ));
 
+    //Intake Algae Level 2
+  frc2::JoystickButton(&m_stick, 5).OnTrue(    
+    frc2::cmd::Sequence(
+        m_elevatorSubsystem.WristAlgaeRemoveCMD(),
+        m_elevatorSubsystem.ElevatorLevelThreeCMD(),
+        m_elevatorSubsystem.IntakeAlgaeCMD(),
+         m_elevatorSubsystem.ElevatorLevelZeroCMD()
+    ));
+
+    
+/*
     //Ready Climb
   frc2::JoystickButton(&m_stick, 4).OnTrue(
     frc2::cmd::Sequence(
@@ -109,7 +130,7 @@ void RobotContainer::ConfigureButtonBindings() {
       m_elevatorSubsystem.WristClimbCMD(),
       m_elevatorSubsystem.ElevatorClimbDesiredCMD()
     ));
-
+*/
     //Elevate to score in Lvl3
   frc2::JoystickButton(&m_stick, 7).OnTrue(m_elevatorSubsystem.ElevatorLevelThreeCMD());
 
@@ -129,7 +150,7 @@ void RobotContainer::ConfigureButtonBindings() {
 
   // Add additional bindings here as needed
 
-  frc2::JoystickButton(&m_stick, 11).OnTrue(m_elevatorSubsystem.IntakeAlgaeCMD());
+
 
 }
 
