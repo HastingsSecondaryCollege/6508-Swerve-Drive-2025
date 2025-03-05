@@ -30,11 +30,11 @@ ElevatorSubsystem::ElevatorSubsystem(){
 
   // Set one of the configuration objects. Refer to Phoenix Tuner X to find wait
   // they are callled
-  leadElevatorMotorConfig.Slot0.kP = 10.0;
+  leadElevatorMotorConfig.Slot0.kP = 20.0;
   //leadElevatorMotorConfig.Slot0.kA = 1.0; 
   //leadElevatorMotorConfig.Slot0.kV = 10.0;
-  leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 120.0_rad_per_s_sq;
-  leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 140.0_rad_per_s;
+  leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 250.0_rad_per_s_sq;
+  leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 200.0_rad_per_s;
   
   wristMotorConfig.Slot0.kP = 5.0;
   //wristMotorConfig.Slot0.kA = 1.0; 
@@ -91,7 +91,19 @@ using namespace ElevatorConstants;
 
   m_intakeAlgaeTurns = kIntakeAlgaeVolts;
   m_deliveryAlgaeTurns = kDeliveryAlgaeVolts;
+
+  m_getIntakePosition = m_scoringMotor.GetPosition().GetValueAsDouble();
 }
+/**/
+double ElevatorSubsystem::IntakePositionPlusThree(){
+  return (m_getIntakePosition + 3.0);
+ // return (m_getIntakePosition() + 3.0);
+  
+   //return (m_scoringMotor.GetPosition().GetValueAsDouble() + 3.0); 
+}
+
+
+
 
 bool ElevatorSubsystem::IsCoralLoaded() {
   return(m_wristSensor.GetIsDetected().GetValue());
@@ -242,10 +254,13 @@ void ElevatorSubsystem::StopCoralMotor(){
   m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(0_V));
 }
 
+void ElevatorSubsystem::SetIntakePosition(double IntakePosition){
+  m_scoringMotor.SetControl(m_positionVoltageCoral.WithPosition(units::angle::turn_t(IntakePosition)));
+}
+
 frc2::CommandPtr ElevatorSubsystem::StopCoralMotorCMD() {
   return this->RunOnce([this] {StopCoralMotor();});
 }
-
 
 frc2::CommandPtr ElevatorSubsystem::IntakeCoralCMD() {
   return frc2::FunctionalCommand(
@@ -258,6 +273,7 @@ frc2::CommandPtr ElevatorSubsystem::IntakeCoralCMD() {
     },
     //Command End
     [this](bool interrupted) {
+      SetIntakePosition(IntakePositionPlusThree());
       StopCoralMotor();
       fmt::println("Just finished Intake Coral CMD");
     },
@@ -317,6 +333,7 @@ frc2::CommandPtr ElevatorSubsystem::IntakeAlgaeCMD() {
     },
     //Command End
     [this](bool interrupted) {
+
       StopCoralMotor();
       fmt::println("Just finished Intake Algae CMD");
     },
@@ -357,3 +374,4 @@ bool ElevatorSubsystem::CanWeClimb(){
 bool ElevatorSubsystem::GetScoringHeight(){
   return m_isScoringHeight;
 }
+

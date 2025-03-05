@@ -64,7 +64,7 @@ void RobotContainer::ConfigureButtonBindings() {
         m_elevatorSubsystem.ElevatorLevelZeroCMD(),
         m_elevatorSubsystem.WristHomeCMD(),
         m_elevatorSubsystem.IntakeCoralCMD(),
-       // frc2::cmd::Wait(0.5_s),
+        frc2::cmd::Wait(0.5_s),
         m_elevatorSubsystem.WristSafeCMD()
     )
   );
@@ -128,9 +128,13 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&m_stick, 12).OnTrue(m_elevatorSubsystem.ElevatorLevelTwoCMD());
 
   // Add additional bindings here as needed
+
+  frc2::JoystickButton(&m_stick, 11).OnTrue(m_elevatorSubsystem.IntakeAlgaeCMD());
+
 }
 
 // Autonomous command placeholder
 frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
     return frc2::cmd::Print("No autonomous command configured");
 }
+

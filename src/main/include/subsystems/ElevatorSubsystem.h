@@ -54,6 +54,10 @@ public:
   void DeliverCoral(units::voltage::volt_t MotorPower);
   void StopCoralMotor();
 
+  void SetIntakePosition(double IntakePosition);
+
+  frc2::CommandPtr SetIntakePositionCMD();
+
   frc2::CommandPtr IntakeCoralCMD();
   frc2::CommandPtr DeliverCoralCMD();
   frc2::CommandPtr StopCoralMotorCMD();
@@ -72,6 +76,9 @@ public:
 
   bool m_isScoringHeight = false;
   bool GetScoringHeight();
+
+  double m_getIntakePosition;
+  double IntakePositionPlusThree();
 
   double  m_elevatorLevelZeroHeight;
   double  m_elevatorLevelOneHeight;
@@ -121,5 +128,6 @@ private:
 
   //ctre::phoenix6::controls::VelocityVoltage m_turnsPerSecondCoralMotor = ctre::phoenix6::controls::VelocityVoltage {0_tps}.WithSlot(0);
   ctre::phoenix6::controls::VoltageOut m_percentagePowerCoral{0_V};
+  ctre::phoenix6::controls::PositionVoltage m_positionVoltageCoral = ctre::phoenix6::controls::PositionVoltage{0_tr}.WithSlot(0);
 
 };
