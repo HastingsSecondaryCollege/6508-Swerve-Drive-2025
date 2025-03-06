@@ -9,10 +9,16 @@
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandPtr.h>
 #include <frc/Preferences.h>
-
+#include <frc/Timer.h>
+#include <ctre/phoenix6/CANdi.hpp>
 #include "RobotContainer.h"
 
 class Robot : public frc::TimedRobot {
+ 
+ private:
+  ctre::phoenix6::hardware::CANdi candi{6, "rio"};
+  units::time::second_t currentTime{frc::Timer::GetFPGATimestamp()};
+
  public:
   Robot();
   void RobotInit() override;
