@@ -12,11 +12,49 @@
 #include <frc2/command/button/POVButton.h>
 #include <pathplanner/lib/auto/AutoBuilder.h>
 
+//PathPlanner
+#include <pathplanner/lib/auto/AutoBuilder.h>
+#include <pathplanner/lib/path/PathPlannerPath.h>
+#include <pathplanner/lib/commands/PathPlannerAuto.h>
+#include <pathplanner/lib/auto/NamedCommands.h>
+#include <memory>
 
+#include <frc/geometry/Translation2d.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/trajectory/Trajectory.h>
+#include <frc/trajectory/TrajectoryGenerator.h>
+#include <frc2/command/Commands.h>
+#include <frc2/command/InstantCommand.h>
+#include <frc2/command/SequentialCommandGroup.h>
+#include <frc2/command/SwerveControllerCommand.h>
+#include <frc2/command/button/JoystickButton.h>
+#include <frc2/command/FunctionalCommand.h>
+#include <frc2/command/RunCommand.h>
+#include <units/angle.h>
+#include <units/velocity.h>
 
-
+using namespace pathplanner;
 
 RobotContainer::RobotContainer() {
+
+  NamedCommands::registerCommand("Elevator Zero",m_elevatorSubsystem.ElevatorLevelZeroCMD());
+  NamedCommands::registerCommand("Elevator One",m_elevatorSubsystem.ElevatorLevelOneCMD());
+  NamedCommands::registerCommand("Elevator Two",m_elevatorSubsystem.ElevatorLevelTwoCMD());
+  NamedCommands::registerCommand("Elevator Three",m_elevatorSubsystem.ElevatorLevelThreeCMD());
+  NamedCommands::registerCommand("Elevator Four",m_elevatorSubsystem.ElevatorLevelFourCMD());
+  NamedCommands::registerCommand("Elevator Algae Remove Low",m_elevatorSubsystem.ElevatorLevelAlgaeRemoveLowCMD());
+  NamedCommands::registerCommand("Elevator Algae Remove High",m_elevatorSubsystem.ElevatorLevelAlgaeRemoveHighCMD());
+
+  NamedCommands::registerCommand("Wrist Safe",m_elevatorSubsystem.WristSafeCMD());
+  NamedCommands::registerCommand("Wrist Home",m_elevatorSubsystem.WristHomeCMD());
+  NamedCommands::registerCommand("Wrist Processor",m_elevatorSubsystem.WristToProcessorCMD());
+  NamedCommands::registerCommand("Wrist Algae Remove",m_elevatorSubsystem.WristAlgaeRemoveCMD());
+  NamedCommands::registerCommand("Wrist Deliver High",m_elevatorSubsystem.WristDeveliverHighCMD());
+
+  NamedCommands::registerCommand("Intake Coral",m_elevatorSubsystem.IntakeCoralCMD());
+  NamedCommands::registerCommand("Deliver Coral",m_elevatorSubsystem.DeliverCoralMiddleCMD());
+  
+
 
 autoChooser = pathplanner::AutoBuilder::buildAutoChooser("Tests");
     frc::SmartDashboard::PutData("Auto Mode", &autoChooser);
@@ -64,6 +102,11 @@ void RobotContainer::ConfigureButtonBindings() {
    // }));
     //
 
+    //Reset Robot Pose
+    frc2::JoystickButton(&m_stick, 11).OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
+    drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
+
+
     //Intake Coral
   frc2::JoystickButton(&m_stick, 1).OnTrue(
     frc2::cmd::Sequence(  
@@ -88,7 +131,7 @@ void RobotContainer::ConfigureButtonBindings() {
     //Process Algae Position
   frc2::JoystickButton(&m_stick, 4).OnTrue(
     frc2::cmd::Sequence(
-      m_elevatorSubsystem.WristSafeCMD(),
+      //m_elevatorSubsystem.WristSafeCMD(),
       m_elevatorSubsystem.ElevatorLevelZeroCMD(),
       m_elevatorSubsystem.WristToProcessorCMD()
     )
@@ -108,15 +151,16 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&m_stick, 3).OnTrue(    
     frc2::cmd::Sequence(
         m_elevatorSubsystem.WristAlgaeRemoveCMD(),
-        m_elevatorSubsystem.ElevatorLevelTwoCMD(),
-        m_elevatorSubsystem.IntakeAlgaeCMD()
+        m_elevatorSubsystem.ElevatorLevelAlgaeRemoveLowCMD(),
+        m_elevatorSubsystem.IntakeAlgaeCMD(),
+        m_elevatorSubsystem.ElevatorLevelZeroCMD()
     ));
 
     //Intake Algae Level 2
   frc2::JoystickButton(&m_stick, 5).OnTrue(    
     frc2::cmd::Sequence(
         m_elevatorSubsystem.WristAlgaeRemoveCMD(),
-        m_elevatorSubsystem.ElevatorLevelThreeCMD(),
+        m_elevatorSubsystem.ElevatorLevelAlgaeRemoveHighCMD(),
         m_elevatorSubsystem.IntakeAlgaeCMD(),
          m_elevatorSubsystem.ElevatorLevelZeroCMD()
     ));

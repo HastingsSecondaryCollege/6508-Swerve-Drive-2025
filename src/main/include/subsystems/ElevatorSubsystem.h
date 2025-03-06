@@ -27,12 +27,17 @@ public:
   void ElevatorLevelTwo(units::angle::turn_t ElevatorHeight);
   void ElevatorLevelThree(units::angle::turn_t ElevatorHeight);
   void ElevatorLevelFour(units::angle::turn_t ElevatorHeight);
+  void ElevatorLevelAlgaeRemoveLow(units::angle::turn_t ElevatorHeight);
+  void ElevatorLevelAlgaeRemoveHigh(units::angle::turn_t ElevatorHeight);
+
 
   frc2::CommandPtr ElevatorLevelZeroCMD();
   frc2::CommandPtr ElevatorLevelOneCMD();
   frc2::CommandPtr ElevatorLevelTwoCMD();
   frc2::CommandPtr ElevatorLevelThreeCMD();
   frc2::CommandPtr ElevatorLevelFourCMD();  
+  frc2::CommandPtr ElevatorLevelAlgaeRemoveLowCMD();
+  frc2::CommandPtr ElevatorLevelAlgaeRemoveHighCMD();
 
   void ElevatorClimbReady(units::angle::turn_t ElevatorHeight);
   void ElevatorClimbDesired(units::angle::turn_t ElevatorHeight);
@@ -96,6 +101,8 @@ public:
   double  m_elevatorLevelTwoHeight;
   double  m_elevatorLevelThreeHeight;
   double  m_elevatorLevelFourHeight;
+  double  m_elevatorLevelAlgaeRemoveLow;
+  double  m_elevatorLevelAlgaeRemoveHigh;
 
   double  m_elevatorClimbReadyHeight;
   double  m_elevatorClimbDesiredHeight;

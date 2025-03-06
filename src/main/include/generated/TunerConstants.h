@@ -303,6 +303,9 @@ namespace ElevatorConstants {
     constexpr double kElevatorLevelTwo = 5.0;
     constexpr double kElevatorLevelThree = 12.25;
     constexpr double kElevatorLevelFour = 24.0;
+    constexpr double kElevatorLevelAlgaeRemoveLow = 4.50;
+    constexpr double kElevatorLevelAlgaeRemoveHigh = 12.0;
+
 
     constexpr double kElevatorClimbReady = 10.0;
     constexpr double kElevatorClimbDesired = 0.44;

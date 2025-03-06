@@ -76,6 +76,8 @@ using namespace ElevatorConstants;
   m_elevatorLevelTwoHeight = kElevatorLevelTwo;
   m_elevatorLevelThreeHeight = kElevatorLevelThree;
   m_elevatorLevelFourHeight = kElevatorLevelFour;
+  m_elevatorLevelAlgaeRemoveLow = kElevatorLevelAlgaeRemoveLow;
+  m_elevatorLevelAlgaeRemoveHigh = kElevatorLevelAlgaeRemoveHigh;
 
   m_elevatorClimbReadyHeight = kElevatorClimbReady;
   m_elevatorClimbDesiredHeight = kElevatorClimbDesired;
@@ -153,6 +155,26 @@ void ElevatorSubsystem::ElevatorLevelFour(units::angle::turn_t ElevatorHeight) {
 }else{fmt::println("Cannot Climb");
 };}
 
+void ElevatorSubsystem::ElevatorLevelAlgaeRemoveLow(units::angle::turn_t ElevatorHeight) {
+  if (m_canClimb){
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
+  m_isScoringHeight = false;
+  fmt::println("Just finished Elevator Level Two");
+}else{fmt::println("Cannot Climb");
+};}
+
+
+void ElevatorSubsystem::ElevatorLevelAlgaeRemoveHigh(units::angle::turn_t ElevatorHeight) {
+  if (m_canClimb){
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
+  m_isScoringHeight = false;
+  fmt::println("Just finished Elevator Level Two");
+}else{fmt::println("Cannot Climb");
+};}
+
+
+
+
 //Command Pointers that drive the elevator to set position using above methods
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelZeroCMD() {
   return this->RunOnce([this] {
@@ -173,6 +195,14 @@ frc2::CommandPtr ElevatorSubsystem::ElevatorLevelThreeCMD() {
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelFourCMD() {
   return this->RunOnce([this] { ElevatorLevelTwo(units::angle::turn_t(m_elevatorLevelFourHeight)); });
+}
+
+frc2::CommandPtr ElevatorSubsystem::ElevatorLevelAlgaeRemoveLowCMD() {
+  return this->RunOnce([this] { ElevatorLevelAlgaeRemoveLow(units::angle::turn_t(m_elevatorLevelAlgaeRemoveLow)); });
+}
+
+frc2::CommandPtr ElevatorSubsystem::ElevatorLevelAlgaeRemoveHighCMD() {
+  return this->RunOnce([this] { ElevatorLevelAlgaeRemoveHigh(units::angle::turn_t(m_elevatorLevelAlgaeRemoveHigh)); });
 }
 
 void ElevatorSubsystem::ElevatorClimbReady(units::angle::turn_t ElevatorHeight){
