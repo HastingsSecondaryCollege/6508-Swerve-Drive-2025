@@ -7,6 +7,9 @@
  
 #include <frc2/command/CommandScheduler.h>
 #include <cameraserver/CameraServer.h>
+#include "subsystems/LimelightHelpers.h"
+
+
 Robot::Robot() {}
 
 void Robot::RobotInit(){
@@ -14,6 +17,19 @@ void Robot::RobotInit(){
 cs::UsbCamera camera = frc::CameraServer::StartAutomaticCapture();
 camera.SetResolution(640, 480);
 camera.SetFPS(30);
+
+if (kUseLimelight) {
+    auto const driveState = m_container.drivetrain.GetState();
+    auto const heading = driveState.Pose.Rotation().Degrees();
+    auto const omega = driveState.Speeds.omega;
+
+    LimelightHelpers::SetRobotOrientation("limelight", heading.value(), 0, 0, 0, 0, 0);
+    auto llMeasurement = LimelightHelpers::getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+    if (llMeasurement && llMeasurement->tagCount > 0 && units::math::abs(omega) < 2_tps) {
+      m_container.drivetrain.AddVisionMeasurement(llMeasurement->pose, llMeasurement->timestampSeconds);
+    }
+  }
+
 /*
 frc::SmartDashboard::PutNumber("Elevator Level Zero", 0.44);
 frc::SmartDashboard::PutNumber("Elevator Level One", 8.0);
@@ -102,6 +118,8 @@ void Robot::TeleopPeriodic() {
 }
 
 void Robot::TeleopExit() {}
+
+  
 
 void Robot::TestInit() {
   frc2::CommandScheduler::GetInstance().CancelAll();

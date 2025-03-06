@@ -15,7 +15,7 @@
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/FunctionalCommand.h>
 
-#include "Constants.h"
+#include "generated/TunerConstants.h"
 
 class ElevatorSubsystem : public frc2::SubsystemBase
 {

@@ -34,7 +34,8 @@ class Robot : public frc::TimedRobot {
   void CreateStringPreferenceKey(std::string_view KeyName, std::string_view DefaultKeyValue);
 
  private:
-  std::optional<frc2::CommandPtr> m_autonomousCommand;
-
+  //std::optional<frc2::CommandPtr> m_autonomousCommand;
+ frc2::Command *m_autonomousCommand;
   RobotContainer m_container;
+   static constexpr bool kUseLimelight = false;
 };

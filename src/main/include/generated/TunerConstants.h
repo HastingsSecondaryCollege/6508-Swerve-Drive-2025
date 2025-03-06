@@ -2,6 +2,22 @@
 
 #include "ctre/phoenix6/swerve/SwerveDrivetrain.hpp"
 
+#include <numbers>
+#include <frc/TimedRobot.h>
+#include <frc/geometry/Translation2d.h>
+#include <frc/kinematics/SwerveDriveKinematics.h>
+#include <frc/trajectory/TrapezoidProfile.h>
+#include <units/acceleration.h>
+#include <units/angle.h>
+#include <units/angular_acceleration.h>
+#include <units/angular_velocity.h>
+#include <units/length.h>
+#include <units/time.h>
+#include <units/velocity.h>
+#include <units/voltage.h>
+
+
+
 using namespace ctre::phoenix6;
 
 namespace subsystems {
@@ -268,4 +284,41 @@ public:
             odometryStandardDeviation, visionStandardDeviation, modules...
         }
     {}
+
+    
 };
+
+namespace ElevatorConstants {
+    constexpr int kLeaderElevatorMotorID = 50;
+    constexpr int kFollowerElevatorMotorID = 51;
+    
+    constexpr int kWristMotorID = 60;  
+
+    constexpr int kWristSensor = 8; 
+
+    constexpr int kScoringMotorID = 61;
+
+    constexpr double kElevatorLevelZero = -0.273;
+    constexpr double kElevatorLevelOne = 1.5;
+    constexpr double kElevatorLevelTwo = 5.0;
+    constexpr double kElevatorLevelThree = 12.25;
+    constexpr double kElevatorLevelFour = 24.0;
+
+    constexpr double kElevatorClimbReady = 10.0;
+    constexpr double kElevatorClimbDesired = 0.44;
+
+    constexpr double kWristHome = 0.06;
+    constexpr double kWristSafe = 2.65;
+    constexpr double kWristAlgaeRemove = 13.0;
+    constexpr double kWristClimb = 8.5;
+    constexpr double kWristProcessor = 16.77;
+    
+    constexpr double kIntakeCoralTurns = -2.0;
+    constexpr double kDeliveryCoralLowTurns = -2.0;
+    constexpr double kDeliveryCoralMiddleTurns = -4.5;
+    constexpr double kDeliveryCoralHighTurns = -2.0;
+    
+    constexpr double kIntakeAlgaeVolts = 0.6;
+    constexpr double kDeliveryAlgaeVolts = -0.6;
+
+}

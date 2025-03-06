@@ -10,12 +10,17 @@
 #include <frc/Preferences.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/button/POVButton.h>
+#include <pathplanner/lib/auto/AutoBuilder.h>
 
 
 
 
 
 RobotContainer::RobotContainer() {
+
+autoChooser = pathplanner::AutoBuilder::buildAutoChooser("Tests");
+    frc::SmartDashboard::PutData("Auto Mode", &autoChooser);
+
     ConfigureButtonBindings();
     
     drivetrain.SetDefaultCommand(
@@ -153,9 +158,14 @@ void RobotContainer::ConfigureButtonBindings() {
 
 
 }
-
+/*
 // Autonomous command placeholder
 frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
     return frc2::cmd::Print("No autonomous command configured");
+  
 }
-
+*/
+frc2::Command *RobotContainer::GetAutonomousCommand()
+{
+    return autoChooser.GetSelected();
+}

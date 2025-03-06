@@ -9,12 +9,11 @@
 #include <units/angle.h>
 #include <units/velocity.h>
 #include <units/acceleration.h>
-#include "Constants.h"
 #include "ctre/phoenix6/TalonFX.hpp"
 #include "ctre/phoenix6/controls/Follower.hpp"
 #include <frc/Preferences.h>
 #include <frc/smartdashboard/SmartDashboard.h>
-
+#include "generated/TunerConstants.h"
 
 
 
@@ -196,6 +195,7 @@ frc2::CommandPtr ElevatorSubsystem::ElevatorClimbReadyCMD() {
 frc2::CommandPtr ElevatorSubsystem::ElevatorClimbDesiredCMD() {
   return this->RunOnce([this] { ElevatorClimbDesired(units::angle::turn_t(m_elevatorClimbDesiredHeight)); });
 }
+
 
 //Movement of Wrist methods + CMDs
 //Wrist In is scoring/intake position

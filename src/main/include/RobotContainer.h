@@ -12,10 +12,12 @@
 #include <frc2/command/button/Trigger.h>
 #include <frc2/command/button/CommandXboxController.h>
 #include <frc2/command/FunctionalCommand.h>
+#include <frc/smartdashboard/SendableChooser.h>
 
-
-#include "Constants.h"
 #include "subsystems/ElevatorSubsystem.h"
+#include "generated/TunerConstants.h"
+
+
 
 class RobotContainer
 {
@@ -42,12 +44,15 @@ private:
 
     //bool joystickControlEnabled = true; // Tracks whether joystick or Xbox controller is in control
 
+     /* Path follower */
+    frc::SendableChooser<frc2::Command *> autoChooser;
+
 public:
     subsystems::CommandSwerveDrivetrain drivetrain{TunerConstants::CreateDrivetrain()};
 
     RobotContainer();
 
-    frc2::CommandPtr GetAutonomousCommand();
+    frc2::Command *GetAutonomousCommand();
     double ApplyDeadband(double joystickValue, double deadband);
     double ApplyDeadbandSquaredInputs(double joystickValue, double deadband);
     
