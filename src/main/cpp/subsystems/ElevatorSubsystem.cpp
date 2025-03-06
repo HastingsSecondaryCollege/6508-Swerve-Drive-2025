@@ -85,6 +85,7 @@ using namespace ElevatorConstants;
   m_wristAlgaeRemovePosition = kWristAlgaeRemove;
   m_wristProcessorPosition = kWristProcessor;
   m_wristClimbPosition = kWristClimb;
+  m_wristDeliverHighPosition = kWristDeliverHigh;
 
   m_intakeCoralTurns = kIntakeCoralTurns;
   m_deliveryCoralLowTurns = kDeliveryCoralLowTurns;
@@ -234,6 +235,13 @@ void ElevatorSubsystem::WristClimb() {
   m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(units::angle::turn_t(m_wristClimbPosition)));
 }
 
+void ElevatorSubsystem::WristDeveliverHigh() {
+  m_canClimb = true;
+  m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(units::angle::turn_t(m_wristSafePosition)));
+  fmt::println("Just set canClimb true");
+  fmt::println("Just finished WristDeveliverHigh");
+}
+
 frc2::CommandPtr ElevatorSubsystem::WristHomeCMD(){
   return this->RunOnce([this] { WristHome();});
 }
@@ -254,6 +262,9 @@ frc2::CommandPtr ElevatorSubsystem::WristClimbCMD(){
   return this->RunOnce([this] { WristClimb();});
 }
 
+frc2::CommandPtr ElevatorSubsystem::WristDeveliverHighCMD(){
+  return this->RunOnce([this] { WristDeveliverHigh();});
+}
 //Scoring motor direction
 // For intaking Algae value should be +0.6_V
 

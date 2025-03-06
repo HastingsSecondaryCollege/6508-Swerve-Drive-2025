@@ -79,9 +79,10 @@ void RobotContainer::ConfigureButtonBindings() {
     //Deliver Coral
   frc2::JoystickButton(&m_stick, 2).OnTrue(
     frc2::cmd::Sequence(
-    m_elevatorSubsystem.WristSafeCMD(),
     m_elevatorSubsystem.DeliverCoralMiddleCMD(),
+    m_elevatorSubsystem.WristSafeCMD(),
     m_elevatorSubsystem.ElevatorLevelZeroCMD()
+    
     ));
 
     //Process Algae Position
@@ -147,7 +148,12 @@ void RobotContainer::ConfigureButtonBindings() {
       ));
 
     //Elevate to score in Lvl4
-  frc2::JoystickButton(&m_stick, 9).OnTrue(m_elevatorSubsystem.ElevatorLevelFourCMD()); 
+  frc2::JoystickButton(&m_stick, 9).OnTrue(
+    frc2::cmd::Sequence(
+    m_elevatorSubsystem.ElevatorLevelFourCMD(),
+    m_elevatorSubsystem.WristDeveliverHighCMD()
+  ));
+   
     //Elevate to score in Lvl1
   frc2::JoystickButton(&m_stick, 10).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());
     //Elevate to score in Lvl2
