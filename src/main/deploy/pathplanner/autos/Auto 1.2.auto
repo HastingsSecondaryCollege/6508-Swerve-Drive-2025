@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Match Test"
+            "pathName": "Back of Reef Side 2"
           }
         },
         {
@@ -19,7 +19,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Elevator Two"
+            "name": "Elevator Four"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Wrist Deliver High"
           }
         },
         {
