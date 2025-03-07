@@ -103,8 +103,8 @@ void RobotContainer::ConfigureButtonBindings() {
     //
 
     //Reset Robot Pose
-    frc2::JoystickButton(&m_stick, 11).OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
-    drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
+    //frc2::JoystickButton(&m_stick, 11).OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
+    //drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
 
 
     //Intake Coral
@@ -114,7 +114,7 @@ void RobotContainer::ConfigureButtonBindings() {
         m_elevatorSubsystem.ElevatorLevelZeroCMD(),
         m_elevatorSubsystem.WristHomeCMD(),
         m_elevatorSubsystem.IntakeCoralCMD(),
-        frc2::cmd::Wait(1.0_s),
+        //frc2::cmd::Wait(1.0_s),
         m_elevatorSubsystem.WristSafeCMD()
     )
   );
@@ -194,7 +194,9 @@ void RobotContainer::ConfigureButtonBindings() {
     //Elevate to score in Lvl4
   frc2::JoystickButton(&m_stick, 9).OnTrue(
     frc2::cmd::Sequence(
+      m_elevatorSubsystem.WristSafeCMD(),
     m_elevatorSubsystem.ElevatorLevelFourCMD(),
+    frc2::cmd::Wait(0.5_s),
     m_elevatorSubsystem.WristDeveliverHighCMD()
   ));
    

@@ -7,13 +7,43 @@
         {
           "type": "path",
           "data": {
-            "pathName": "New Path"
+            "pathName": "Match Test"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Wrist Safe"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Elevator Two"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Deliver Coral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Wrist Safe"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Elevator Zero"
           }
         }
       ]
     }
   },
-  "resetOdom": false,
+  "resetOdom": true,
   "folder": null,
   "choreoAuto": false
 }

@@ -267,7 +267,7 @@ void ElevatorSubsystem::WristClimb() {
 
 void ElevatorSubsystem::WristDeveliverHigh() {
   m_canClimb = true;
-  m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(units::angle::turn_t(m_wristSafePosition)));
+  m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(units::angle::turn_t(m_wristDeliverHighPosition)));
   fmt::println("Just set canClimb true");
   fmt::println("Just finished WristDeveliverHigh");
 }

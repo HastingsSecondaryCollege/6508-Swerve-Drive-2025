@@ -80,47 +80,47 @@ frc::SmartDashboard::PutNumber("Delivery Turns Per Second", -6.0);
 }
 
 void Robot::RobotPeriodic() {
+ 
   frc2::CommandScheduler::GetInstance().Run();
-  
- /* Every print_period get the CANdi position/velocity and report it */
-  if (frc::Timer::GetFPGATimestamp() - currentTime >= print_period) {
-    currentTime += print_period;
-
-    /**
-     * GetPosition automatically calls Refresh(), no need to manually refresh.
-     * 
-     * StatusSignalValues also have the "ostream <<" operator implemented, to provide
-     * a useful print of the signal.
-     */
-    auto &pos = candi.GetPWM1Position();
-    std::cout << "Position is " << pos << " with " << pos.GetTimestamp().GetLatency().value() << " seconds of latency" << std::endl;
-
-    /**
-     * Get the S2 State StatusSignalValue without refreshing
-     */
-    auto &S2State = candi.GetS2State(false);
-    /* This time wait for the signal to reduce latency */
-    S2State.WaitForUpdate(print_period); // Wait up to our period
-    /**
-     * This uses the explicit GetValue and GetUnits functions to print, even though it's not
-     * necessary for the ostream print
-     */
-    std::cout << "S2 State is " <<
-                  S2State.GetValue().ToString() << " " <<
-                  S2State.GetUnits() << " with " <<
-                  S2State.GetTimestamp().GetLatency().value() << " seconds of latency" <<
-                  std::endl;
-    /**
-     * Notice when running this example that the second print's latency is always shorter than the first print's latency.
-     * This is because we explicitly wait for the signal using the WaitForUpdate() method instead of using the Refresh()
-     * method, which only gets the last cached value (similar to how Phoenix v5 works).
-     * This can be used to make sure we synchronously update our control loop from the CAN bus, reducing any latency or jitter in
-     * CAN bus measurements.
-     * When the device is on a CANivore, the reported latency is very close to the true latency of the sensor, as the CANivore
-     * timestamps when it receives the frame. This can be further used for latency compensation.
-     */
-    std::cout << std::endl;
-  }
+// /* Every print_period get the CANdi position/velocity and report it */
+//  if (frc::Timer::GetFPGATimestamp() - currentTime >= print_period) {
+//    currentTime += print_period;
+//
+//    /**
+//     * GetPosition automatically calls Refresh(), no need to manually refresh.
+//     * 
+//     * StatusSignalValues also have the "ostream <<" operator implemented, to provide
+//     * a useful print of the signal.
+//     */
+//    auto &pos = candi.GetPWM1Position();
+//    std::cout << "Position is " << pos << " with " << pos.GetTimestamp().GetLatency().value() << " seconds of latency" << std::endl;
+//
+//    /**
+//     * Get the S2 State StatusSignalValue without refreshing
+//     */
+//    auto &S2State = candi.GetS2State(false);
+//    /* This time wait for the signal to reduce latency */
+//    S2State.WaitForUpdate(print_period); // Wait up to our period
+//    /**
+//     * This uses the explicit GetValue and GetUnits functions to print, even though it's not
+//     * necessary for the ostream print
+//     */
+//    std::cout << "S2 State is " <<
+//                  S2State.GetValue().ToString() << " " <<
+//                  S2State.GetUnits() << " with " <<
+//                  S2State.GetTimestamp().GetLatency().value() << " seconds of latency" <<
+//                  std::endl;
+//    /**
+//     * Notice when running this example that the second print's latency is always shorter than the first print's latency.
+//     * This is because we explicitly wait for the signal using the WaitForUpdate() method instead of using the Refresh()
+//     * method, which only gets the last cached value (similar to how Phoenix v5 works).
+//     * This can be used to make sure we synchronously update our control loop from the CAN bus, reducing any latency or jitter in
+//     * CAN bus measurements.
+//     * When the device is on a CANivore, the reported latency is very close to the true latency of the sensor, as the CANivore
+//     * timestamps when it receives the frame. This can be further used for latency compensation.
+//     */
+//    std::cout << std::endl;
+ // }
 }
 
 void Robot::DisabledInit() {}

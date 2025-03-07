@@ -300,13 +300,13 @@ namespace ElevatorConstants {
 
     //constexpr int kCANdiID = 6;
 
-    constexpr double kElevatorLevelZero = -0.273;
-    constexpr double kElevatorLevelOne = 1.5;
-    constexpr double kElevatorLevelTwo = 5.0;
+    constexpr double kElevatorLevelZero = 0.445;
+    constexpr double kElevatorLevelOne = 1.2;
+    constexpr double kElevatorLevelTwo = 6.0;
     constexpr double kElevatorLevelThree = 12.25;
-    constexpr double kElevatorLevelFour = 24.0;
+    constexpr double kElevatorLevelFour = 25.8;
     constexpr double kElevatorLevelAlgaeRemoveLow = 4.50;
-    constexpr double kElevatorLevelAlgaeRemoveHigh = 12.0;
+    constexpr double kElevatorLevelAlgaeRemoveHigh = 12.8;
 
 
     constexpr double kElevatorClimbReady = 10.0;
@@ -315,16 +315,16 @@ namespace ElevatorConstants {
     constexpr double kWristHome = 0.06;
     constexpr double kWristSafe = 2.65;
     constexpr double kWristAlgaeRemove = 13.0;
-    constexpr double kWristClimb = 8.5;
+    constexpr double kWristClimb = 7.7;
     constexpr double kWristProcessor = 16.77;
-    constexpr double kWristDeliverHigh = 3.65;
+    constexpr double kWristDeliverHigh = 7.0;
     
-    constexpr double kIntakeCoralTurns = -2.0;
+    constexpr double kIntakeCoralTurns = -3.0;
     constexpr double kDeliveryCoralLowTurns = -2.0;
     constexpr double kDeliveryCoralMiddleTurns = -4.5;
     constexpr double kDeliveryCoralHighTurns = -2.0;
     
-    constexpr double kIntakeAlgaeVolts = 0.6;
-    constexpr double kDeliveryAlgaeVolts = -0.6;
+    constexpr double kIntakeAlgaeVolts = 0.75;
+    constexpr double kDeliveryAlgaeVolts = -0.4;
 
 }
