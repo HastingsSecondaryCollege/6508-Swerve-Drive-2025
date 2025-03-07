@@ -38,6 +38,7 @@ public:
   frc2::CommandPtr ElevatorLevelFourCMD();  
   frc2::CommandPtr ElevatorLevelAlgaeRemoveLowCMD();
   frc2::CommandPtr ElevatorLevelAlgaeRemoveHighCMD();
+  frc2::CommandPtr ReconfigMotionMagicCMD();
 
   void ElevatorClimbReady(units::angle::turn_t ElevatorHeight);
   void ElevatorClimbDesired(units::angle::turn_t ElevatorHeight);
