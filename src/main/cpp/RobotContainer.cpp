@@ -12,6 +12,7 @@
 #include <frc2/command/button/POVButton.h>
 #include <pathplanner/lib/auto/AutoBuilder.h>
 
+
 //PathPlanner
 #include <pathplanner/lib/auto/AutoBuilder.h>
 #include <pathplanner/lib/path/PathPlannerPath.h>
@@ -199,6 +200,7 @@ void RobotContainer::ConfigureButtonBindings() {
       m_elevatorSubsystem.WristSafeCMD(),
     m_elevatorSubsystem.ElevatorLevelFourCMD(),
     frc2::cmd::Wait(0.5_s),
+    m_elevatorSubsystem.ReconfigMotionMagicWristCMD(),
     m_elevatorSubsystem.WristDeveliverHighCMD()
   ));
    
@@ -206,6 +208,8 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&m_stick, 10).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());
     //Elevate to score in Lvl2
   frc2::JoystickButton(&m_stick, 12).OnTrue(m_elevatorSubsystem.ElevatorLevelTwoCMD());
+
+
 
   // Add additional bindings here as needed
 

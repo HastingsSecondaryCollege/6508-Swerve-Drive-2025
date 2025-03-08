@@ -3,7 +3,8 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <pathplanner/lib/auto/AutoBuilder.h>
 #include <pathplanner/lib/controllers/PPHolonomicDriveController.h>
-
+#include <frc2/command/StartEndCommand.h>
+#include "subsystems/CommandSwerveDrivetrain.h"
 
 using namespace subsystems;
 
@@ -76,3 +77,11 @@ void CommandSwerveDrivetrain::StartSimThread()
     });
     m_simNotifier->StartPeriodic(kSimLoopPeriod);
 }
+/*
+frc2::CommandPtr CommandSwerveDrivetrain::MoveForwardsSlowlyCommand(){
+    return frc2::cmd::StartEnd(
+[this] {Drive(0.2_mps, 0_mps, 0_rad_per_s, false);},
+[this] {Drive(0.0_mps, 0_mps, 0_rad_per_s, false); }, {this});
+};
+
+    */

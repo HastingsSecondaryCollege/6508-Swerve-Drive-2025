@@ -35,9 +35,9 @@ ElevatorSubsystem::ElevatorSubsystem()
   wristMotorConfig.Slot0.kP = 10.0;
    wristMotorConfig.Slot0.kA = 0.1;
    wristMotorConfig.Slot0.kV = 0.12;
-  wristMotorConfig.MotionMagic.MotionMagicAcceleration = 20.0_rad_per_s_sq;
-  wristMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 20.0_rad_per_s;
-  wristMotorConfig.MotionMagic.MotionMagicJerk = 200_rad_per_s_cu;
+  wristMotorConfig.MotionMagic.MotionMagicAcceleration = 40.0_rad_per_s_sq;
+  wristMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 40.0_rad_per_s;
+  wristMotorConfig.MotionMagic.MotionMagicJerk = 400_rad_per_s_cu;
 
   coralMotorConfig.Slot0.kS = 0.1;  // To account for friction, add 0.1 V of static feedforward
   coralMotorConfig.Slot0.kV = 0.12; // Kraken X60 is a 500 kV motor, 500 rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts / rotation per second
@@ -292,13 +292,29 @@ frc2::CommandPtr ElevatorSubsystem::ReconfigMotionMagicCMD()
                        {
 // Blank configuration object for a TalonFX based motor
   ctre::phoenix6::configs::TalonFXConfiguration leadElevatorMotorConfig{};
- leadElevatorMotorConfig.Slot0.kP = 20.0;
+ leadElevatorMotorConfig.Slot0.kP = 10.0;
   leadElevatorMotorConfig.Slot0.kA = 0.10; 
   leadElevatorMotorConfig.Slot0.kV = 0.12;
   leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 50.0_rad_per_s_sq;
   leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 80.0_rad_per_s;
    m_leadElevatorMotor.GetConfigurator().Apply(leadElevatorMotorConfig); });
 }
+
+frc2::CommandPtr ElevatorSubsystem::ReconfigMotionMagicWristCMD()
+{
+  return this->RunOnce([this]
+                       {
+// Blank configuration object for a TalonFX based motor
+  ctre::phoenix6::configs::TalonFXConfiguration wristMotorConfig{};
+ wristMotorConfig.Slot0.kP = 10.0;
+   wristMotorConfig.Slot0.kA = 0.1;
+   wristMotorConfig.Slot0.kV = 0.12;
+ wristMotorConfig.MotionMagic.MotionMagicAcceleration = 20.0_rad_per_s_sq;
+  wristMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 20.0_rad_per_s;
+  wristMotorConfig.MotionMagic.MotionMagicJerk = 200_rad_per_s_cu;
+   m_leadElevatorMotor.GetConfigurator().Apply(wristMotorConfig); });
+}
+
 
 // Movement of Wrist methods + CMDs
 // Wrist In is scoring/intake position
