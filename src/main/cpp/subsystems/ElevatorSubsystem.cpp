@@ -28,9 +28,9 @@ ElevatorSubsystem::ElevatorSubsystem()
   leadElevatorMotorConfig.Slot0.kP = 10.0;
   //leadElevatorMotorConfig.Slot0.kA = 0.1;
   //leadElevatorMotorConfig.Slot0.kV = 0.12;
-  leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 200.0_rad_per_s_sq;
-  leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 200.0_rad_per_s;
-  leadElevatorMotorConfig.MotionMagic.MotionMagicJerk = 2000_rad_per_s_cu;
+  leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 300.0_rad_per_s_sq;
+  leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 300.0_rad_per_s;
+  leadElevatorMotorConfig.MotionMagic.MotionMagicJerk = 3000_rad_per_s_cu;
 
   wristMotorConfig.Slot0.kP = 10.0;
    wristMotorConfig.Slot0.kA = 0.1;
