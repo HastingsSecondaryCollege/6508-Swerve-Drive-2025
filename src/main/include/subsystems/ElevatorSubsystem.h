@@ -46,6 +46,9 @@ public:
   frc2::CommandPtr ElevatorClimbReadyCMD();
   frc2::CommandPtr ElevatorClimbDesiredCMD();
 
+
+frc2::CommandPtr JogUpCMD();
+
   void WristHome();
   void WristSafe();
   void WristAlgaeRemove();

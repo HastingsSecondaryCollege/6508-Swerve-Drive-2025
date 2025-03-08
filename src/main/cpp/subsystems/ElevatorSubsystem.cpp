@@ -25,9 +25,9 @@ ElevatorSubsystem::ElevatorSubsystem()
 
   // Set one of the configuration objects. Refer to Phoenix Tuner X to find wait
   // they are callled
-  leadElevatorMotorConfig.Slot0.kP = 20.0;
-  leadElevatorMotorConfig.Slot0.kA = 0.1;
-  leadElevatorMotorConfig.Slot0.kV = 0.12;
+  leadElevatorMotorConfig.Slot0.kP = 10.0;
+  //leadElevatorMotorConfig.Slot0.kA = 0.1;
+  //leadElevatorMotorConfig.Slot0.kV = 0.12;
   leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 200.0_rad_per_s_sq;
   leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 200.0_rad_per_s;
   leadElevatorMotorConfig.MotionMagic.MotionMagicJerk = 2000_rad_per_s_cu;
@@ -35,9 +35,9 @@ ElevatorSubsystem::ElevatorSubsystem()
   wristMotorConfig.Slot0.kP = 10.0;
    wristMotorConfig.Slot0.kA = 0.1;
    wristMotorConfig.Slot0.kV = 0.12;
-  wristMotorConfig.MotionMagic.MotionMagicAcceleration = 60.0_rad_per_s_sq;
-  wristMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 60.0_rad_per_s;
-  leadElevatorMotorConfig.MotionMagic.MotionMagicJerk = 600_rad_per_s_cu;
+  wristMotorConfig.MotionMagic.MotionMagicAcceleration = 20.0_rad_per_s_sq;
+  wristMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 20.0_rad_per_s;
+  wristMotorConfig.MotionMagic.MotionMagicJerk = 200_rad_per_s_cu;
 
   coralMotorConfig.Slot0.kS = 0.1;  // To account for friction, add 0.1 V of static feedforward
   coralMotorConfig.Slot0.kV = 0.12; // Kraken X60 is a 500 kV motor, 500 rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts / rotation per second
@@ -268,15 +268,10 @@ void ElevatorSubsystem::ElevatorClimbReady(units::angle::turn_t ElevatorHeight)
 
 void ElevatorSubsystem::ElevatorClimbDesired(units::angle::turn_t ElevatorHeight)
 {
-  if (m_canClimb)
-  {
+  
     m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
     fmt::println("Just finished Elevator Climb To Top");
-  }
-  else
-  {
-    fmt::println("Cannot Climb");
-  };
+ 
 }
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorClimbReadyCMD()

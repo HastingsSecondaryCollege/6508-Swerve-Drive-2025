@@ -166,22 +166,23 @@ void RobotContainer::ConfigureButtonBindings() {
     ));
 
     
-
+/*
     //Ready Climb
   frc2::POVButton (&m_stick, 0).OnTrue(
     frc2::cmd::Sequence(
-      m_elevatorSubsystem.WristClimbCMD(),
-      m_elevatorSubsystem.ElevatorClimbReadyCMD()
+      m_elevatorSubsystem.WristSafeCMD(),
+      m_elevatorSubsystem.ElevatorClimbReadyCMD(),
+      m_elevatorSubsystem.WristClimbCMD()
+      
     ));
 
     //Complete Climb
   frc2::POVButton(&m_stick, 180).OnTrue(
     frc2::cmd::Sequence(
       m_elevatorSubsystem.ReconfigMotionMagicCMD(),
-      m_elevatorSubsystem.WristClimbCMD(),
       m_elevatorSubsystem.ElevatorClimbDesiredCMD()
     ));
-
+*/
     //Elevate to score in Lvl3
   frc2::JoystickButton(&m_stick, 7).OnTrue(m_elevatorSubsystem.ElevatorLevelThreeCMD());
 
