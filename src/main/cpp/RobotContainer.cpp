@@ -53,7 +53,7 @@ RobotContainer::RobotContainer() {
   NamedCommands::registerCommand("Wrist Deliver High",m_elevatorSubsystem.WristDeveliverHighCMD());
 
   NamedCommands::registerCommand("Intake Coral",m_elevatorSubsystem.IntakeCoralCMD());
-  NamedCommands::registerCommand("Deliver Coral",m_elevatorSubsystem.DeliverCoralMiddleCMD());
+  NamedCommands::registerCommand("Deliver Coral",m_elevatorSubsystem.DeliverCoralCMD());
   
 
 
@@ -123,7 +123,7 @@ void RobotContainer::ConfigureButtonBindings() {
     //Deliver Coral
   frc2::JoystickButton(&m_stick, 2).OnTrue(
     frc2::cmd::Sequence(
-    m_elevatorSubsystem.DeliverCoralMiddleCMD(),
+    m_elevatorSubsystem.DeliverCoralCMD(),
     m_elevatorSubsystem.WristSafeCMD(),
     m_elevatorSubsystem.ElevatorLevelZeroCMD()
     
