@@ -10,19 +10,22 @@
 #include "Telemetry.h"
 #include <frc/Joystick.h>
 #include <frc2/command/button/Trigger.h>
+#include <frc2/command/button/CommandXboxController.h>
 #include <frc2/command/FunctionalCommand.h>
 #include <frc/smartdashboard/SendableChooser.h>
 
 #include "subsystems/ElevatorSubsystem.h"
 #include "generated/TunerConstants.h"
 
-#include <frc/PS4Controller.h>
+
 
 class RobotContainer
 {
 private:
     units::meters_per_second_t MaxSpeed = TunerConstants::kSpeedAt12Volts; // kSpeedAt12Volts desired top speed
     units::radians_per_second_t MaxAngularRate = 0.75_tps;                 // 3/4 of a rotation per second max angular velocity
+
+    
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     swerve::requests::FieldCentric drive = swerve::requests::FieldCentric{}
@@ -37,11 +40,11 @@ private:
     Telemetry logger{MaxSpeed};
 
     frc::Joystick m_stick{0};
-    frc2::CommandXboxController m_driver2Controller{1};
-    
-    // bool joystickControlEnabled = true; // Tracks whether joystick or Xbox controller is in control
+    frc2::CommandXboxController m_pad{1};
 
-    /* Path follower */
+    //bool joystickControlEnabled = true; // Tracks whether joystick or Xbox controller is in control
+
+     /* Path follower */
     frc::SendableChooser<frc2::Command *> autoChooser;
 
 public:
@@ -52,10 +55,13 @@ public:
     frc2::Command *GetAutonomousCommand();
     double ApplyDeadband(double joystickValue, double deadband);
     double ApplyDeadbandSquaredInputs(double joystickValue, double deadband);
+    
 
 private:
-    // Robot Subsystems
-    ElevatorSubsystem m_elevatorSubsystem{};
+
+   
+// Robot Subsystems
+ElevatorSubsystem m_elevatorSubsystem {};
 
     void ConfigureButtonBindings();
 };

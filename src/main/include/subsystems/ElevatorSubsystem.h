@@ -65,15 +65,21 @@ frc2::CommandPtr JogUpCMD();
   frc2::CommandPtr WristDeveliverHighCMD();
 
   void IntakeCoral(units::voltage::volt_t MotorPower);
-  void DeliverCoral(units::voltage::volt_t MotorPower);
+  void DeliverCoralLow(units::voltage::volt_t MotorPower);
+  void DeliverCoralMiddle(units::voltage::volt_t MotorPower);
+  void DeliverCoralHigh(units::voltage::volt_t MotorPower);
   void StopCoralMotor();
+
   void SetIntakePosition(double IntakePosition);
 
   frc2::CommandPtr SetIntakePositionCMD();
 
   frc2::CommandPtr IntakeCoralCMD();
+  frc2::CommandPtr DeliverCoralLowCMD();
+  frc2::CommandPtr DeliverCoralMiddleCMD();
+  frc2::CommandPtr DeliverCoralHighCMD();
 
-  frc2::CommandPtr DeliverCoralCMD();
+
 
   frc2::CommandPtr StopCoralMotorCMD();
 

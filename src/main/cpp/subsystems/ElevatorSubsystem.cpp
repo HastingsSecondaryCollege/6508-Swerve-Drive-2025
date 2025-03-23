@@ -408,12 +408,20 @@ void ElevatorSubsystem::IntakeCoral(units::voltage::volt_t MotorPower)
   m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(MotorPower)); // -2, further testing
 }
 
-
-void ElevatorSubsystem::DeliverCoral(units::voltage::volt_t MotorPower)
+void ElevatorSubsystem::DeliverCoralLow(units::voltage::volt_t MotorPower)
 {
   m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(MotorPower)); // -2
 }
 
+void ElevatorSubsystem::DeliverCoralMiddle(units::voltage::volt_t MotorPower)
+{
+  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(MotorPower)); // -2
+}
+
+void ElevatorSubsystem::DeliverCoralHigh(units::voltage::volt_t MotorPower)
+{
+  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(MotorPower)); // -2
+}
 
 void ElevatorSubsystem::StopCoralMotor()
 {
@@ -458,13 +466,13 @@ frc2::CommandPtr ElevatorSubsystem::IntakeCoralCMD()
       .ToPtr();
 }
 
-frc2::CommandPtr ElevatorSubsystem::DeliverCoralCMD()
+frc2::CommandPtr ElevatorSubsystem::DeliverCoralMiddleCMD()
 {
   return frc2::FunctionalCommand(
              // Init
              [this]
              {
-               DeliverCoral(units::voltage::volt_t(m_deliveryCoralMiddleTurns));
+               DeliverCoralMiddle(units::voltage::volt_t(m_deliveryCoralMiddleTurns));
              },
              // Periodic
              [this] {},

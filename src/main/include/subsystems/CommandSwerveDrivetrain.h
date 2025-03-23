@@ -131,8 +131,6 @@ public:
         ConfigureAutoBuilder();
     }
 
-    frc2::CommandPtr MoveForwardsSlowlyCommand();
-
     /**
      * \brief Constructs a CTRE SwerveDrivetrain using the specified constants.
      *
@@ -295,4 +293,5 @@ private:
 
 }
 
-
+double Drive();
+frc2::CommandPtr MoveForwardsSlowlyCommand();
