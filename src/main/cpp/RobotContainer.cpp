@@ -199,7 +199,6 @@ void RobotContainer::ConfigureButtonBindings() {
       m_elevatorSubsystem.WristSafeCMD(),
     m_elevatorSubsystem.ElevatorLevelFourCMD(),
     frc2::cmd::Wait(0.5_s),
-    m_elevatorSubsystem.ReconfigMotionMagicWristCMD(),
     m_elevatorSubsystem.WristDeveliverHighCMD()
   ));
    
