@@ -268,10 +268,15 @@ void ElevatorSubsystem::ElevatorClimbReady(units::angle::turn_t ElevatorHeight)
 
 void ElevatorSubsystem::ElevatorClimbDesired(units::angle::turn_t ElevatorHeight)
 {
-  
+  if (m_canClimb)
+  {
     m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
     fmt::println("Just finished Elevator Climb To Top");
- 
+  }
+  else
+  {
+    fmt::println("Cannot Climb");
+  };
 }
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorClimbReadyCMD()
