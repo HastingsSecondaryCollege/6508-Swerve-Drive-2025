@@ -26,15 +26,15 @@ ElevatorSubsystem::ElevatorSubsystem()
   // Set one of the configuration objects. Refer to Phoenix Tuner X to find wait
   // they are callled
   leadElevatorMotorConfig.Slot0.kP = 10.0;
-  //leadElevatorMotorConfig.Slot0.kA = 0.1;
-  //leadElevatorMotorConfig.Slot0.kV = 0.12;
+  // leadElevatorMotorConfig.Slot0.kA = 0.1;
+  // leadElevatorMotorConfig.Slot0.kV = 0.12;
   leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 200.0_rad_per_s_sq;
   leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 200.0_rad_per_s;
   leadElevatorMotorConfig.MotionMagic.MotionMagicJerk = 2000_rad_per_s_cu;
 
   wristMotorConfig.Slot0.kP = 10.0;
-   wristMotorConfig.Slot0.kA = 0.1;
-   wristMotorConfig.Slot0.kV = 0.12;
+  wristMotorConfig.Slot0.kA = 0.1;
+  wristMotorConfig.Slot0.kV = 0.12;
   wristMotorConfig.MotionMagic.MotionMagicAcceleration = 80.0_rad_per_s_sq;
   wristMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 80.0_rad_per_s;
   wristMotorConfig.MotionMagic.MotionMagicJerk = 600_rad_per_s_cu;
@@ -88,9 +88,7 @@ void ElevatorSubsystem::Periodic()
   m_wristDeliverHighPosition = kWristDeliverHigh;
 
   m_intakeCoralTurns = kIntakeCoralTurns;
-  m_deliveryCoralLowTurns = kDeliveryCoralLowTurns;
-  m_deliveryCoralMiddleTurns = kDeliveryCoralMiddleTurns;
-  m_deliveryCoralHighTurns = kDeliveryCoralHighTurns;
+  m_deliveryCoralTurns = kDeliveryCoralTurns;
 
   m_intakeAlgaeTurns = kIntakeAlgaeVolts;
   m_deliveryAlgaeTurns = kDeliveryAlgaeVolts;
@@ -268,10 +266,9 @@ void ElevatorSubsystem::ElevatorClimbReady(units::angle::turn_t ElevatorHeight)
 
 void ElevatorSubsystem::ElevatorClimbDesired(units::angle::turn_t ElevatorHeight)
 
-  {
-    m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
-    fmt::println("Just finished Elevator Climb To Top");
-  
+{
+  m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
+  fmt::println("Just finished Elevator Climb To Top");
 }
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorClimbReadyCMD()
@@ -299,9 +296,6 @@ frc2::CommandPtr ElevatorSubsystem::ReconfigMotionMagicCMD()
   leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 80.0_rad_per_s;
    m_leadElevatorMotor.GetConfigurator().Apply(leadElevatorMotorConfig); });
 }
-
-
-
 
 // Movement of Wrist methods + CMDs
 // Wrist In is scoring/intake position
@@ -395,20 +389,12 @@ void ElevatorSubsystem::IntakeCoral(units::voltage::volt_t MotorPower)
   m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(MotorPower)); // -2, further testing
 }
 
-void ElevatorSubsystem::DeliverCoralLow(units::voltage::volt_t MotorPower)
+
+void ElevatorSubsystem::DeliverCoral(units::voltage::volt_t MotorPower)
 {
   m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(MotorPower)); // -2
 }
 
-void ElevatorSubsystem::DeliverCoralMiddle(units::voltage::volt_t MotorPower)
-{
-  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(MotorPower)); // -2
-}
-
-void ElevatorSubsystem::DeliverCoralHigh(units::voltage::volt_t MotorPower)
-{
-  m_scoringMotor.SetControl(m_percentagePowerCoral.WithOutput(MotorPower)); // -2
-}
 
 void ElevatorSubsystem::StopCoralMotor()
 {
@@ -453,13 +439,13 @@ frc2::CommandPtr ElevatorSubsystem::IntakeCoralCMD()
       .ToPtr();
 }
 
-frc2::CommandPtr ElevatorSubsystem::DeliverCoralMiddleCMD()
+frc2::CommandPtr ElevatorSubsystem::DeliverCoralCMD()
 {
   return frc2::FunctionalCommand(
              // Init
              [this]
              {
-               DeliverCoralMiddle(units::voltage::volt_t(m_deliveryCoralMiddleTurns));
+               DeliverCoral(units::voltage::volt_t(m_deliveryCoralTurns));
              },
              // Periodic
              [this] {},
@@ -548,7 +534,8 @@ frc2::CommandPtr ElevatorSubsystem::DeliverAlgaeCMD()
              {this}
 
              )
-      .ToPtr().WithTimeout(1_s);
+      .ToPtr()
+      .WithTimeout(1_s);
 }
 
 bool ElevatorSubsystem::CanWeClimb()

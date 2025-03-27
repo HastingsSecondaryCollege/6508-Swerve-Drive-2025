@@ -293,5 +293,4 @@ private:
 
 }
 
-double Drive();
-frc2::CommandPtr MoveForwardsSlowlyCommand();
+//frc2::CommandPtr MoveForwardsSlowlyCommand();

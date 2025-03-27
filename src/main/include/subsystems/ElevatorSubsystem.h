@@ -62,9 +62,7 @@ public:
   frc2::CommandPtr WristDeveliverHighCMD();
 
   void IntakeCoral(units::voltage::volt_t MotorPower);
-  void DeliverCoralLow(units::voltage::volt_t MotorPower);
-  void DeliverCoralMiddle(units::voltage::volt_t MotorPower);
-  void DeliverCoralHigh(units::voltage::volt_t MotorPower);
+  void DeliverCoral(units::voltage::volt_t MotorPower);
   void StopCoralMotor();
 
   void SetIntakePosition(double IntakePosition);
@@ -72,9 +70,8 @@ public:
   frc2::CommandPtr SetIntakePositionCMD();
 
   frc2::CommandPtr IntakeCoralCMD();
-  frc2::CommandPtr DeliverCoralLowCMD();
-  frc2::CommandPtr DeliverCoralMiddleCMD();
-  frc2::CommandPtr DeliverCoralHighCMD();
+  frc2::CommandPtr DeliverCoralCMD();
+  
 
 
 
@@ -117,9 +114,7 @@ public:
   double m_wristDeliverHighPosition;
 
   double m_intakeCoralTurns;
-  double m_deliveryCoralLowTurns;
-  double m_deliveryCoralMiddleTurns;
-  double m_deliveryCoralHighTurns;
+  double m_deliveryCoralTurns;
 
   double m_intakeAlgaeTurns;
   double m_deliveryAlgaeTurns;
