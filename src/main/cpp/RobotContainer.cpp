@@ -104,8 +104,8 @@ void RobotContainer::ConfigureButtonBindings() {
     //
 
     //Reset Robot Pose
-    //frc2::JoystickButton(&m_stick, 11).OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
-    //drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
+    frc2::JoystickButton(&m_stick, 11).OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
+    drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
 
 
     //Intake Coral

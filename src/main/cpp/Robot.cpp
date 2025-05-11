@@ -4,12 +4,13 @@
 
 #include "Robot.h"
 #include <frc/smartdashboard/SmartDashboard.h>
- 
+#include <frc/smartdashboard/Field2d.h>
 #include <frc2/command/CommandScheduler.h>
 #include <cameraserver/CameraServer.h>
 #include "subsystems/LimelightHelpers.h"
 #include <iostream>
 
+frc::Field2d m_field;
 constexpr units::time::second_t print_period{500_ms};
 
 Robot::Robot() {
@@ -22,9 +23,13 @@ Robot::Robot() {
 
   /* Speed up signals to an appropriate rate */
   BaseStatusSignal::SetUpdateFrequencyForAll(100_Hz, candi.GetPWM1Position(), candi.GetPWM1Velocity(), candi.GetS2State());
+
 }
 
 void Robot::RobotInit(){
+
+// Do this in either robot or subsystem init
+frc::SmartDashboard::PutData("Field", &m_field);
 
 cs::UsbCamera camera = frc::CameraServer::StartAutomaticCapture();
 camera.SetResolution(640, 480);
@@ -80,6 +85,11 @@ frc::SmartDashboard::PutNumber("Delivery Turns Per Second", -6.0);
 }
 
 void Robot::RobotPeriodic() {
+
+  // Do this in either robot periodic or subsystem periodic
+//m_field.SetRobotPose(m_odometry.GetPose());
+m_field.SetRobotPose(m_container.drivetrain.GetState().Pose);
+
  
   frc2::CommandScheduler::GetInstance().Run();
 // /* Every print_period get the CANdi position/velocity and report it */
