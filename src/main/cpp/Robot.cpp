@@ -35,18 +35,6 @@ cs::UsbCamera camera = frc::CameraServer::StartAutomaticCapture();
 camera.SetResolution(640, 480);
 camera.SetFPS(30);
 
-if (kUseLimelight) {
-    auto const driveState = m_container.drivetrain.GetState();
-    auto const heading = driveState.Pose.Rotation().Degrees();
-    auto const omega = driveState.Speeds.omega;
-
-    LimelightHelpers::SetRobotOrientation("limelight", heading.value(), 0, 0, 0, 0, 0);
-    auto llMeasurement = LimelightHelpers::getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
-    if (llMeasurement && llMeasurement->tagCount > 0 && units::math::abs(omega) < 2_tps) {
-      m_container.drivetrain.AddVisionMeasurement(llMeasurement->pose, llMeasurement->timestampSeconds);
-    }
-  }
-
 /*
 frc::SmartDashboard::PutNumber("Elevator Level Zero", 0.44);
 frc::SmartDashboard::PutNumber("Elevator Level One", 8.0);
@@ -65,6 +53,7 @@ frc::SmartDashboard::PutNumber("Intake Turns Per Second", -6.0);
 frc::SmartDashboard::PutNumber("Delivery Turns Per Second", -6.0);
 
 */
+
 /*
   frc::Preferences::InitDouble("Elevator Level Zero", 0.44);
   frc::Preferences::InitDouble("Elevator Level One", 8.0);
@@ -87,11 +76,27 @@ frc::SmartDashboard::PutNumber("Delivery Turns Per Second", -6.0);
 void Robot::RobotPeriodic() {
 
   // Do this in either robot periodic or subsystem periodic
-//m_field.SetRobotPose(m_odometry.GetPose());
+
+
+  frc2::CommandScheduler::GetInstance().Run();
+
+
+//Not sure if I need this
+//LimelightHelpers::setPipelineIndex("limelight", 0);  // Replace 0 with the correct pipeline index
+
 m_field.SetRobotPose(m_container.drivetrain.GetState().Pose);
 
- 
-  frc2::CommandScheduler::GetInstance().Run();
+  if (kUseLimelight) {
+    auto const driveState = m_container.drivetrain.GetState();
+    auto const heading = driveState.Pose.Rotation().Degrees();
+    auto const omega = driveState.Speeds.omega;
+
+    LimelightHelpers::SetRobotOrientation("limelight", heading.value(), 0, 0, 0, 0, 0);
+    auto llMeasurement = LimelightHelpers::getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+    if (llMeasurement && llMeasurement->tagCount > 0 && units::math::abs(omega) < 2_tps) {
+      m_container.drivetrain.AddVisionMeasurement(llMeasurement->pose, llMeasurement->timestampSeconds);
+    }
+  }
 // /* Every print_period get the CANdi position/velocity and report it */
 //  if (frc::Timer::GetFPGATimestamp() - currentTime >= print_period) {
 //    currentTime += print_period;

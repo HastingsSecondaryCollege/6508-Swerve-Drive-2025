@@ -71,10 +71,8 @@ public:
 
   frc2::CommandPtr IntakeCoralCMD();
   frc2::CommandPtr DeliverCoralCMD();
+  frc2::CommandPtr JogCoralCMD();
   
-
-
-
   frc2::CommandPtr StopCoralMotorCMD();
 
   void IntakeAlgae(units::voltage::volt_t MotorPower);

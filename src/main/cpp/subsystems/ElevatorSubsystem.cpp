@@ -31,6 +31,8 @@ ElevatorSubsystem::ElevatorSubsystem()
   leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 200.0_rad_per_s_sq;
   leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 200.0_rad_per_s;
   leadElevatorMotorConfig.MotionMagic.MotionMagicJerk = 2000_rad_per_s_cu;
+  leadElevatorMotorConfig.Voltage.PeakForwardVoltage = 50_V;
+  leadElevatorMotorConfig.Voltage.PeakReverseVoltage = -25_V;
 
   wristMotorConfig.Slot0.kP = 10.0;
   wristMotorConfig.Slot0.kA = 0.1;
@@ -461,6 +463,13 @@ frc2::CommandPtr ElevatorSubsystem::DeliverCoralCMD()
 
              )
       .ToPtr();
+}
+
+frc2::CommandPtr ElevatorSubsystem::JogCoralCMD()
+{
+  return this->RunOnce(
+    [this]{ SetIntakePosition(IntakePositionPlusThree());}
+    );  
 }
 
 void ElevatorSubsystem::IntakeAlgae(units::voltage::volt_t MotorPower)
