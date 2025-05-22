@@ -227,7 +227,7 @@ void RobotContainer::ConfigureButtonBindings() {
 
 frc2::JoystickButton(&m_stick, 11).OnTrue(
     AutoBuilder::pathfindThenFollowPath(
-        PathPlannerPath::fromPathFile("Reef to Reef"),
+        PathPlannerPath::fromPathFile("Move Right"),
         PathConstraints(
             1.0_mps, 1.0_mps_sq,
             540_deg_per_s, 720_deg_per_s_sq
