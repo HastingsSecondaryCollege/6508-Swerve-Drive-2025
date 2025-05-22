@@ -12,17 +12,20 @@
 
 frc::Field2d m_field;
 constexpr units::time::second_t print_period{500_ms};
+units::second_t currentTime = 0_s;
+
 
 Robot::Robot() {
   /* Configure CANdi */
   configs::CANdiConfiguration toApply{};
+  
 
   /* User can change the configs if they want, or leave it empty for factory-default */
 
   candi.GetConfigurator().Apply(toApply);
 
   /* Speed up signals to an appropriate rate */
-  BaseStatusSignal::SetUpdateFrequencyForAll(100_Hz, candi.GetPWM1Position(), candi.GetPWM1Velocity(), candi.GetS2State());
+  BaseStatusSignal::SetUpdateFrequencyForAll(50_Hz, candi.GetPWM1Position(), candi.GetPWM1Velocity(), candi.GetS2State());
 
 }
 
