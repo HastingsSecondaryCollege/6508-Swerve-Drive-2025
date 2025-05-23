@@ -121,8 +121,8 @@ void RobotContainer::ConfigureButtonBindings() {
     //
 
     //Reset Robot Pose
-   // frc2::JoystickButton(&m_stick, 11).OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
-    //drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
+    frc2::JoystickButton(&m_stick, 10).OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
+    drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
 
 
     //Intake Coral
@@ -219,15 +219,16 @@ void RobotContainer::ConfigureButtonBindings() {
   ));
    
     //Elevate to score in Lvl1
-  frc2::JoystickButton(&m_stick, 10).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());
+  //frc2::JoystickButton(&m_stick, 10).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());
     //Elevate to score in Lvl2
   frc2::JoystickButton(&m_stick, 12).OnTrue(m_elevatorSubsystem.ElevatorLevelTwoCMD());
 
+
   //Auto Driving Button Bindings
 
-frc2::JoystickButton(&m_stick, 11).OnTrue(
+frc2::JoystickButton(&m_stick, 11).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
-        PathPlannerPath::fromPathFile("Move Right"),
+        PathPlannerPath::fromPathFile("Feed Right"),
         PathConstraints(
             1.0_mps, 1.0_mps_sq,
             540_deg_per_s, 720_deg_per_s_sq
