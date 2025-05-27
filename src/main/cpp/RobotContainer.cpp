@@ -75,6 +75,23 @@ autoChooser = pathplanner::AutoBuilder::buildAutoChooser("Tests");
         })
     );
     
+/*
+//Pathfind and Then Follow Path - I don't think I need this anymore
+
+// Load the path we want to pathfind to and follow
+auto path = PathPlannerPath::fromPathFile("Reef to Reef");
+
+// Create the constraints to use while pathfinding. The constraints defined in the path will only be used for the path.
+PathConstraints constraints = PathConstraints(
+    1.0_mps, 1.0_mps_sq,
+    540_deg_per_s, 720_deg_per_s_sq);
+
+// Since AutoBuilder is configured, we can use it to build pathfinding commands
+frc2::CommandPtr pathfindingCommand = AutoBuilder::pathfindThenFollowPath(
+    path,
+    constraints
+);
+*/
 }
 
 // Apply a deadband to joystick input, ensuring small inputs are ignored
@@ -104,7 +121,7 @@ void RobotContainer::ConfigureButtonBindings() {
     //
 
     //Reset Robot Pose
-    frc2::JoystickButton(&m_stick, 11).OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
+    frc2::JoystickButton(&m_stick, 10).OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
 
 
@@ -202,9 +219,24 @@ void RobotContainer::ConfigureButtonBindings() {
   ));
    
     //Elevate to score in Lvl1
-  frc2::JoystickButton(&m_stick, 10).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());
+  //frc2::JoystickButton(&m_stick, 10).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());
     //Elevate to score in Lvl2
   frc2::JoystickButton(&m_stick, 12).OnTrue(m_elevatorSubsystem.ElevatorLevelTwoCMD());
+
+
+  //Auto Driving Button Bindings
+
+frc2::JoystickButton(&m_stick, 11).WhileTrue(
+    AutoBuilder::pathfindThenFollowPath(
+        PathPlannerPath::fromPathFile("Feed Right"),
+        PathConstraints(
+            1.0_mps, 1.0_mps_sq,
+            540_deg_per_s, 720_deg_per_s_sq
+        )
+    )
+);
+
+
 
 
 //frc2::POVButton (&m_stick, 0).WhileTrue(m_drive.MoveForwardsSlowlyCommand());

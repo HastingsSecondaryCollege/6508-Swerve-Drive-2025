@@ -5,8 +5,13 @@
 #include <pathplanner/lib/controllers/PPHolonomicDriveController.h>
 #include <frc2/command/StartEndCommand.h>
 #include "subsystems/CommandSwerveDrivetrain.h"
+#include <pathplanner/lib/config/RobotConfig.h>
+#include <frc/geometry/Pose2d.h>
+#include <frc/kinematics/ChassisSpeeds.h>
+
 
 using namespace subsystems;
+using namespace pathplanner;
 
 void CommandSwerveDrivetrain::ConfigureAutoBuilder()
 {
