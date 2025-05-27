@@ -62,6 +62,13 @@ ElevatorSubsystem::ElevatorSubsystem()
   // Set neutral on elevators to brake
   m_scoringMotor.SetNeutralMode(true);
   m_leadElevatorMotor.SetNeutralMode(true);
+
+/*    Secondsensor settings, TBD (using default values)
+  SecondSensor = new grpl::LaserCan(60);
+  SecondSensor->set_ranging_mode(grpl::LaserCanRangingMode::Short);   Short
+  SecondSensor->set_timing_budget(grpl::LaserCanTimingBudget::TB100ms); 100ms
+  SecondSensor->set_roi(grpl::LaserCanROI{8,8,16,16});    8,8,16,16
+  //*/
 }
 // End of ArmSubsystem Constructor
 
