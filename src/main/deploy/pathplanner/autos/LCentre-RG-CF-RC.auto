@@ -5,15 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Back of Reef"
+            "name": "Reset Pose"
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Wrist Safe"
+            "pathName": "LCentre to Reef G"
           }
         },
         {
@@ -25,19 +25,43 @@
         {
           "type": "named",
           "data": {
-            "name": "Wrist Deliver High"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "Deliver Coral"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Wrist Safe"
+            "name": "Elevator Zero"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Reef G to Close Feed"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Close Feed to Reef C"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Elevator Four"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Deliver Coral"
           }
         },
         {
@@ -50,6 +74,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Regional Autos",
+  "folder": "DDU Autos",
   "choreoAuto": false
 }

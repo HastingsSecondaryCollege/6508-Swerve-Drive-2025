@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3661079545454546,
-        "y": 0.57981534090909
+        "x": 6.9202840909090915,
+        "y": 4.079843750004986
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3561363636363635,
-        "y": 1.33765625
+        "x": 6.23032988991442,
+        "y": 3.916434575707036
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "G-H Selection Point"
     },
     {
       "anchor": {
-        "x": 1.3661079545454546,
-        "y": 2.703764204545455
+        "x": 5.793494318181818,
+        "y": 3.840525568181818
       },
       "prevControl": {
-        "x": 1.3461647727272728,
-        "y": 2.0256960227272724
+        "x": 6.073007871255431,
+        "y": 3.912451249733044
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Reef G"
     }
   ],
   "rotationTargets": [],
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Other Paths",
+  "folder": "Auto Drive Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

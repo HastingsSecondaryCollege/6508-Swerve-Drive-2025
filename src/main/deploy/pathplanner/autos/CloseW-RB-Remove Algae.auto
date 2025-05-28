@@ -1,0 +1,79 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Reset Pose"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Close to Reef B"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Elevator Four"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Deliver Coral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Elevator Zero"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Back off Reef B"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Line up with A-B Algae B"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Reset Pose"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Drive to A-B Algae"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "DDU Autos",
+  "choreoAuto": false
+}

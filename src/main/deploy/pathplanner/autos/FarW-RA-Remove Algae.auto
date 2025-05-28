@@ -5,15 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Back of Reef"
+            "name": "Reset Pose"
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Wrist Safe"
+            "pathName": "Far to Reef A"
           }
         },
         {
@@ -25,19 +25,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Wrist Deliver High"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "Deliver Coral"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Wrist Safe"
           }
         },
         {
@@ -45,11 +33,35 @@
           "data": {
             "name": "Elevator Zero"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Back off Reef A"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Line up with A-B Algae A"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Reset Pose"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Drive to A-B Algae"
+          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Regional Autos",
+  "folder": "DDU Autos",
   "choreoAuto": false
 }

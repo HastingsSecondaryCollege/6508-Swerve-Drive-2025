@@ -7,13 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Back of Reef"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Wrist Safe"
+            "pathName": "RCentre to Reef H"
           }
         },
         {
@@ -25,19 +19,43 @@
         {
           "type": "named",
           "data": {
-            "name": "Wrist Deliver High"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "Deliver Coral"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Wrist Safe"
+            "name": "Elevator Zero"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Reef H to Far Feed"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Far Feed to Reef L"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Elevator Four"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Deliver Coral"
           }
         },
         {
@@ -50,6 +68,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Regional Autos",
+  "folder": "DDU Autos",
   "choreoAuto": false
 }
