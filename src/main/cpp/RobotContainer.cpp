@@ -200,7 +200,8 @@ void RobotContainer::ConfigureButtonBindings() {
     ));
 
     //Elevate to score in Lvl3
-  frc2::JoystickButton(&m_stick, 7).OnTrue(m_elevatorSubsystem.ElevatorLevelThreeCMD());
+  frc2::JoystickButton(&m_stick, 7).OnTrue(m_elevatorSubsystem.ElevatorLevelThreeCMD()),
+  m_elevatorSubsystem.WristSafeCMD();
 
     //Drop to bottom
   frc2::JoystickButton(&m_stick, 8).OnTrue(
@@ -221,7 +222,8 @@ void RobotContainer::ConfigureButtonBindings() {
     //Elevate to score in Lvl1
   //frc2::JoystickButton(&m_stick, 10).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());
     //Elevate to score in Lvl2
-  frc2::JoystickButton(&m_stick, 12).OnTrue(m_elevatorSubsystem.ElevatorLevelTwoCMD());
+  frc2::JoystickButton(&m_stick, 12).OnTrue(m_elevatorSubsystem.ElevatorLevelTwoCMD()),
+  m_elevatorSubsystem.WristSafeCMD();
 
 
   //Auto Driving Button Bindings
