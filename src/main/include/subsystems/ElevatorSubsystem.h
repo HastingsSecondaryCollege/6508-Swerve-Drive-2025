@@ -87,13 +87,14 @@ public:
   bool m_canClimb = false; //set canClimb to false by default
   bool CanWeClimb();
 
-  bool IsCoralLoaded();
+  bool HasCoralReachedIntake();
+  bool IsCoralTooFar();
 
   bool m_isScoringHeight = false;
   bool GetScoringHeight();
 
   double m_getIntakePosition;
-  double IntakePositionPlusThree();
+  double IntakePositionMinusThree();
 
   double  m_elevatorLevelZeroHeight;
   double  m_elevatorLevelOneHeight;
@@ -113,7 +114,9 @@ public:
   double m_wristClimbPosition;
   double m_wristDeliverHighPosition;
 
-  double m_intakeCoralTurns;
+  double m_intakeCoralTurnsFast;
+  double m_intakeCoralTurnsSlow;
+
   double m_deliveryCoralTurns;
 
   double m_intakeAlgaeTurns;
@@ -132,8 +135,12 @@ private:
   ctre::phoenix6::hardware::TalonFX m_followElevatorMotor{ElevatorConstants::kFollowerElevatorMotorID};
 
   ctre::phoenix6::hardware::TalonFX m_wristMotor{ElevatorConstants::kWristMotorID};
-  ctre::phoenix6::hardware::CANrange m_wristSensor{ElevatorConstants::kWristSensor};
   ctre::phoenix6::hardware::TalonFX m_scoringMotor{ElevatorConstants::kScoringMotorID};
+
+  ctre::phoenix6::hardware::CANrange m_coralSensorForward{ElevatorConstants::kCoralSensorForward};
+  ctre::phoenix6::hardware::CANrange m_coralSensorBack{ElevatorConstants::kCoralSensorBack};
+  ctre::phoenix6::hardware::CANrange m_algaeSensor{ElevatorConstants::kAlgaeSensor};
+
 
   //Postion Control Objects
 

@@ -96,7 +96,8 @@ void ElevatorSubsystem::Periodic()
   m_wristClimbPosition = kWristClimb;
   m_wristDeliverHighPosition = kWristDeliverHigh;
 
-  m_intakeCoralTurns = kIntakeCoralTurns;
+  m_intakeCoralTurnsFast = kIntakeCoralTurnsFast;
+  m_intakeCoralTurnsSlow = kIntakeCoralTurnsSlow;
   m_deliveryCoralTurns = kDeliveryCoralTurns;
 
   m_intakeAlgaeTurns = kIntakeAlgaeVolts;
@@ -105,17 +106,22 @@ void ElevatorSubsystem::Periodic()
   m_getIntakePosition = m_scoringMotor.GetPosition().GetValueAsDouble();
 }
 /**/
-double ElevatorSubsystem::IntakePositionPlusThree()
+double ElevatorSubsystem::IntakePositionMinusThree()
 {
-  return (m_getIntakePosition + 3.0);
+  return (m_getIntakePosition - 3.0);
   // return (m_getIntakePosition() + 3.0);
 
   // return (m_scoringMotor.GetPosition().GetValueAsDouble() + 3.0);
 }
 
-bool ElevatorSubsystem::IsCoralLoaded()
+bool ElevatorSubsystem::HasCoralReachedIntake()
 {
-  return (m_wristSensor.GetIsDetected().GetValue());
+  return (m_coralSensorForward.GetIsDetected().GetValue());
+}
+
+bool ElevatorSubsystem::IsCoralTooFar()
+{
+  return (m_coralSensorBack.GetIsDetected().GetValue());
 }
 
 // This drives the motor to set turns
@@ -427,20 +433,24 @@ frc2::CommandPtr ElevatorSubsystem::IntakeCoralCMD()
              // Init
              [this]
              {
-               IntakeCoral(units::voltage::volt_t(m_intakeCoralTurns));
+               IntakeCoral(units::voltage::volt_t(m_intakeCoralTurnsFast));
              },
              // Periodic
-             [this] {},
+             [this] {
+              if (ElevatorSubsystem::HasCoralReachedIntake()){
+                IntakeCoral(units::voltage::volt_t(m_intakeCoralTurnsSlow));
+              }
+             },
              // Command End
              [this](bool interrupted)
              {
-               SetIntakePosition(IntakePositionPlusThree());
+               SetIntakePosition(IntakePositionMinusThree());
                StopCoralMotor();
                fmt::println("Just finished Intake Coral CMD");
              },
              // isFinished
              [this]
-             { return IsCoralLoaded(); },
+             { return IsCoralTooFar();},
 
              {this}
 
@@ -466,7 +476,7 @@ frc2::CommandPtr ElevatorSubsystem::DeliverCoralCMD()
              },
              // isFinished
              [this]
-             { return !IsCoralLoaded(); }
+             { return !HasCoralReachedIntake(); }
 
              )
       .ToPtr();
@@ -475,7 +485,7 @@ frc2::CommandPtr ElevatorSubsystem::DeliverCoralCMD()
 frc2::CommandPtr ElevatorSubsystem::JogCoralCMD()
 {
   return this->RunOnce(
-    [this]{ SetIntakePosition(IntakePositionPlusThree());}
+    [this]{ SetIntakePosition(IntakePositionMinusThree());}
     );  
 }
 
