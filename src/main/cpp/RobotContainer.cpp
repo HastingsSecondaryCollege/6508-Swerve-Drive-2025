@@ -56,6 +56,7 @@ RobotContainer::RobotContainer() {
 
   NamedCommands::registerCommand("Intake Coral",m_elevatorSubsystem.IntakeCoralCMD());
   NamedCommands::registerCommand("Deliver Coral",m_elevatorSubsystem.DeliverCoralCMD());
+  NamedCommands::registerCommand("Intake Algae",m_elevatorSubsystem.IntakeAlgaeCMD());
   
 
 

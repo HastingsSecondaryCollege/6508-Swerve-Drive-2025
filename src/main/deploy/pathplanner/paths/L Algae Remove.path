@@ -3,45 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.169573863636364,
-        "y": 4.209474431813195
+        "x": 3.719403409095895,
+        "y": 5.1069176136413486
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.561306818181818,
-        "y": 4.169588068176832
+        "x": 2.891761363636364,
+        "y": 5.266463068181817
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Reef L"
     },
     {
       "anchor": {
-        "x": 5.783522727277714,
-        "y": 4.209474431813195
+        "x": 3.8490340909090905,
+        "y": 5.216605113636364
       },
       "prevControl": {
-        "x": 6.242215909090909,
-        "y": 4.2393892045454535
+        "x": 4.048465909090909,
+        "y": 6.024303977272727
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Reef H"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "Wrist Safe",
-      "waypointRelativePos": 0.05,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 0.5,
+    "maxAcceleration": 0.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -49,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -62.04903097210972
   },
   "reversed": false,
   "folder": "DDU Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -59.99999999999999
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

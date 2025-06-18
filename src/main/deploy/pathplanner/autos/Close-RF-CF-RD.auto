@@ -13,13 +13,31 @@
         {
           "type": "named",
           "data": {
+            "name": "Wrist Safe"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "Elevator Four"
           }
         },
         {
           "type": "named",
           "data": {
+            "name": "Wrist Deliver High"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "Deliver Coral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Wrist Safe"
           }
         },
         {
@@ -37,7 +55,25 @@
         {
           "type": "named",
           "data": {
+            "name": "Intake Coral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Close Feed to Reef D"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "Elevator Four"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Wrist Deliver High"
           }
         },
         {
@@ -49,13 +85,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Elevator Zero"
+            "name": "Wrist Safe"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Close Feed to Reef D"
+            "name": "Elevator Zero"
           }
         }
       ]
