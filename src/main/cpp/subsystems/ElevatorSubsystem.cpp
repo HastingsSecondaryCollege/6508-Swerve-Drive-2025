@@ -585,7 +585,7 @@ frc2::CommandPtr ElevatorSubsystem::DeliverAlgaeCMD()
 
              )
       .ToPtr()
-      .WithTimeout(1_s);
+      .WithTimeout(3_s);
 }
 
 bool ElevatorSubsystem::CanWeClimb()

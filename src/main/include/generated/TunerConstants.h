@@ -326,7 +326,7 @@ namespace ElevatorConstants {
     constexpr double kDeliveryCoralTurns = -4.5;
     constexpr double kIntakeCoralRetractTurns = 1.0;
 
-    constexpr double kIntakeAlgaeVolts = 3;
-    constexpr double kDeliveryAlgaeVolts = -0.4;
+    constexpr double kIntakeAlgaeVolts = 3.2;
+    constexpr double kDeliveryAlgaeVolts = -3.0;
 
 }
