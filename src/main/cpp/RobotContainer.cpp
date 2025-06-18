@@ -121,7 +121,7 @@ void RobotContainer::ConfigureButtonBindings() {
     //
 
     //Reset Robot Pose
-    frc2::JoystickButton(&m_stick, 10).OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
+    frc2::JoystickButton(&m_stick, 11).OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
 
 
@@ -159,8 +159,8 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&m_stick, 6).OnTrue(
     frc2::cmd::Sequence(
      m_elevatorSubsystem.DeliverAlgaeCMD(),
-     //frc2::cmd::Wait(2.0_s),
-     m_elevatorSubsystem.WristSafeCMD()
+     frc2::cmd::Wait(2.0_s)
+    // m_elevatorSubsystem.WristSafeCMD()
     )
   );
 
@@ -179,6 +179,7 @@ void RobotContainer::ConfigureButtonBindings() {
         m_elevatorSubsystem.WristAlgaeRemoveCMD(),
         m_elevatorSubsystem.ElevatorLevelAlgaeRemoveHighCMD(),
         m_elevatorSubsystem.IntakeAlgaeCMD(),
+        frc2::cmd::Wait(2.0_s),
          m_elevatorSubsystem.ElevatorLevelZeroCMD()
     ));
 
@@ -220,14 +221,14 @@ void RobotContainer::ConfigureButtonBindings() {
   ));
    
     //Elevate to score in Lvl1
-  //frc2::JoystickButton(&m_stick, 10).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());
+  frc2::JoystickButton(&m_stick, 10).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());
     //Elevate to score in Lvl2
   frc2::JoystickButton(&m_stick, 12).OnTrue(m_elevatorSubsystem.ElevatorLevelTwoCMD()),
   m_elevatorSubsystem.WristSafeCMD();
 
 
   //Auto Driving Button Bindings
-
+/*
 frc2::JoystickButton(&m_stick, 11).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Feed Right"),
@@ -237,7 +238,7 @@ frc2::JoystickButton(&m_stick, 11).WhileTrue(
         )
     )
 );
-
+//*/
 
 
 

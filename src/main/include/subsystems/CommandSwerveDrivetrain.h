@@ -286,6 +286,8 @@ public:
         TunerSwerveDrivetrain::AddVisionMeasurement(std::move(visionRobotPose), utils::FPGAToCurrentTime(timestamp), visionMeasurementStdDevs);
     }
 
+    frc2::CommandPtr MoveForwardsSlowlyCommand();
+
 private:
     void StartSimThread();
     void ConfigureAutoBuilder();
@@ -293,4 +295,3 @@ private:
 
 }
 
-//frc2::CommandPtr MoveForwardsSlowlyCommand();

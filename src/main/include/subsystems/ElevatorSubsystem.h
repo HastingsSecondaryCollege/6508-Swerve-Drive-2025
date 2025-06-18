@@ -90,11 +90,15 @@ public:
   bool HasCoralReachedIntake();
   bool IsCoralTooFar();
 
+  bool IsAlgaeInIntake();
+
   bool m_isScoringHeight = false;
   bool GetScoringHeight();
 
   double m_getIntakePosition;
-  double IntakePositionMinusThree();
+  
+  double IntakePositionPlusOne();
+  double IntakePositionMinusOne();
 
   double  m_elevatorLevelZeroHeight;
   double  m_elevatorLevelOneHeight;
@@ -116,6 +120,7 @@ public:
 
   double m_intakeCoralTurnsFast;
   double m_intakeCoralTurnsSlow;
+  double m_intakeCoralRetractTurns;
 
   double m_deliveryCoralTurns;
 

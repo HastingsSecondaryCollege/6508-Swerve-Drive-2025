@@ -295,8 +295,8 @@ namespace ElevatorConstants {
     constexpr int kWristMotorID = 60;  
 
     constexpr int kCoralSensorForward = 8; 
-    constexpr int kCoralSensorBack = 7; // Double check these 2 values before commit
-    constexpr int kAlgaeSensor = 6;     //
+    constexpr int kCoralSensorBack = 7; 
+    constexpr int kAlgaeSensor = 6;    
 
     constexpr int kScoringMotorID = 61;
 
@@ -324,8 +324,9 @@ namespace ElevatorConstants {
     constexpr double kIntakeCoralTurnsFast = -3.0;
     constexpr double kIntakeCoralTurnsSlow = -2.0;
     constexpr double kDeliveryCoralTurns = -4.5;
+    constexpr double kIntakeCoralRetractTurns = 1.0;
 
-    constexpr double kIntakeAlgaeVolts = 0.75;
+    constexpr double kIntakeAlgaeVolts = 3;
     constexpr double kDeliveryAlgaeVolts = -0.4;
 
 }

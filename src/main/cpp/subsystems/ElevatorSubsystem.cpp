@@ -44,7 +44,7 @@ ElevatorSubsystem::ElevatorSubsystem()
 
   coralMotorConfig.Slot0.kS = 0.1;  // To account for friction, add 0.1 V of static feedforward
   coralMotorConfig.Slot0.kV = 0.12; // Kraken X60 is a 500 kV motor, 500 rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts / rotation per second
-  coralMotorConfig.Slot0.kP = 0.11; // An error of 1 rotation per second results in 0.11 V output
+  coralMotorConfig.Slot0.kP = 1.00; // An error of 1 rotation per second results in 0.11 V output
   coralMotorConfig.Slot0.kI = 0;    // No output for integrated error
   coralMotorConfig.Slot0.kD = 0;    // No output for error derivative
   // Peak output of 8 volts
@@ -100,6 +100,7 @@ void ElevatorSubsystem::Periodic()
   m_intakeCoralTurnsFast = kIntakeCoralTurnsFast;
   m_intakeCoralTurnsSlow = kIntakeCoralTurnsSlow;
   m_deliveryCoralTurns = kDeliveryCoralTurns;
+  m_intakeCoralRetractTurns = kIntakeCoralRetractTurns;
 
   m_intakeAlgaeTurns = kIntakeAlgaeVolts;
   m_deliveryAlgaeTurns = kDeliveryAlgaeVolts;
@@ -107,9 +108,17 @@ void ElevatorSubsystem::Periodic()
   m_getIntakePosition = m_scoringMotor.GetPosition().GetValueAsDouble();
 }
 /**/
-double ElevatorSubsystem::IntakePositionMinusThree()
+double ElevatorSubsystem::IntakePositionPlusOne()
 {
-  return (m_getIntakePosition - 3.0);
+  return (m_getIntakePosition + 1.0);
+  // return (m_getIntakePosition() + 3.0);
+
+  // return (m_scoringMotor.GetPosition().GetValueAsDouble() + 3.0);
+}
+
+double ElevatorSubsystem::IntakePositionMinusOne()
+{
+  return (m_getIntakePosition - 1.0);
   // return (m_getIntakePosition() + 3.0);
 
   // return (m_scoringMotor.GetPosition().GetValueAsDouble() + 3.0);
@@ -123,6 +132,11 @@ bool ElevatorSubsystem::HasCoralReachedIntake()
 bool ElevatorSubsystem::IsCoralTooFar()
 {
   return (m_coralSensorBack.GetIsDetected().GetValue());
+}
+
+bool ElevatorSubsystem::IsAlgaeInIntake()
+{
+  return (m_algaeSensor.GetIsDetected().GetValue());
 }
 
 // This drives the motor to set turns
@@ -445,9 +459,17 @@ frc2::CommandPtr ElevatorSubsystem::IntakeCoralCMD()
              // Command End
              [this](bool interrupted)
              {
-               SetIntakePosition(IntakePositionMinusThree());
-               StopCoralMotor();
+                StopCoralMotor();   
+                fmt::println("Just stopped Motor");     
+               SetIntakePosition(IntakePositionPlusOne());
+              fmt::println("Moved intake to +1");    
                fmt::println("Just finished Intake Coral CMD");
+              
+              /* if ((ElevatorSubsystem::IsCoralTooFar())){
+                return IntakeCoral(units::voltage::volt_t(m_intakeCoralRetractTurns));
+               } else {
+                StopCoralMotor();
+               }*/
              },
              // isFinished
              [this]
@@ -486,7 +508,7 @@ frc2::CommandPtr ElevatorSubsystem::DeliverCoralCMD()
 frc2::CommandPtr ElevatorSubsystem::JogCoralCMD()
 {
   return this->RunOnce(
-    [this]{ SetIntakePosition(IntakePositionMinusThree());}
+    [this]{ SetIntakePosition(IntakePositionPlusOne());}
     );  
 }
 
@@ -526,11 +548,12 @@ frc2::CommandPtr ElevatorSubsystem::IntakeAlgaeCMD()
              [this](bool interrupted)
              {
                StopCoralMotor();
+               SetIntakePosition(IntakePositionPlusOne());
                fmt::println("Just finished Intake Algae CMD");
              },
              // isFinished
              [this]
-             { return HasStalled(20); },
+             { return IsAlgaeInIntake(); },
 
              {this}
 
@@ -556,7 +579,7 @@ frc2::CommandPtr ElevatorSubsystem::DeliverAlgaeCMD()
              },
              // isFinished
              [this]
-             { return HasStalled(20); },
+             { return !(IsAlgaeInIntake()); },
 
              {this}
 
