@@ -89,11 +89,32 @@ frc2::CommandPtr CommandSwerveDrivetrain::MoveForwardsSlowlyCommand(){
 [this] {Drive(0.0_mps, 0_mps, 0_rad_per_s, false); }, {this});
 };
 //*/
-    
+    /*
 frc2::CommandPtr CommandSwerveDrivetrain::MoveForwardsSlowlyCommand(){
     return frc2::cmd::StartEnd(
-[this] {swerve::requests::FieldCentric().WithVelocityX(0.2_mps).WithVelocityY(0_mps).WithRotationalRate(0_rad_per_s);},
+[this] {swerve::requests::FieldCentric().WithVelocityX(0.2_mps).WithVelocityY(0.0_mps).WithRotationalRate(0_rad_per_s);},
 [this] {swerve::requests::FieldCentric().WithVelocityX(0_mps).WithVelocityY(0_mps).WithRotationalRate(0_rad_per_s);}, {this});
 
 };
+*/
+frc2::CommandPtr CommandSwerveDrivetrain::MoveForwardsSlowlyCommand() {
+    return frc2::cmd::StartEnd(
+        [this] {
+            this->SetControl(
+                swerve::requests::FieldCentric()
+                    .WithVelocityX(0.2_mps) // Forward in X, not Y
+                    .WithVelocityY(0.0_mps)
+                    .WithRotationalRate(0_rad_per_s));
+        },
+        [this] {
+            this->SetControl(
+                swerve::requests::FieldCentric()
+                    .WithVelocityX(0_mps)
+                    .WithVelocityY(0_mps)
+                    .WithRotationalRate(0_rad_per_s));
+        },
+        {this});
+}
+
+
 //*/

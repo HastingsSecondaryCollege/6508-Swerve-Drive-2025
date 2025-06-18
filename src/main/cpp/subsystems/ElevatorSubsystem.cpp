@@ -86,6 +86,7 @@ void ElevatorSubsystem::Periodic()
   m_elevatorLevelFourHeight = kElevatorLevelFour;
   m_elevatorLevelAlgaeRemoveLow = kElevatorLevelAlgaeRemoveLow;
   m_elevatorLevelAlgaeRemoveHigh = kElevatorLevelAlgaeRemoveHigh;
+  m_elevatorLevelAlgaeBarge = kElevatorLevelAlgaeBarge;
 
   m_elevatorClimbReadyHeight = kElevatorClimbReady;
   m_elevatorClimbDesiredHeight = kElevatorClimbDesired;
@@ -210,6 +211,20 @@ void ElevatorSubsystem::ElevatorLevelFour(units::angle::turn_t ElevatorHeight)
   };
 }
 
+void ElevatorSubsystem::ElevatorLevelAlgaeBarge(units::angle::turn_t ElevatorHeight)
+{
+  if (m_canClimb)
+  {
+    m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
+    m_isScoringHeight = true;
+    fmt::println("Just finished Elevator Level Zero");
+  }
+  else
+  {
+    fmt::println("Cannot Climb");
+  };
+}
+
 void ElevatorSubsystem::ElevatorLevelAlgaeRemoveLow(units::angle::turn_t ElevatorHeight)
 {
   if (m_canClimb)
@@ -260,13 +275,13 @@ frc2::CommandPtr ElevatorSubsystem::ElevatorLevelTwoCMD()
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelThreeCMD()
 {
   return this->RunOnce([this]
-                       { ElevatorLevelTwo(units::angle::turn_t(m_elevatorLevelThreeHeight)); });
+                       { ElevatorLevelThree(units::angle::turn_t(m_elevatorLevelThreeHeight)); });
 }
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelFourCMD()
 {
   return this->RunOnce([this]
-                       { ElevatorLevelTwo(units::angle::turn_t(m_elevatorLevelFourHeight)); });
+                       { ElevatorLevelFour(units::angle::turn_t(m_elevatorLevelFourHeight)); });
 }
 
 frc2::CommandPtr ElevatorSubsystem::ElevatorLevelAlgaeRemoveLowCMD()
@@ -279,6 +294,11 @@ frc2::CommandPtr ElevatorSubsystem::ElevatorLevelAlgaeRemoveHighCMD()
 {
   return this->RunOnce([this]
                        { ElevatorLevelAlgaeRemoveHigh(units::angle::turn_t(m_elevatorLevelAlgaeRemoveHigh)); });
+}
+frc2::CommandPtr ElevatorSubsystem::ElevatorLevelAlgaeBargeCMD()
+{
+  return this->RunOnce([this]
+                       { ElevatorLevelAlgaeBarge(units::angle::turn_t(m_elevatorLevelAlgaeBarge)); });
 }
 
 void ElevatorSubsystem::ElevatorClimbReady(units::angle::turn_t ElevatorHeight)
@@ -377,6 +397,14 @@ void ElevatorSubsystem::WristDeveliverHigh()
   fmt::println("Just finished WristDeveliverHigh");
 }
 
+void ElevatorSubsystem::WristBarge()
+{
+  m_canClimb = true;
+  m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(units::angle::turn_t(m_wristBarge)));
+  fmt::println("Just set canClimb true");
+  fmt::println("Just finished WristBarge");
+}
+
 frc2::CommandPtr ElevatorSubsystem::WristHomeCMD()
 {
   return this->RunOnce([this]
@@ -411,6 +439,13 @@ frc2::CommandPtr ElevatorSubsystem::WristDeveliverHighCMD()
   return this->RunOnce([this]
                        { WristDeveliverHigh(); });
 }
+
+frc2::CommandPtr ElevatorSubsystem::WristBargeCMD()
+{
+  return this->RunOnce([this]
+                       { WristBarge(); });
+}
+
 // Scoring motor direction
 //  For intaking Algae value should be +0.6_V
 

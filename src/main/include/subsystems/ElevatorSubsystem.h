@@ -31,6 +31,7 @@ public:
   void ElevatorLevelFour(units::angle::turn_t ElevatorHeight);
   void ElevatorLevelAlgaeRemoveLow(units::angle::turn_t ElevatorHeight);
   void ElevatorLevelAlgaeRemoveHigh(units::angle::turn_t ElevatorHeight);
+  void ElevatorLevelAlgaeBarge(units::angle::turn_t ElevatorHight);
 
 
   frc2::CommandPtr ElevatorLevelZeroCMD();
@@ -40,6 +41,7 @@ public:
   frc2::CommandPtr ElevatorLevelFourCMD();  
   frc2::CommandPtr ElevatorLevelAlgaeRemoveLowCMD();
   frc2::CommandPtr ElevatorLevelAlgaeRemoveHighCMD();
+  frc2::CommandPtr ElevatorLevelAlgaeBargeCMD();
   frc2::CommandPtr ReconfigMotionMagicCMD();
   
 
@@ -55,6 +57,7 @@ public:
   void WristToProcessor();
   void WristClimb();
   void WristDeveliverHigh();
+  void WristBarge();
 
   frc2::CommandPtr WristHomeCMD();
   frc2::CommandPtr WristSafeCMD();
@@ -62,6 +65,7 @@ public:
   frc2::CommandPtr WristToProcessorCMD();
   frc2::CommandPtr WristClimbCMD();
   frc2::CommandPtr WristDeveliverHighCMD();
+  frc2::CommandPtr WristBargeCMD();
 
   void IntakeCoral(units::voltage::volt_t MotorPower);
   void DeliverCoral(units::voltage::volt_t MotorPower);
@@ -107,6 +111,7 @@ public:
   double  m_elevatorLevelFourHeight;
   double  m_elevatorLevelAlgaeRemoveLow;
   double  m_elevatorLevelAlgaeRemoveHigh;
+  double  m_elevatorLevelAlgaeBarge;
 
   double  m_elevatorClimbReadyHeight;
   double  m_elevatorClimbDesiredHeight;
@@ -117,6 +122,7 @@ public:
   double m_wristProcessorPosition;
   double m_wristClimbPosition;
   double m_wristDeliverHighPosition;
+  double m_wristBarge;
 
   double m_intakeCoralTurnsFast;
   double m_intakeCoralTurnsSlow;

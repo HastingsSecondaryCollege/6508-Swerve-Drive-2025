@@ -39,8 +39,10 @@ private:
      *       define a destructor to un-register the telemetry from the drivetrain */
     Telemetry logger{MaxSpeed};
 
-    frc::Joystick m_stick{0};
-    frc2::CommandXboxController m_pad{1};
+   frc::Joystick m_stick{0};
+   // frc2::CommandXboxController m_pad{1};
+   frc::Joystick m_buttonBoard1{1};
+   frc::Joystick m_buttonBoard2{2};
 
     //bool joystickControlEnabled = true; // Tracks whether joystick or Xbox controller is in control
 

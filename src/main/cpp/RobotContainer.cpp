@@ -13,6 +13,8 @@
 #include <pathplanner/lib/auto/AutoBuilder.h>
 
 
+
+
 //PathPlanner
 #include <pathplanner/lib/auto/AutoBuilder.h>
 #include <pathplanner/lib/path/PathPlannerPath.h>
@@ -168,8 +170,9 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&m_stick, 3).OnTrue(    
     frc2::cmd::Sequence(
         m_elevatorSubsystem.WristAlgaeRemoveCMD(),
-        //m_elevatorSubsystem.ElevatorLevelAlgaeRemoveLowCMD(),
+        m_elevatorSubsystem.ElevatorLevelAlgaeRemoveLowCMD(),
         m_elevatorSubsystem.IntakeAlgaeCMD(),
+        frc2::cmd::Wait(2.0_s),
         m_elevatorSubsystem.ElevatorLevelZeroCMD()
     ));
 
@@ -184,21 +187,6 @@ void RobotContainer::ConfigureButtonBindings() {
     ));
 
     
-
-    //Ready Climb
-  frc2::POVButton (&m_stick, 0).OnTrue(
-    frc2::cmd::Sequence(
-      m_elevatorSubsystem.WristClimbCMD(),
-      m_elevatorSubsystem.ElevatorClimbReadyCMD()
-    ));
-
-    //Complete Climb
-  frc2::POVButton(&m_stick, 180).OnTrue(
-    frc2::cmd::Sequence(
-      m_elevatorSubsystem.ReconfigMotionMagicCMD(),
-      m_elevatorSubsystem.WristClimbCMD(),
-      m_elevatorSubsystem.ElevatorClimbDesiredCMD()
-    ));
 
     //Elevate to score in Lvl3
   frc2::JoystickButton(&m_stick, 7).OnTrue(m_elevatorSubsystem.ElevatorLevelThreeCMD()),
@@ -226,10 +214,37 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&m_stick, 12).OnTrue(m_elevatorSubsystem.ElevatorLevelTwoCMD()),
   m_elevatorSubsystem.WristSafeCMD();
 
+//Button Board Bindings
+
+//Score Algas on Barge
+frc2::JoystickButton(&m_buttonBoard1, 5).OnTrue(
+  frc2::cmd::Sequence(
+  m_elevatorSubsystem.ElevatorLevelAlgaeBargeCMD(),
+  m_elevatorSubsystem.WristBargeCMD(),
+  m_elevatorSubsystem.DeliverAlgaeCMD(),
+  m_elevatorSubsystem.WristSafeCMD(),
+  m_elevatorSubsystem.ElevatorLevelZeroCMD()
+));
+
+  //Ready Climb
+  frc2::JoystickButton (&m_buttonBoard1, 6).OnTrue(
+    frc2::cmd::Sequence(
+      m_elevatorSubsystem.WristClimbCMD(),
+      m_elevatorSubsystem.ElevatorClimbReadyCMD()
+    ));
+
+    //Complete Climb
+  frc2::JoystickButton(&m_buttonBoard1, 7).OnTrue(
+    frc2::cmd::Sequence(
+      m_elevatorSubsystem.ReconfigMotionMagicCMD(),
+      m_elevatorSubsystem.WristClimbCMD(),
+      m_elevatorSubsystem.ElevatorClimbDesiredCMD()
+    ));
+
 
   //Auto Driving Button Bindings
-/*
-frc2::JoystickButton(&m_stick, 11).WhileTrue(
+
+frc2::JoystickButton(&m_buttonBoard1, 8).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Feed Right"),
         PathConstraints(
@@ -238,11 +253,12 @@ frc2::JoystickButton(&m_stick, 11).WhileTrue(
         )
     )
 );
-//*/
-
 
 
 //frc2::POVButton (&m_stick, 0).WhileTrue(m_drive.MoveForwardsSlowlyCommand());
+
+frc2::JoystickButton(&m_buttonBoard1, 1)
+    .WhileTrue(drivetrain.MoveForwardsSlowlyCommand());
 
  
 

@@ -287,6 +287,11 @@ public:
     }
 
     frc2::CommandPtr MoveForwardsSlowlyCommand();
+    frc2::CommandPtr MoveBackwardsSlowlyCommand();
+    frc2::CommandPtr MoveLeftSlowlyCommand();
+     frc2::CommandPtr MoveRightSlowlyCommand();
+
+
 
 private:
     void StartSimThread();
