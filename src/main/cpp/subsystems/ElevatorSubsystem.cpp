@@ -303,15 +303,15 @@ frc2::CommandPtr ElevatorSubsystem::ElevatorLevelAlgaeBargeCMD()
 
 void ElevatorSubsystem::ElevatorClimbReady(units::angle::turn_t ElevatorHeight)
 {
-  if (m_canClimb)
+ // if (m_canClimb)
   {
     m_leadElevatorMotor.SetControl(m_motionMagicControlElevatorLead.WithPosition(ElevatorHeight));
     fmt::println("Just finished Elevator Climb To Bottom");
   }
-  else
-  {
-    fmt::println("Cannot Climb");
-  };
+ // else
+ // {
+ //   fmt::println("Cannot Climb");
+ // };
 }
 
 void ElevatorSubsystem::ElevatorClimbDesired(units::angle::turn_t ElevatorHeight)

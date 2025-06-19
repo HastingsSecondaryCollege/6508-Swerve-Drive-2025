@@ -162,8 +162,8 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&m_stick, 6).OnTrue(
     frc2::cmd::Sequence(
      m_elevatorSubsystem.DeliverAlgaeCMD(),
-     frc2::cmd::Wait(2.0_s)
-    // m_elevatorSubsystem.WristSafeCMD()
+     frc2::cmd::Wait(1.0_s),
+     m_elevatorSubsystem.WristSafeCMD()
     )
   );
 
@@ -216,7 +216,7 @@ void RobotContainer::ConfigureButtonBindings() {
   m_elevatorSubsystem.WristSafeCMD();
 
 //Button Board Bindings
-
+/*
 //Score Algas on Barge
 frc2::JoystickButton(&m_buttonBoard1, 5).OnTrue(
   frc2::cmd::Sequence(
@@ -226,6 +226,9 @@ frc2::JoystickButton(&m_buttonBoard1, 5).OnTrue(
   m_elevatorSubsystem.WristSafeCMD(),
   m_elevatorSubsystem.ElevatorLevelZeroCMD()
 ));
+*/
+
+
 
   //Ready Climb
   frc2::JoystickButton (&m_buttonBoard1, 6).OnTrue(
@@ -233,6 +236,7 @@ frc2::JoystickButton(&m_buttonBoard1, 5).OnTrue(
       m_elevatorSubsystem.WristClimbCMD(),
       m_elevatorSubsystem.ElevatorClimbReadyCMD()
     ));
+
 
     //Complete Climb
   frc2::JoystickButton(&m_buttonBoard1, 7).OnTrue(
