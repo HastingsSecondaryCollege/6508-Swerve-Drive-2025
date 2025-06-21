@@ -229,6 +229,9 @@ frc2::JoystickButton(&m_buttonBoard1, 5).OnTrue(
 ));
 */
 
+//frc2::JoystickButton(&m_buttonBoard1, 5).OnTrue(GetAllianceFeedPath());
+
+
 
 
   //Ready Climb
@@ -271,7 +274,12 @@ frc2::JoystickButton(&m_buttonBoard1, 1)
 
 //Button Board Bindings no 2
 
-frc2::JoystickButton(&m_buttonBoard2, 7).OnTrue(m_elevatorSubsystem.JogCoralCMD());
+     frc2::JoystickButton(&m_buttonBoard2, 7).OnTrue(
+    frc2::cmd::Sequence(
+      m_elevatorSubsystem.WristJogCMD(),
+      m_elevatorSubsystem.JogCoralCMD(),
+      m_elevatorSubsystem.WristDeveliverHighCMD()
+    ));
    
 
 

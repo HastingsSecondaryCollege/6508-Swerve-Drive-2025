@@ -408,6 +408,13 @@ void ElevatorSubsystem::WristBarge()
   fmt::println("Just set canClimb true");
   fmt::println("Just finished WristBarge");
 }
+void ElevatorSubsystem::WristJog()
+{
+  m_canClimb = true;
+  m_wristMotor.SetControl(m_motionMagicControlWrist.WithPosition(units::angle::turn_t(m_wristJobPosition)));
+  fmt::println("Just set canClimb true");
+  fmt::println("Just finished WristJog");
+}
 
 frc2::CommandPtr ElevatorSubsystem::WristHomeCMD()
 {
@@ -448,6 +455,11 @@ frc2::CommandPtr ElevatorSubsystem::WristBargeCMD()
 {
   return this->RunOnce([this]
                        { WristBarge(); });
+}
+frc2::CommandPtr ElevatorSubsystem::WristJogCMD()
+{
+  return this->RunOnce([this]
+                       { WristJog(); });
 }
 
 // Scoring motor direction

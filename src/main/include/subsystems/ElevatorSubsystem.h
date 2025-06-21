@@ -57,6 +57,7 @@ public:
   void WristClimb();
   void WristDeveliverHigh();
   void WristBarge();
+  void WristJog();
 
   frc2::CommandPtr WristHomeCMD();
   frc2::CommandPtr WristSafeCMD();
@@ -65,6 +66,7 @@ public:
   frc2::CommandPtr WristClimbCMD();
   frc2::CommandPtr WristDeveliverHighCMD();
   frc2::CommandPtr WristBargeCMD();
+  frc2::CommandPtr WristJogCMD();
 
   void IntakeCoral(units::voltage::volt_t MotorPower);
   void DeliverCoral(units::voltage::volt_t MotorPower);
@@ -122,6 +124,7 @@ public:
   double m_wristClimbPosition;
   double m_wristDeliverHighPosition;
   double m_wristBarge;
+  double m_wristJobPosition;
 
   double m_intakeCoralTurnsFast;
   double m_intakeCoralTurnsSlow;
