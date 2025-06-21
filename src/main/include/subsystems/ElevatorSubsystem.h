@@ -17,7 +17,6 @@
 
 #include "generated/TunerConstants.h"
 
-#include <grpl/LaserCan.h>
 
 class ElevatorSubsystem : public frc2::SubsystemBase
 {
@@ -167,6 +166,5 @@ private:
   ctre::phoenix6::controls::VoltageOut m_percentagePowerCoral{0_V};
   ctre::phoenix6::controls::PositionVoltage m_positionVoltageCoral = ctre::phoenix6::controls::PositionVoltage{0_tr}.WithSlot(0);
 
-  grpl::LaserCan *SecondSensor;
 
 };
