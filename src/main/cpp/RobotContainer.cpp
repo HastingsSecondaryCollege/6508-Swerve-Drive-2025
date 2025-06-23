@@ -149,6 +149,7 @@ void RobotContainer::ConfigureButtonBindings() {
     
     ));
 
+/*
     //Process Algae Position
   frc2::JoystickButton(&m_stick, 4).OnTrue(
     frc2::cmd::Sequence(
@@ -156,8 +157,7 @@ void RobotContainer::ConfigureButtonBindings() {
       m_elevatorSubsystem.WristToProcessorCMD()
     )
     );
-    
-
+*/
   //Deliver Algae
   frc2::JoystickButton(&m_stick, 6).OnTrue(
     frc2::cmd::Sequence(
@@ -219,11 +219,14 @@ void RobotContainer::ConfigureButtonBindings() {
 //Button Board Bindings no 1
 /*
 //Score Algas on Barge
-frc2::JoystickButton(&m_buttonBoard1, 5).OnTrue(
+frc2::JoystickButton(&m_stick, 4).OnTrue(
   frc2::cmd::Sequence(
   m_elevatorSubsystem.ElevatorLevelAlgaeBargeCMD(),
+      frc2::cmd::Wait(1.5_s),
   m_elevatorSubsystem.WristBargeCMD(),
+      frc2::cmd::Wait(1.0_s),
   m_elevatorSubsystem.DeliverAlgaeCMD(),
+      frc2::cmd::Wait(1.0_s),
   m_elevatorSubsystem.WristSafeCMD(),
   m_elevatorSubsystem.ElevatorLevelZeroCMD()
 ));
@@ -231,11 +234,36 @@ frc2::JoystickButton(&m_buttonBoard1, 5).OnTrue(
 
 //frc2::JoystickButton(&m_buttonBoard1, 5).OnTrue(GetAllianceFeedPath());
 
+    //Elevate to score in Lvl2
+  frc2::JoystickButton(&m_buttonBoard1, 3).OnTrue(m_elevatorSubsystem.ElevatorLevelTwoCMD()),
+  m_elevatorSubsystem.WristSafeCMD();
 
+      //Elevate to score in Lvl1
+  frc2::JoystickButton(&m_buttonBoard1, 2).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());
 
+    //Elevate to score in Lvl3
+  frc2::JoystickButton(&m_buttonBoard1, 1).OnTrue(m_elevatorSubsystem.ElevatorLevelThreeCMD()),
+  m_elevatorSubsystem.WristSafeCMD();
+
+    //Elevate to score in Lvl4
+  frc2::JoystickButton(&m_buttonBoard1, 4).OnTrue(
+    frc2::cmd::Sequence(
+      m_elevatorSubsystem.WristSafeCMD(),
+    m_elevatorSubsystem.ElevatorLevelFourCMD(),
+    frc2::cmd::Wait(0.5_s),
+    m_elevatorSubsystem.WristDeveliverHighCMD()
+  ));
+
+ frc2::JoystickButton(&m_buttonBoard2, 5).OnTrue(
+    frc2::cmd::Sequence(
+    m_elevatorSubsystem.DeliverCoralCMD(),
+    m_elevatorSubsystem.WristSafeCMD(),
+    m_elevatorSubsystem.ElevatorLevelZeroCMD()
+    
+    ));
 
   //Ready Climb
-  frc2::JoystickButton (&m_buttonBoard1, 6).OnTrue(
+  frc2::JoystickButton (&m_buttonBoard1, 5).OnTrue(
     frc2::cmd::Sequence(
       m_elevatorSubsystem.WristClimbCMD(),
       m_elevatorSubsystem.ElevatorClimbReadyCMD()
@@ -243,7 +271,7 @@ frc2::JoystickButton(&m_buttonBoard1, 5).OnTrue(
 
 
     //Complete Climb
-  frc2::JoystickButton(&m_buttonBoard1, 7).OnTrue(
+  frc2::JoystickButton(&m_buttonBoard1, 6).OnTrue(
     frc2::cmd::Sequence(
       m_elevatorSubsystem.ReconfigMotionMagicCMD(),
       m_elevatorSubsystem.WristClimbCMD(),
@@ -266,10 +294,7 @@ frc2::JoystickButton(&m_buttonBoard1, 8).WhileTrue(
 
 //frc2::POVButton (&m_stick, 0).WhileTrue(m_drive.MoveForwardsSlowlyCommand());
 
-frc2::JoystickButton(&m_buttonBoard1, 1)
-    .WhileTrue(drivetrain.MoveForwardsSlowlyCommand());
 
- 
 
 
 //Button Board Bindings no 2
@@ -277,10 +302,23 @@ frc2::JoystickButton(&m_buttonBoard1, 1)
      frc2::JoystickButton(&m_buttonBoard2, 7).OnTrue(
     frc2::cmd::Sequence(
       m_elevatorSubsystem.WristJogCMD(),
+       frc2::cmd::Wait(0.6_s),
       m_elevatorSubsystem.JogCoralCMD(),
+       frc2::cmd::Wait(0.5_s),
       m_elevatorSubsystem.WristDeveliverHighCMD()
     ));
-   
+
+    frc2::JoystickButton(&m_buttonBoard2, 1)
+    .WhileTrue(drivetrain.MoveForwardsSlowlyCommand());
+
+frc2::JoystickButton(&m_buttonBoard2, 3)
+    .WhileTrue(drivetrain.MoveBackwardsSlowlyCommand());
+
+frc2::JoystickButton(&m_buttonBoard2, 2)
+    .WhileTrue(drivetrain.MoveLeftSlowlyCommand());
+ 
+ frc2::JoystickButton(&m_buttonBoard2, 4)
+    .WhileTrue(drivetrain.MoveRightSlowlyCommand());
 
 
 
