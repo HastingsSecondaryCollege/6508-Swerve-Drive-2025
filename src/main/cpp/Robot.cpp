@@ -84,12 +84,12 @@ m_field.SetRobotPose(m_container.drivetrain.GetState().Pose);
     auto const omega = driveState.Speeds.omega;
 
     // Set robot orientation for both Limelights
-LimelightHelpers::SetRobotOrientation("front", heading.value(), 0, 0, 0, 0, 0);
-LimelightHelpers::SetRobotOrientation("back", heading.value(), 0, 0, 0, 0, 0);
+LimelightHelpers::SetRobotOrientation("limelight-front", heading.value(), 0, 0, 0, 0, 0);
+LimelightHelpers::SetRobotOrientation("limelight-back", heading.value(), 0, 0, 0, 0, 0);
 
 // Get MegaTag2 pose estimates from both Limelights
-auto frontPose = LimelightHelpers::getBotPoseEstimate_wpiBlue_MegaTag2("front");
-auto backPose = LimelightHelpers::getBotPoseEstimate_wpiBlue_MegaTag2("back");
+auto frontPose = LimelightHelpers::getBotPoseEstimate_wpiBlue_MegaTag2("limelight-front");
+auto backPose = LimelightHelpers::getBotPoseEstimate_wpiBlue_MegaTag2("limelight-back");
 
 // Choose which one(s) to trust — this example uses both if they’re valid
 if (frontPose && frontPose->tagCount > 0 && units::math::abs(omega) < 2_tps) {
