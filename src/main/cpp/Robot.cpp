@@ -22,6 +22,7 @@ void Robot::RobotInit(){
 // Do this in either robot or subsystem init
 frc::SmartDashboard::PutData("Field", &m_field);
 
+
 cs::UsbCamera camera = frc::CameraServer::StartAutomaticCapture();
 camera.SetResolution(640, 480);
 camera.SetFPS(30);

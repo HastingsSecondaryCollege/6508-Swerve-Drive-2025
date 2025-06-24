@@ -42,6 +42,6 @@ void Telemetry::Telemeterize(subsystems::CommandSwerveDrivetrain::SwerveDriveSta
         m_moduleSpeeds[i]->SetAngle(state.ModuleStates[i].angle.Degrees());
         m_moduleSpeeds[i]->SetLength(state.ModuleStates[i].speed / (2 * MaxSpeed));
 
-        frc::SmartDashboard::PutData("Module " + std::to_string(i), &m_moduleMechanisms[i]);
+        //frc::SmartDashboard::PutData("Module " + std::to_string(i), &m_moduleMechanisms[i]);
     }
 }
