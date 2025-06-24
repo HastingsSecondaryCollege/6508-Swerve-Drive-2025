@@ -82,11 +82,23 @@ m_field.SetRobotPose(m_container.drivetrain.GetState().Pose);
     auto const heading = driveState.Pose.Rotation().Degrees();
     auto const omega = driveState.Speeds.omega;
 
-    LimelightHelpers::SetRobotOrientation("limelight", heading.value(), 0, 0, 0, 0, 0);
-    auto llMeasurement = LimelightHelpers::getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
-    if (llMeasurement && llMeasurement->tagCount > 0 && units::math::abs(omega) < 2_tps) {
-      m_container.drivetrain.AddVisionMeasurement(llMeasurement->pose, llMeasurement->timestampSeconds);
-    }
+    // Set robot orientation for both Limelights
+LimelightHelpers::SetRobotOrientation("front", heading.value(), 0, 0, 0, 0, 0);
+LimelightHelpers::SetRobotOrientation("back", heading.value(), 0, 0, 0, 0, 0);
+
+// Get MegaTag2 pose estimates from both Limelights
+auto frontPose = LimelightHelpers::getBotPoseEstimate_wpiBlue_MegaTag2("front");
+auto backPose = LimelightHelpers::getBotPoseEstimate_wpiBlue_MegaTag2("back");
+
+// Choose which one(s) to trust — this example uses both if they’re valid
+if (frontPose && frontPose->tagCount > 0 && units::math::abs(omega) < 2_tps) {
+    m_container.drivetrain.AddVisionMeasurement(frontPose->pose, frontPose->timestampSeconds);
+}
+
+if (backPose && backPose->tagCount > 0 && units::math::abs(omega) < 2_tps) {
+    m_container.drivetrain.AddVisionMeasurement(backPose->pose, backPose->timestampSeconds);
+}
+
   }
 }
 
