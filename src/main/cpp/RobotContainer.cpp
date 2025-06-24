@@ -290,8 +290,26 @@ frc2::JoystickButton(&m_buttonBoard1, 8).WhileTrue(
         )
     )
 );
-
-
+/*
+frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
+    AutoBuilder::pathfindThenFollowPath(
+        PathPlannerPath::fromPathFile("Reef L to Far Feed"),
+        PathConstraints(
+            1.0_mps, 1.0_mps_sq,
+            540_deg_per_s, 720_deg_per_s_sq
+        )
+    )
+);
+frc2::JoystickButton(&m_buttonBoard1, 10).WhileTrue(
+    AutoBuilder::pathfindThenFollowPath(
+        PathPlannerPath::fromPathFile("Reef C to Close Feed"),
+        PathConstraints(
+            1.0_mps, 1.0_mps_sq,
+            540_deg_per_s, 720_deg_per_s_sq
+        )
+    )
+);
+*/
 //frc2::POVButton (&m_stick, 0).WhileTrue(m_drive.MoveForwardsSlowlyCommand());
 
 
