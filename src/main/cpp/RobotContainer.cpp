@@ -185,7 +185,9 @@ void RobotContainer::ConfigureButtonBindings() {
         m_elevatorSubsystem.ElevatorLevelAlgaeRemoveHighCMD(),
         m_elevatorSubsystem.IntakeAlgaeCMD(),
         frc2::cmd::Wait(2.0_s),
-         m_elevatorSubsystem.ElevatorLevelZeroCMD()
+         m_elevatorSubsystem.ElevatorLevelZeroCMD(),
+         frc2::cmd::Wait(0.5_s),
+         m_elevatorSubsystem.WristToProcessorCMD()
     ));
 
     
