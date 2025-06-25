@@ -315,7 +315,7 @@ namespace ElevatorConstants {
     constexpr double kElevatorClimbReady = 10.0;
     constexpr double kElevatorClimbDesired = 0.44;
 
-    constexpr double kWristHome = 0.0487;
+    constexpr double kWristHome = 0.0400;
     constexpr double kWristSafe = 2.65;
     constexpr double kWristAlgaeRemove = 13.0;
     constexpr double kWristClimb = 7.7;
@@ -327,7 +327,7 @@ namespace ElevatorConstants {
     constexpr double kIntakeCoralTurnsFast = -3.0;
     constexpr double kIntakeCoralTurnsSlow = -2.0;
     constexpr double kDeliveryCoralTurns = -4.5;
-    constexpr double kIntakeCoralRetractTurns = 1.0;
+    constexpr double kIntakeCoralRetractTurns = 2;
 
     constexpr double kIntakeAlgaeVolts = 3.2;
     constexpr double kDeliveryAlgaeVolts = -12.0;
