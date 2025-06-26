@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.2535795454545453,
-        "y": 4.1995028409090915
+        "x": 1.8048579545504402,
+        "y": 1.81629261364135
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6225284090909087,
-        "y": 4.219446022727273
+        "x": 1.4359090909140766,
+        "y": 1.327684659095895
       },
       "isLocked": false,
-      "linkedName": "A-B Selection Point"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.1909090909090905,
-        "y": 4.1995028409090915
+        "x": 1.0470170454545455,
+        "y": 0.9088778409090901
       },
       "prevControl": {
-        "x": 2.762130681818182,
-        "y": 4.18953125
+        "x": 1.5057102272777128,
+        "y": 1.4772585227322588
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Reef A"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 52.35237935989239
   },
   "reversed": false,
   "folder": "Auto Drive Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 49.9392155421262
   },
   "useDefaultConstraints": true
 }

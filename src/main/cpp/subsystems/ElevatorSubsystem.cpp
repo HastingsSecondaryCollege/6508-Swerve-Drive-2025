@@ -612,6 +612,56 @@ frc2::CommandPtr ElevatorSubsystem::IntakeAlgaeCMD()
       .ToPtr();
 }
 
+//Code to test
+/*
+
+frc2::CommandPtr ElevatorSubsystem::IntakeAlgaeCMD()
+{
+  return frc2::FunctionalCommand(
+             // Init
+             [this]
+             {
+               // Start intake if no algae
+               if (!IsAlgaeInIntake())
+               {
+                 DeliverAlgae(units::voltage::volt_t(m_intakeAlgaeTurns));
+               }
+               else
+               {
+                 StopCoralMotor();
+               }
+             },
+             // Execute
+             [this]
+             {
+               // Continuously check algae presence
+               if (!IsAlgaeInIntake())
+               {
+                 DeliverAlgae(units::voltage::volt_t(m_intakeAlgaeTurns));
+               }
+               else
+               {
+                 StopCoralMotor();
+               }
+             },
+             // End
+             [this](bool interrupted)
+             {
+               StopCoralMotor();  // Always stop on end
+               SetIntakePosition(IntakePositionPlusOne());
+               fmt::println("Just finished Intake Algae CMD");
+             },
+             // IsFinished
+             [this]
+             {
+               // You can change this if there's a different condition
+               return IsAlgaeInIntake();
+             },
+             {this}
+         ).ToPtr();
+}
+*/
+
 frc2::CommandPtr ElevatorSubsystem::DeliverAlgaeCMD()
 {
   return frc2::FunctionalCommand(

@@ -3,8 +3,8 @@
   "robotLength": 0.89,
   "holonomicMode": true,
   "pathFolders": [
-    "DDU Paths",
     "Auto Drive Paths",
+    "DDU Paths",
     "Other Paths"
   ],
   "autoFolders": [
