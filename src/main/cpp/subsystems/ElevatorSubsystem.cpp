@@ -32,8 +32,8 @@ ElevatorSubsystem::ElevatorSubsystem()
   leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 480.0_rad_per_s_sq;
   leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 480.0_rad_per_s;
   leadElevatorMotorConfig.MotionMagic.MotionMagicJerk = 4800_rad_per_s_cu;
-  leadElevatorMotorConfig.Voltage.PeakForwardVoltage = 50_V;
-  leadElevatorMotorConfig.Voltage.PeakReverseVoltage = -25_V;
+  //leadElevatorMotorConfig.Voltage.PeakForwardVoltage = 50_V;
+ // leadElevatorMotorConfig.Voltage.PeakReverseVoltage = -25_V;
 
   wristMotorConfig.Slot0.kP = 10.0;
  // wristMotorConfig.Slot0.kA = 0.1;
@@ -344,10 +344,10 @@ frc2::CommandPtr ElevatorSubsystem::ReconfigMotionMagicCMD()
 // Blank configuration object for a TalonFX based motor
   ctre::phoenix6::configs::TalonFXConfiguration leadElevatorMotorConfig{};
  leadElevatorMotorConfig.Slot0.kP = 10.0;
-  leadElevatorMotorConfig.Slot0.kA = 0.10; 
-  leadElevatorMotorConfig.Slot0.kV = 0.12;
-  leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 50.0_rad_per_s_sq;
-  leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 80.0_rad_per_s;
+ // leadElevatorMotorConfig.Slot0.kA = 0.10; 
+ // leadElevatorMotorConfig.Slot0.kV = 0.12;
+  leadElevatorMotorConfig.MotionMagic.MotionMagicAcceleration = 70.0_rad_per_s_sq;
+  leadElevatorMotorConfig.MotionMagic.MotionMagicCruiseVelocity = 100.0_rad_per_s;
    m_leadElevatorMotor.GetConfigurator().Apply(leadElevatorMotorConfig); });
 }
 
