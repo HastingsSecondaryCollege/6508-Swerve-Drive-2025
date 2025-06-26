@@ -307,8 +307,8 @@ namespace ElevatorConstants {
     constexpr double kElevatorLevelTwo = 5.6;
     constexpr double kElevatorLevelThree = 12.25;
     constexpr double kElevatorLevelFour = 27.0;
-    constexpr double kElevatorLevelAlgaeRemoveLow = 5.10;
-    constexpr double kElevatorLevelAlgaeRemoveHigh = 12.5;
+    constexpr double kElevatorLevelAlgaeRemoveLow = 8.50; //old position 5.10
+    constexpr double kElevatorLevelAlgaeRemoveHigh = 15.25; // old position 12.5
     constexpr double kElevatorLevelAlgaeBarge = 27.0;
 
 
@@ -317,7 +317,7 @@ namespace ElevatorConstants {
 
     constexpr double kWristHome = -0.44;
     constexpr double kWristSafe = 2.65;
-    constexpr double kWristAlgaeRemove = 13.0;
+    constexpr double kWristAlgaeRemove = 16.09;// old position 13.0
     constexpr double kWristClimb = 7.7;
     constexpr double kWristProcessor = 15.96;
     constexpr double kWristDeliverHigh = 9.2;
@@ -329,7 +329,7 @@ namespace ElevatorConstants {
     constexpr double kDeliveryCoralTurns = -4.5;
     constexpr double kIntakeCoralRetractTurns = 2;
 
-    constexpr double kIntakeAlgaeVolts = 3.2;
+    constexpr double kIntakeAlgaeVolts = 4.0; // old speed3.2
     constexpr double kDeliveryAlgaeVolts = -12.0;
 
 }
