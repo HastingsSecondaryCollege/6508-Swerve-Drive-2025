@@ -234,29 +234,7 @@ frc2::JoystickButton(&m_stick, 4).OnTrue(
 ));
 */
 
-//frc2::JoystickButton(&m_buttonBoard1, 5).OnTrue(GetAllianceFeedPath());
-
-    //Elevate to score in Lvl2
-  frc2::JoystickButton(&m_buttonBoard1, 3).OnTrue(m_elevatorSubsystem.ElevatorLevelTwoCMD()),
-  m_elevatorSubsystem.WristSafeCMD();
-
-      //Elevate to score in Lvl1
-  frc2::JoystickButton(&m_buttonBoard1, 2).OnTrue(m_elevatorSubsystem.ElevatorLevelOneCMD());
-
-    //Elevate to score in Lvl3
-  frc2::JoystickButton(&m_buttonBoard1, 1).OnTrue(m_elevatorSubsystem.ElevatorLevelThreeCMD()),
-  m_elevatorSubsystem.WristSafeCMD();
-
-    //Elevate to score in Lvl4
-  frc2::JoystickButton(&m_buttonBoard1, 4).OnTrue(
-    frc2::cmd::Sequence(
-      m_elevatorSubsystem.WristSafeCMD(),
-    m_elevatorSubsystem.ElevatorLevelFourCMD(),
-    frc2::cmd::Wait(0.5_s),
-    m_elevatorSubsystem.WristDeveliverHighCMD()
-  ));
-
- frc2::JoystickButton(&m_buttonBoard2, 5).OnTrue(
+ frc2::JoystickButton(&m_buttonBoard2, 8).OnTrue(
     frc2::cmd::Sequence(
     m_elevatorSubsystem.DeliverCoralCMD(),
     m_elevatorSubsystem.WristSafeCMD(),
@@ -265,7 +243,7 @@ frc2::JoystickButton(&m_stick, 4).OnTrue(
     ));
 
   //Ready Climb
-  frc2::JoystickButton (&m_buttonBoard1, 5).OnTrue(
+  frc2::JoystickButton (&m_buttonBoard1, 10).OnTrue(
     frc2::cmd::Sequence(
       m_elevatorSubsystem.WristClimbCMD(),
       m_elevatorSubsystem.ElevatorClimbReadyCMD()
@@ -273,7 +251,7 @@ frc2::JoystickButton(&m_stick, 4).OnTrue(
 
 
     //Complete Climb
-  frc2::JoystickButton(&m_buttonBoard1, 6).OnTrue(
+  frc2::JoystickButton(&m_buttonBoard2, 6).OnTrue(
     frc2::cmd::Sequence(
       m_elevatorSubsystem.ReconfigMotionMagicCMD(),
       m_elevatorSubsystem.WristClimbCMD(),
@@ -285,7 +263,7 @@ frc2::JoystickButton(&m_stick, 4).OnTrue(
 
 
 
-frc2::JoystickButton(&m_buttonBoard1, 7).WhileTrue(
+frc2::JoystickButton(&m_buttonBoard1, 2).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Feed Far"),
         PathConstraints(
@@ -303,8 +281,8 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
         )
     )
 );
-/*
-frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
+
+frc2::JoystickButton(&m_buttonBoard1, 4).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Drive to Reef A"),
         PathConstraints(
@@ -313,7 +291,7 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
         )
     )
 );
-frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
+frc2::JoystickButton(&m_buttonBoard1, 6).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Drive to Reef B"),
         PathConstraints(
@@ -322,7 +300,7 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
         )
     )
 );
-frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
+frc2::JoystickButton(&m_buttonBoard1, 7).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Drive to Reef C"),
         PathConstraints(
@@ -331,7 +309,7 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
         )
     )
 );
-frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
+frc2::JoystickButton(&m_buttonBoard1, 8).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Drive to Reef D"),
         PathConstraints(
@@ -340,7 +318,7 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
         )
     )
 );
-frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
+frc2::JoystickButton(&m_buttonBoard1, 11).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Drive to Reef E"),
         PathConstraints(
@@ -349,7 +327,7 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
         )
     )
 );
-frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
+frc2::JoystickButton(&m_buttonBoard2, 7).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Drive to Reef F"),
         PathConstraints(
@@ -358,7 +336,7 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
         )
     )
 );
-frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
+frc2::JoystickButton(&m_buttonBoard2, 5).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Drive to Reef G"),
         PathConstraints(
@@ -367,7 +345,7 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
         )
     )
 );
-frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
+frc2::JoystickButton(&m_buttonBoard2, 4).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Drive to Reef H"),
         PathConstraints(
@@ -376,7 +354,7 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
         )
     )
 );
-frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
+frc2::JoystickButton(&m_buttonBoard2, 3).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Drive to Reef I"),
         PathConstraints(
@@ -385,7 +363,7 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
         )
     )
 );
-frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
+frc2::JoystickButton(&m_buttonBoard2, 1).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Drive to Reef J"),
         PathConstraints(
@@ -394,7 +372,7 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
         )
     )
 );
-frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
+frc2::JoystickButton(&m_buttonBoard1, 1).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Drive to Reef K"),
         PathConstraints(
@@ -403,7 +381,7 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
         )
     )
 );
-frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
+frc2::JoystickButton(&m_buttonBoard1, 3).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Drive to Reef L"),
         PathConstraints(
@@ -412,7 +390,7 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
         )
     )
 );
-frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
+frc2::JoystickButton(&m_buttonBoard1, 5).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
         PathPlannerPath::fromPathFile("Processor"),
         PathConstraints(
@@ -421,7 +399,7 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
         )
     )
 );
-*/
+
 //frc2::POVButton (&m_stick, 0).WhileTrue(m_drive.MoveForwardsSlowlyCommand());
 
 
@@ -429,7 +407,7 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
 
 //Button Board Bindings no 2
 
-     frc2::JoystickButton(&m_buttonBoard2, 7).OnTrue(
+     frc2::JoystickButton(&m_buttonBoard2, 2).OnTrue(
     frc2::cmd::Sequence(
       m_elevatorSubsystem.WristJogCMD(),
        frc2::cmd::Wait(0.6_s),
@@ -438,16 +416,16 @@ frc2::JoystickButton(&m_buttonBoard1, 9).WhileTrue(
       m_elevatorSubsystem.WristDeveliverHighCMD()
     ));
 
-    frc2::JoystickButton(&m_buttonBoard2, 1)
+    frc2::JoystickButton(&m_buttonBoard2, 12)
     .WhileTrue(drivetrain.MoveForwardsSlowlyCommand());
 
-frc2::JoystickButton(&m_buttonBoard2, 3)
+frc2::JoystickButton(&m_buttonBoard2, 10)
     .WhileTrue(drivetrain.MoveBackwardsSlowlyCommand());
 
-frc2::JoystickButton(&m_buttonBoard2, 2)
+frc2::JoystickButton(&m_buttonBoard2, 11)
     .WhileTrue(drivetrain.MoveLeftSlowlyCommand());
  
- frc2::JoystickButton(&m_buttonBoard2, 4)
+ frc2::JoystickButton(&m_buttonBoard2, 9)
     .WhileTrue(drivetrain.MoveRightSlowlyCommand());
 
 
