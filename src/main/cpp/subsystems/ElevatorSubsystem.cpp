@@ -71,8 +71,16 @@ ElevatorSubsystem::ElevatorSubsystem()
   config.ProximityParams.ProximityThreshold = 0.06_m; // If CANrange detects an object within 0.1 meters, it will trigger the "isDetected" signal.
 
   config.ToFParams.UpdateMode = signals::UpdateModeValue::ShortRange100Hz; // Make the CANrange update as fast as possible at 100 Hz. This requires short-range mode.
+  configs::CANrangeConfiguration config2{};
+
+  config2.ProximityParams.MinSignalStrengthForValidMeasurement = 2000; // If CANrange has a signal strength of at least 2000, it is a valid measurement.
+  config2.ProximityParams.ProximityThreshold = 0.08_m; // If CANrange detects an object within 0.1 meters, it will trigger the "isDetected" signal.
+
+  config2.ToFParams.UpdateMode = signals::UpdateModeValue::ShortRange100Hz; // Make the CANrange update as fast as possible at 100 Hz. This requires short-range mode.
 
   m_algaeSensor.GetConfigurator().Apply(config);
+  m_coralSensorBack.GetConfigurator().Apply(config2);
+  m_coralSensorForward.GetConfigurator().Apply(config);
 
 }
 // End of ArmSubsystem Constructor

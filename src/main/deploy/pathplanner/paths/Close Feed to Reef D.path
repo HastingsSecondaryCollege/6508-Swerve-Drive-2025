@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.963804649805041,
-        "y": 1.4082650879853968
+        "x": 2.3433238636363636,
+        "y": 1.55703125
       },
       "isLocked": false,
       "linkedName": "Close Feed Station"
@@ -17,15 +17,15 @@
     {
       "anchor": {
         "x": 3.958721590909091,
-        "y": 2.8433664772727276
+        "y": 2.713735795454545
       },
       "prevControl": {
-        "x": 3.136993291865994,
-        "y": 2.3187129066027308
+        "x": 2.592613636363636,
+        "y": 1.7963494318181816
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Reef D"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -40,8 +40,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -57,5 +57,5 @@
     "velocity": 0,
     "rotation": 55.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
