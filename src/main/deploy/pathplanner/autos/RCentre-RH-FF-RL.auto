@@ -23,9 +23,21 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "Wrist Deliver High"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {
@@ -49,6 +61,12 @@
         {
           "type": "named",
           "data": {
+            "name": "Wrist Home"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "Intake Coral"
           }
         },
@@ -61,7 +79,19 @@
         {
           "type": "named",
           "data": {
+            "name": "Wrist Safe"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "Elevator Four"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
           }
         },
         {
@@ -71,9 +101,21 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "Deliver Coral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Wrist Safe"
           }
         },
         {

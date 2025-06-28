@@ -139,7 +139,7 @@
       ]
     }
   },
-  "resetOdom": false,
+  "resetOdom": true,
   "folder": "DDU Autos",
   "choreoAuto": false
 }
