@@ -261,7 +261,7 @@ frc2::JoystickButton(&m_stick, 4).OnTrue(
 
   //Auto Driving Button Bindings
 
-
+/*
 
 frc2::JoystickButton(&m_buttonBoard1, 2).WhileTrue(
     AutoBuilder::pathfindThenFollowPath(
@@ -403,7 +403,7 @@ frc2::JoystickButton(&m_buttonBoard1, 5).WhileTrue(
 //frc2::POVButton (&m_stick, 0).WhileTrue(m_drive.MoveForwardsSlowlyCommand());
 
 
-
+*/
 
 //Button Board Bindings no 2
 

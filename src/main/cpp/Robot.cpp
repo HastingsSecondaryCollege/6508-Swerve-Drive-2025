@@ -66,6 +66,14 @@ frc::SmartDashboard::PutNumber("Delivery Turns Per Second", -6.0);
 }
 
 void Robot::RobotPeriodic() {
+  
+    frc2::CommandScheduler::GetInstance().Run();
+
+
+  
+  
+  
+  /*
 
   // Do this in either robot periodic or subsystem periodic
 
@@ -101,6 +109,7 @@ if (backPose && backPose->tagCount > 0 && units::math::abs(omega) < 2_tps) {
 }
 
   }
+  */
 }
 
 void Robot::DisabledInit() {}

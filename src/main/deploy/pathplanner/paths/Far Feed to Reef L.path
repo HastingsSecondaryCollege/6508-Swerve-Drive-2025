@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.286335227272727,
-        "y": 7.1
+        "x": 1.2464488636363638,
+        "y": 7.171036931818182
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.686928008913872,
-        "y": 6.764447357153915
+        "x": 1.647090107387589,
+        "y": 6.834859011952122
       },
       "isLocked": false,
       "linkedName": "Far Feed Station"
@@ -20,8 +20,8 @@
         "y": 5.086974431818182
       },
       "prevControl": {
-        "x": 2.7765665617301805,
-        "y": 5.806296561089327
+        "x": 2.795501758095245,
+        "y": 5.828751333396448
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,7 +41,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 2.0,
-    "maxAcceleration": 2.0,
+    "maxAcceleration": 1.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

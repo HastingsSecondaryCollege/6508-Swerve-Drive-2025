@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.286335227272727,
-        "y": 0.9188494318181825
+        "x": 1.2464488636363638,
+        "y": 0.8789630681818176
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4031534090909092,
-        "y": 1.6467755681818175
+        "x": 2.333352272727273,
+        "y": 1.5071732954545451
       },
       "isLocked": false,
       "linkedName": "Close Feed Station"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 3.958721590909091,
-        "y": 2.713735795454545
+        "y": 2.8932244318181812
       },
       "prevControl": {
-        "x": 2.592613636363636,
-        "y": 1.7963494318181816
+        "x": 3.2108522727272732,
+        "y": 1.9259801136363626
       },
       "nextControl": null,
       "isLocked": false,
@@ -40,7 +40,7 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
+    "maxVelocity": 2.5,
     "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
