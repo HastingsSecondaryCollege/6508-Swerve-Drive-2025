@@ -73,7 +73,7 @@ void Robot::RobotPeriodic() {
   
   
   
-  /*
+  
 
   // Do this in either robot periodic or subsystem periodic
 
@@ -109,7 +109,7 @@ if (backPose && backPose->tagCount > 0 && units::math::abs(omega) < 2_tps) {
 }
 
   }
-  */
+  
 }
 
 void Robot::DisabledInit() {}
