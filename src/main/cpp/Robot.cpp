@@ -11,6 +11,7 @@
 #include <iostream>
 
 frc::Field2d m_field;
+frc::Field2d m_fieldMt1;
 constexpr units::time::second_t print_period{500_ms};
 units::second_t currentTime = 0_s;
 
@@ -21,6 +22,7 @@ void Robot::RobotInit(){
 
 // Do this in either robot or subsystem init
 frc::SmartDashboard::PutData("Field", &m_field);
+frc::SmartDashboard::PutData("FieldMt1",&m_fieldMt1);
 
 
 cs::UsbCamera camera = frc::CameraServer::StartAutomaticCapture();
@@ -86,6 +88,7 @@ void Robot::RobotPeriodic() {
 
 m_field.SetRobotPose(m_container.drivetrain.GetState().Pose);
 
+
   if (kUseLimelight) {
     auto const driveState = m_container.drivetrain.GetState();
     auto const heading = driveState.Pose.Rotation().Degrees();
@@ -98,6 +101,10 @@ LimelightHelpers::SetRobotOrientation("limelight-back", heading.value(), 0, 0, 0
 // Get MegaTag2 pose estimates from both Limelights
 auto frontPose = LimelightHelpers::getBotPoseEstimate_wpiBlue_MegaTag2("limelight-front");
 auto backPose = LimelightHelpers::getBotPoseEstimate_wpiBlue_MegaTag2("limelight-back");
+auto frontPoseMt1 = LimelightHelpers::getBotPoseEstimate_wpiBlue("limelight-front");
+auto backPoseMt1 = LimelightHelpers::getBotPoseEstimate_wpiBlue("limelight-back");
+
+m_fieldMt1.SetRobotPose(frontPoseMt1->pose);
 
 // Choose which one(s) to trust — this example uses both if they’re valid
 if (frontPose && frontPose->tagCount > 0 && units::math::abs(omega) < 2_tps) {
@@ -106,6 +113,12 @@ if (frontPose && frontPose->tagCount > 0 && units::math::abs(omega) < 2_tps) {
 
 if (backPose && backPose->tagCount > 0 && units::math::abs(omega) < 2_tps) {
     m_container.drivetrain.AddVisionMeasurement(backPose->pose, backPose->timestampSeconds);
+}
+if (frontPoseMt1 && frontPoseMt1->tagCount > 1 && units::math::abs(omega) < 2_tps) {
+    m_container.drivetrain.AddVisionMeasurement(frontPoseMt1->pose, frontPoseMt1->timestampSeconds);
+}
+if (backPoseMt1 && backPoseMt1->tagCount > 1 && units::math::abs(omega) < 2_tps) {
+    m_container.drivetrain.AddVisionMeasurement(backPoseMt1->pose, backPoseMt1->timestampSeconds);
 }
 
   }
