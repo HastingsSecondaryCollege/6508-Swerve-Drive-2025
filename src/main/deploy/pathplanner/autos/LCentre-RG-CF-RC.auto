@@ -5,12 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "Reset Pose"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "LCentre to Reef G"

@@ -20,7 +20,10 @@ void CommandSwerveDrivetrain::ConfigureAutoBuilder()
         // Supplier of current robot pose
         [this] { return GetState().Pose; },
         // Consumer for seeding pose against auto
-        [this](frc::Pose2d const &pose) { return ResetPose(pose); },
+        [this](frc::Pose2d const &pose) { 
+            fmt::println("Just Reset Pose");
+         
+            return ResetPose(pose); },
         // Supplier of current robot speeds
         [this] { return GetState().Speeds; },
         // Consumer of ChassisSpeeds and feedforwards to drive the robot
@@ -49,7 +52,10 @@ void CommandSwerveDrivetrain::ConfigureAutoBuilder()
 
 void CommandSwerveDrivetrain::Periodic()
 {
-    /*
+       frc::SmartDashboard::PutNumber("X=",GetState().Pose.X().value());
+        frc::SmartDashboard::PutNumber("Y=",GetState().Pose.Y().value());
+        frc::SmartDashboard::PutNumber("Theta=",GetState().Pose.Rotation().Degrees().value());
+    /*    
      * Periodically try to apply the operator perspective.
      * If we haven't applied the operator perspective before, then we should apply it regardless of DS state.
      * This allows us to correct the perspective in case the robot code restarts mid-match.

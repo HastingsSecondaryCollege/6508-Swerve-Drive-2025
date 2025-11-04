@@ -19,15 +19,15 @@ units::second_t currentTime = 0_s;
 Robot::Robot() {}
 
 void Robot::RobotInit(){
-
+nt::NetworkTableInstance::GetDefault().GetTable("limelight-back")->PutNumber("throtle_set",150);
 // Do this in either robot or subsystem init
 frc::SmartDashboard::PutData("Field", &m_field);
 frc::SmartDashboard::PutData("FieldMt1",&m_fieldMt1);
 
 
-cs::UsbCamera camera = frc::CameraServer::StartAutomaticCapture();
-camera.SetResolution(640, 480);
-camera.SetFPS(30);
+// cs::UsbCamera camera = frc::CameraServer::StartAutomaticCapture();
+// camera.SetResolution(640, 480);
+// camera.SetFPS(30);
 
 /*
 frc::SmartDashboard::PutNumber("Elevator Level Zero", 0.44);
@@ -68,9 +68,10 @@ frc::SmartDashboard::PutNumber("Delivery Turns Per Second", -6.0);
 }
 
 void Robot::RobotPeriodic() {
+  m_container.RobotContainerPeriodic();
   
     frc2::CommandScheduler::GetInstance().Run();
-
+frc::SmartDashboard::PutNumber("LimeLight throtle",nt::NetworkTableInstance::GetDefault().GetTable("limelight-back")->GetNumber("throtle_set",200));
 
   
   
@@ -125,7 +126,9 @@ if (backPoseMt1 && backPoseMt1->tagCount > 1 && units::math::abs(omega) < 2_tps)
   
 }
 
-void Robot::DisabledInit() {}
+void Robot::DisabledInit() {
+  nt::NetworkTableInstance::GetDefault().GetTable("limelight-back")->PutNumber("throtle_set",150);
+}
 
 void Robot::DisabledPeriodic() {}
 
@@ -137,6 +140,8 @@ void Robot::AutonomousInit() {
   if (m_autonomousCommand) {
     m_autonomousCommand->Schedule();
   }
+  nt::NetworkTableInstance::GetDefault().GetTable("limelight-back")->PutNumber("throtle_set",0);
+
 }
 
 void Robot::AutonomousPeriodic() {}
@@ -147,9 +152,12 @@ void Robot::TeleopInit() {
   if (m_autonomousCommand) {
     m_autonomousCommand->Cancel();
   }
+  nt::NetworkTableInstance::GetDefault().GetTable("limelight-back")->PutNumber("throtle_set",0);
+  
 }
 
 void Robot::TeleopPeriodic() {
+
 
 //Testing Preferences smartdashboard
 /*

@@ -41,8 +41,8 @@ private:
 
    frc::Joystick m_stick{0};
    // frc2::CommandXboxController m_pad{1};
-   frc::Joystick m_buttonBoard1{1};
-   frc::Joystick m_buttonBoard2{2};
+//    frc::Joystick m_buttonBoard1{1};
+//    frc::Joystick m_buttonBoard2{2};
 
     //bool joystickControlEnabled = true; // Tracks whether joystick or Xbox controller is in control
 
@@ -53,7 +53,7 @@ public:
     subsystems::CommandSwerveDrivetrain drivetrain{TunerConstants::CreateDrivetrain()};
 
     RobotContainer();
-
+    void RobotContainerPeriodic();
     frc2::Command *GetAutonomousCommand();
     double ApplyDeadband(double joystickValue, double deadband);
     double ApplyDeadbandSquaredInputs(double joystickValue, double deadband);

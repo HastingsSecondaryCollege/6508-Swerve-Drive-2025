@@ -124,7 +124,7 @@ void RobotContainer::ConfigureButtonBindings() {
     //
 
     //Reset Robot Pose
-    frc2::JoystickButton(&m_stick, 11).OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
+    //frc2::JoystickButton(&m_stick, 11).OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
     
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
 
@@ -233,7 +233,7 @@ frc2::JoystickButton(&m_stick, 4).OnTrue(
   m_elevatorSubsystem.WristSafeCMD(),
   m_elevatorSubsystem.ElevatorLevelZeroCMD()
 ));
-*/
+
 
  frc2::JoystickButton(&m_buttonBoard2, 8).OnTrue(
     frc2::cmd::Sequence(
@@ -258,7 +258,7 @@ frc2::JoystickButton(&m_stick, 4).OnTrue(
       m_elevatorSubsystem.WristClimbCMD(),
       m_elevatorSubsystem.ElevatorClimbDesiredCMD()
     ));
-
+*/
 
   //Auto Driving Button Bindings
 
@@ -404,7 +404,7 @@ frc2::JoystickButton(&m_buttonBoard1, 5).WhileTrue(
 //frc2::POVButton (&m_stick, 0).WhileTrue(m_drive.MoveForwardsSlowlyCommand());
 
 
-*/
+
 
 //Button Board Bindings no 2
 
@@ -430,7 +430,7 @@ frc2::JoystickButton(&m_buttonBoard2, 11)
     .WhileTrue(drivetrain.MoveRightSlowlyCommand());
 
 
-
+*/
 }
 /*
 // Autonomous command placeholder
@@ -442,4 +442,10 @@ frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
 frc2::Command *RobotContainer::GetAutonomousCommand()
 {
     return autoChooser.GetSelected();
+}
+
+void RobotContainer::RobotContainerPeriodic(){
+    if (m_stick.GetRawButtonPressed(11)) {
+        drivetrain.ResetPose(frc::Pose2d(3_m,3_m,frc::Rotation2d(90_deg)));
+    }
 }
